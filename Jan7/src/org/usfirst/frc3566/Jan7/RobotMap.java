@@ -50,10 +50,11 @@ public class RobotMap {
         
         driveTrainTalonSRX4 = new WPI_TalonSRX(3);
         
-        left = new SpeedControllerGroup(driveTrainTalonSRX1, driveTrainTalonSRX2);
-        right = new SpeedControllerGroup(driveTrainTalonSRX3, driveTrainTalonSRX4);
+        left = new SpeedControllerGroup(driveTrainTalonSRX1, driveTrainTalonSRX3);
+        right = new SpeedControllerGroup(driveTrainTalonSRX4, driveTrainTalonSRX2);
         
-        driveTrainDrive = new DifferentialDrive(left, right);
+       driveTrainDrive = new DifferentialDrive(left, right);
+        
         
         driveTrainDrive.setSafetyEnabled(true);
         driveTrainDrive.setExpiration(0.1);
