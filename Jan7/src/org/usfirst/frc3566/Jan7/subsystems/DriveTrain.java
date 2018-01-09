@@ -53,7 +53,22 @@ public class DriveTrain extends Subsystem {
         // Put code here to be run every loop
 
     }
+    
+   public void stopDrive() {
+	  talonSRX1.stopMotor();
+	  talonSRX2.stopMotor();
+	  talonSRX3.stopMotor();
+	  talonSRX4.stopMotor();
+   }
 
+   public void goForward(double spd) {
+	   talonSRX1.set(spd);
+	   talonSRX2.set(spd);
+	   talonSRX3.set(spd);
+	   talonSRX4.set(spd);
+   }
+   
+   
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
