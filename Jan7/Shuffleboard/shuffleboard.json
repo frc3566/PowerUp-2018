@@ -1,5 +1,5 @@
 {
-  "dividerPosition": 0.23894736842105263,
+  "dividerPosition": 0.24191866527632952,
   "tabPane": [
     {
       "title": "SmartDashboard",
@@ -12,8 +12,8 @@
         "tiles": {
           "2,0": {
             "size": [
-              4,
-              3
+              3,
+              2
             ],
             "content": {
               "_type": "Camera Stream",
@@ -54,7 +54,7 @@
               "_title": "Autonomous Command"
             }
           },
-          "0,5": {
+          "0,1": {
             "size": [
               1,
               1
@@ -93,20 +93,7 @@
               "blockIncrement": 0.0625
             }
           },
-          "3,4": {
-            "size": [
-              2,
-              2
-            ],
-            "content": {
-              "_type": "Gyro",
-              "_title": "",
-              "majorTickSpace": 45.0,
-              "startAngle": 180.0,
-              "tickMarkRingVisible": true
-            }
-          },
-          "1,5": {
+          "0,4": {
             "size": [
               2,
               1
@@ -116,7 +103,7 @@
               "_title": ""
             }
           },
-          "7,0": {
+          "0,3": {
             "size": [
               1,
               1
@@ -127,21 +114,7 @@
               "_title": "/SmartDashboard/Rotate"
             }
           },
-          "7,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Number Slider",
-              "_source0": "network_table:///SmartDashboard/rotateTimeOut",
-              "_title": "rotateTimeOut",
-              "min": 0.0,
-              "max": 5.0,
-              "blockIncrement": 0.0625
-            }
-          },
-          "7,1": {
+          "1,3": {
             "size": [
               1,
               1
@@ -155,18 +128,7 @@
               "blockIncrement": 0.0625
             }
           },
-          "6,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Toggle Button",
-              "_source0": "network_table:///SmartDashboard/driveDirection",
-              "_title": "driveDirection"
-            }
-          },
-          "7,3": {
+          "2,3": {
             "size": [
               1,
               1
@@ -177,15 +139,29 @@
               "_title": "rotateDirection"
             }
           },
-          "8,0": {
+          "5,0": {
             "size": [
               1,
               1
             ],
             "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/DriveWithJoysticks",
-              "_title": "/SmartDashboard/DriveWithJoysticks"
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Yaw",
+              "_title": "Yaw"
+            }
+          },
+          "0,2": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Number Slider",
+              "_source0": "network_table:///SmartDashboard/rotateAngle",
+              "_title": "rotateAngle",
+              "min": -180.0,
+              "max": 180.0,
+              "blockIncrement": 0.0625
             }
           }
         }
@@ -203,7 +179,7 @@
           "0,0": {
             "size": [
               3,
-              4
+              3
             ],
             "content": {
               "_type": "List Layout",
@@ -223,7 +199,7 @@
           "3,0": {
             "size": [
               2,
-              4
+              3
             ],
             "content": {
               "_type": "List Layout",
@@ -234,7 +210,7 @@
           "5,0": {
             "size": [
               2,
-              4
+              3
             ],
             "content": {
               "_type": "List Layout",
@@ -253,13 +229,34 @@
           },
           "7,0": {
             "size": [
-              2,
-              4
+              1,
+              3
             ],
             "content": {
               "_type": "List Layout",
               "_title": "DriveTrain",
               "_children": []
+            }
+          },
+          "8,0": {
+            "size": [
+              2,
+              4
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_source0": "network_table:///LiveWindow/Ungrouped",
+              "_title": "Ungrouped",
+              "_children": [
+                {
+                  "_type": "Differential Drivebase",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DifferentialDrive[1]",
+                  "_title": "/LiveWindow/Ungrouped/DifferentialDrive[1]",
+                  "numberOfWheels": 4,
+                  "wheelDiameter": 80.0,
+                  "showVectors": true
+                }
+              ]
             }
           }
         }

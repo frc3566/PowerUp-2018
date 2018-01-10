@@ -11,7 +11,10 @@
 
 package org.usfirst.frc3566.Jan7.commands;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc3566.Jan7.Robot;
+import org.usfirst.frc3566.Jan7.RobotMap;
 
 /**
  *
@@ -20,9 +23,14 @@ public class Rotate extends Command {
 
 	private double spd;
 	private boolean dir;
+	private double startDegree, endDegree, deltaDegree, allowedError;
 
-    public Rotate(double timeOut, double speed, boolean direction) {
-    	this.setTimeout(timeOut);
+    public Rotate(double delta, double speed, boolean direction) {
+    	//direction==true: turn to right
+    	//for deltaDegree: left+ right-
+    	deltaDegree = delta;
+    	deltaDegree *= (direction? -1:1);
+
     	spd = speed;
     	dir = direction;
     }
@@ -30,6 +38,11 @@ public class Rotate extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+    	
+    	startDegree = SmartDashboard.getNumber("Yaw", 0);
+    	endDegree = startDegree + deltaDegree;
+    	allowedError = 2;
+    	    	
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -41,7 +54,13 @@ public class Rotate extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return this.isTimedOut();
+    	double value = SmartDashboard.getNumber("Yaw", -30000);
+    	if( endDegree-allowedError <= value
+    			&& value <= endDegree+allowedError) { //if actual yaw is in the range of allowed Error
+    		return true;
+    	}else {
+    		return false;
+    	}
     }
 
     // Called once after isFinished returns true

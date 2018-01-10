@@ -110,7 +110,7 @@ public class Robot extends TimedRobot {
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
         var.SendValuesToDashboard();
-        
+        RobotMap.pigeon.setYaw(0, 1000);
     }
 
     /**
