@@ -70,9 +70,9 @@ public class DriveTrain extends Subsystem {
    
    public void rotate(double spd, boolean dir) {
 	   talonSRX1.set(spd*(dir? 1:-1));
-	   talonSRX2.set(-1* spd*(dir? 1:-1));
+	   talonSRX2.set(spd*(dir? -1:1));
 	   talonSRX3.set(spd*(dir? 1:-1));
-	   talonSRX4.set(-1* spd*(dir? 1:-1));
+	   talonSRX4.set(spd*(dir? -1:1));
    }
    
     // Put methods for controlling this subsystem

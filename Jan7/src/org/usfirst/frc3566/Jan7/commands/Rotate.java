@@ -18,13 +18,18 @@ import org.usfirst.frc3566.Jan7.RobotMap;
 
 /**
  *
- */
+ *
 public class Rotate extends Command {
 
 	private double spd;
 	private boolean dir;
-	private double startDegree, endDegree, deltaDegree, allowedError;
+	private double startDegree, endDegree, deltaDegree, error, previous_error, allowedError;
 
+	
+	double P=0.3, I, D = 0;
+    double integral, derivative;
+    
+    
     public Rotate(double delta, double speed, boolean direction) {
     	//direction==true: turn to right
     	//for deltaDegree: left+ right-
@@ -48,6 +53,7 @@ public class Rotate extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
+    	PID();
     	Robot.driveTrain.rotate(spd, dir);
     }
 
@@ -75,4 +81,103 @@ public class Rotate extends Command {
     protected void interrupted() {
     	end();
     }
+    
+    
+    public void PID(){
+    	double yaw = SmartDashboard.getNumber("Yaw", 0);
+        error = endDegree - yaw; // Error = Target - Actual
+        this.integral += (error*.02); // Integral is increased by the error*time (which is .02 seconds using normal IterativeRobot)
+        derivative = (error - this.previous_error) / .02;
+        this.spd = P*error + I*this.integral + D*derivative;
+        previous_error = error;
+        
+    }
+
 }
+*/
+
+public class Rotate extends Command { 
+ 
+ 
+ 	private double spd, OriginalSPD; 
+ 	private boolean dir; 
+ 	private double startDegree, endDegree, deltaDegree, allowedError, error; 
+ 
+ 
+     public Rotate(double delta, double speed, boolean direction) { 
+     	//direction==true: turn to right 
+     	//for deltaDegree: left+ right- 
+     	deltaDegree = delta; 
+     	deltaDegree *= (direction? -1:1); 
+ 
+ 
+     	spd = speed; 
+     	OriginalSPD = speed;
+     	dir = direction; 
+     } 
+ 
+ 
+     // Called just before this Command runs the first time 
+     @Override 
+     protected void initialize() { 
+     	 
+     	startDegree = SmartDashboard.getNumber("Yaw", 0); 
+     	endDegree = startDegree + deltaDegree; 
+     	allowedError = 2; 
+     	    	 
+     } 
+ 
+ 
+     // Called repeatedly when this Command is scheduled to run 
+     @Override 
+     protected void execute() { 
+     	Robot.driveTrain.rotate(spd, dir); 
+     	SmartDashboard.putBoolean("RotateFin", this.isFinished());
+     	SmartDashboard.putString("RotatingDirection", (dir? "right":"left"));
+     } 
+ 
+ 
+     // Make this return true when this Command no longer needs to run execute() 
+     @Override 
+     protected boolean isFinished() { 
+     	double value = SmartDashboard.getNumber("Yaw", -30000); 
+     	if( endDegree-allowedError <= value 
+     			&& value <= endDegree+allowedError) { //if actual yaw is in the range of allowed Error 
+     		new FinishRotate (endDegree, allowedError, dir).start();
+     		return true; 
+     	}else { //this part usually won't run, because isFinished() is run frequently enough
+     		//that the robot notices reaching the desired "range" and ends the command. However,
+     		//because of inertia the robot keeps spinning and ends up getting a bigger final rotation.
+     		//To put the robot back to the originally intended position, we initiate another command
+     		//to check on the robot when the robot thinks it's all set (return true above)
+     		if (value < endDegree-allowedError) {
+     			dir = false;
+     			
+     		}else if (value > endDegree+allowedError){
+     			dir = true;
+     		}
+     	//	error = Math.abs(endDegree - value);
+     	//	spd = OriginalSPD * (error/100);
+     		
+     		return false; 
+     	} 
+     } 
+ 
+ 
+     // Called once after isFinished returns true 
+     @Override 
+     protected void end() { 
+     	Robot.driveTrain.stopDrive(); 
+     } 
+ 
+ 
+     // Called when another command which requires one or more of the same 
+     // subsystems is scheduled to run 
+     @Override 
+     protected void interrupted() { 
+     	end(); 
+     } 
+ } 
+
+
+
