@@ -11,6 +11,8 @@
 
 package org.usfirst.frc3566.A.commands;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc3566.A.Robot;
 import org.usfirst.frc3566.A.RobotMap;
 
@@ -43,13 +45,14 @@ public class DriveWithJoystick extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
+    	double maxPower=SmartDashboard.getNumber("maxPower", 1);
     	if(Robot.oi.joystick1.getRawAxis(3)>0)
     		RobotMap.drivetrainRobotDrive21.tankDrive(Robot.oi.joystick1.getRawAxis(3),Robot.oi.joystick1.getRawAxis(3));
     		else
     			if(Robot.oi.joystick1.getRawAxis(2)>0)
     				RobotMap.drivetrainRobotDrive21.tankDrive(Robot.oi.joystick1.getRawAxis(2)*-1,Robot.oi.joystick1.getRawAxis(2)*-1);
-    			else RobotMap.drivetrainRobotDrive21.tankDrive(Robot.oi.joystick1.getRawAxis(1)*-1, 
-    			Robot.oi.joystick1.getRawAxis(5)*-1);
+    			else RobotMap.drivetrainRobotDrive21.tankDrive(Robot.oi.joystick1.getRawAxis(1)*-1*maxPower, 
+    			Robot.oi.joystick1.getRawAxis(5)*-1*maxPower);
 		
     }
 

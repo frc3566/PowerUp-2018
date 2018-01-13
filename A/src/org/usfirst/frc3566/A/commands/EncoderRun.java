@@ -8,13 +8,12 @@ import org.usfirst.frc3566.A.RobotMap;
 
 public class EncoderRun extends Command {
 
-	double  P=0.03, I=0.10,D=0;
+	double  P, I, D;
     double integral, previousError, derivative, setpoint = 2000;
     double power=0,error=0;
     double maxPower=1;
-    int cnt=0;
-    boolean arrived=false;
-    
+    double time=0;
+  
     public EncoderRun() {
     }
 
@@ -22,44 +21,44 @@ public class EncoderRun extends Command {
     @Override
     protected void initialize() {
     	Robot.encoder1.reset();
-    	arrived=false;
-    	cnt=0;
+    	time=0;
     }
 
     void PID() {
-    	error = setpoint - Robot.encoder1.getDistance(); // Error = Target - Actual
-        this.integral += (error*.02); // Integral is increased by the error*time (which is .02 seconds using normal IterativeRobot)
+    	error = setpoint - Robot.encoder1.getDistance();
+        this.integral += (error*.02);
         derivative = (error - previousError) / .02;
         previousError=error;
-        if(Math.abs(error)<100)arrived=true;
+        if(power>1)integral=0;
         power = P*error + I*this.integral + D*derivative;
     }
     
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-    	P=SmartDashboard.getNumber("DB/Slider 0", 0.03);
-        I=SmartDashboard.getNumber("DB/Slider 1", 0);
-        D=SmartDashboard.getNumber("DB/Slider 2", 0);
-    	maxPower=SmartDashboard.getNumber("DB/Slider 3", 1);
+    	time+=0.02;
+    	P=SmartDashboard.getNumber("P", 0.0012);
+        I=SmartDashboard.getNumber("I", 0.001);
+        D=SmartDashboard.getNumber("D", 0.0001);
         PID();
-    	if(arrived)cnt++;
     	SmartDashboard.putNumber("power", power);
+    	maxPower=SmartDashboard.getNumber("maxPower", 1);
     	power*=maxPower;
     	RobotMap.drivetrainRobotDrive21.tankDrive(power,power);
     }
 
-    // Make this return true when this Command no longer needs to run execute()
+    // Make this return true when this Command no		 longer needs to run execute()
     @Override
     protected boolean isFinished() {
     	if(Robot.oi.joystick1.getRawButton(1))return true;
-    	//if(arrived&&cnt>30)return true;
+    	if(Math.abs(error)<100&&Robot.encoder1.getRate()<100&&time>0.5)return true;
     	return false;
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end(){
+    	RobotMap.drivetrainRobotDrive21.tankDrive(0, 0);
     }
 
     // Called when another command which requires one or more of the same
