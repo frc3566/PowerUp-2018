@@ -18,10 +18,13 @@ import org.usfirst.frc3566.Jan7.Robot;
  */
 public class DriveForSeconds extends Command {
 
-
-    public DriveForSeconds() {
-
-
+	private double spd;
+	private boolean dir;
+	
+    public DriveForSeconds(double timeOut, double speed, boolean direction) {
+    	this.setTimeout(timeOut);
+    	spd = speed;
+    	dir = direction;
     }
 
 
@@ -32,22 +35,25 @@ public class DriveForSeconds extends Command {
 
     @Override
     protected void execute() {
+    	Robot.driveTrain.goForward((dir?1:-1) * spd);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return false;
+        return this.isTimedOut();
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end() {
+    	Robot.driveTrain.stopDrive();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
+    	end();
     }
 }

@@ -1,0 +1,10 @@
+Jan 09, 2018 4:18:40 PM java.util.prefs.WindowsPreferences <init>
+WARNING: Could not open/create prefs root node Software\JavaSoft\Prefs at root 0x80000002. Windows RegCreateKeyEx(...) returned error code 5.
+Jan 09, 2018 4:18:41 PM edu.wpi.first.shuffleboard.app.plugin.PluginLoader load
+INFO: Loading plugin edu.wpi.first.shuffleboard:Base:1.0.0
+Jan 09, 2018 4:18:46 PM edu.wpi.first.shuffleboard.app.plugin.PluginLoader load
+INFO: Loading plugin edu.wpi.first.shuffleboard:NetworkTables:1.0.0
+Jan 09, 2018 4:18:47 PM edu.wpi.first.shuffleboard.app.plugin.PluginLoader load
+INFO: Loading plugin edu.wpi.first.shuffleboard:CameraServer:1.0.0
+Jan 09, 2018 4:18:47 PM edu.wpi.first.shuffleboard.plugin.cameraserver.CameraServerPlugin onLoad
+INFO: OpenCV version: 3.2.0
