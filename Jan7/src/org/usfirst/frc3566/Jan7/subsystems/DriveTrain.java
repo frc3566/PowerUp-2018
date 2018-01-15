@@ -75,6 +75,12 @@ public class DriveTrain extends Subsystem {
 	   talonSRX4.set(spd*(dir? -1:1));
    }
    
+   public void rotate(double spd) {
+	   talonSRX1.set(spd*-1);
+	   talonSRX2.set(spd);
+	   talonSRX3.set(spd*-1);
+	   talonSRX4.set(spd);
+   }
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 

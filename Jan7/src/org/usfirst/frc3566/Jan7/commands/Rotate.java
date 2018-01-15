@@ -23,18 +23,20 @@ import org.usfirst.frc3566.Jan7.RobotMap;
 
 public class Rotate extends Command {
 
+	//NOTE: VALUES BELOW ARE ONLY FOR THE TEST DRIVETRAIN, NOT THE ACTUAL ROBOT!!
 	//A pretty good set of PID values: P:0.02, I:0.005; D:0.002
 	//really good values for 60 degrees: P:0.019 I:0 D:0.002 mxSPD:0.5
 	//really good values for 30 degrees: P:0.024 I:0 D:0.002 mxSPD:0.5
-	//really good values for 60 degrees: P:0.0214 I:0 D:0.002 mxSPD:0.5
-	//really good values for 60 degrees: P:0.017 I:0 D:0.002 mxSPD:0.5
+	//really good values for 45 degrees: P:0.0214 I:0 D:0.002 mxSPD:0.5
+	//really good values for 90 degrees: P:0.017 I:0 D:0.002 mxSPD:0.5
+	//a function for P and theta: P=1/(2.2theta+18)+0.012 (for the positive cases!)
 	
-	private double spd=0, maxPower=0.75;
+	private double spd=0, maxPower=0.5;
 	private boolean dir;
 	private double startDegree, endDegree, deltaDegree, error, previous_error;
 
 	
-	private double P=0, I=0, D = 0;
+	private double P=0.02, I=0, D = 0.002;
     double integral, derivative;
     
     
@@ -60,12 +62,52 @@ public class Rotate extends Command {
     	startDegree = 0;
     	endDegree = startDegree + deltaDegree;
     	
+    	/*
+    switch((int)Math.abs(deltaDegree)) {
+    	case 30:
+    		P = 0.024;
+    		I = 0;
+    		D = 0.002;
+    		maxPower = 0.5;
+    		break;
+    	case 45:
+    		P = 0.0214;
+    		I = 0;
+    		D = 0.002;
+    		maxPower = 0.5;
+    		break;
+    	case 60:
+    		P = 0.019;
+    		I = 0;
+    		D = 0.002;
+    		maxPower = 0.5;
+    		break;
+    	case 90:
+    		P = 0.017;
+    		I = 0;
+    		D = 0.002;
+    		maxPower = 0.5;
+    		break;
+    		
+    	default:
+    		P=SmartDashboard.getNumber("P", 0);
+            I=SmartDashboard.getNumber("I", 0);
+            D=SmartDashboard.getNumber("D", 0);
+           
+            maxPower=SmartDashboard.getNumber("maxPower", 1);
+    }
+
+    SmartDashboard.putNumber("P", P);
+    SmartDashboard.putNumber("I", I);
+    SmartDashboard.putNumber("D", D);
+
+    SmartDashboard.putNumber("maxPower", maxPower);
+    */
     	
-        P=SmartDashboard.getNumber("P", 0);
-        I=SmartDashboard.getNumber("I", 0);
-        D=SmartDashboard.getNumber("D", 0);
-       
-        maxPower=SmartDashboard.getNumber("maxPower", 1);
+    	 P=1/(2.2*Math.abs(deltaDegree)+18)+0.012;
+    	 I=0;
+    	 D=0.002;
+        
         
         RobotMap.pigeon.setYaw(0, 0);
         this.setTimeout(5);
@@ -80,14 +122,15 @@ public class Rotate extends Command {
     	SmartDashboard.putNumber("power", spd);
     	
     	spd*=maxPower;
-    	Robot.driveTrain.rotate(spd, dir);
+    	Robot.driveTrain.rotate(spd);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
     	
-    		return Robot.oi.joystick1.getRawButtonPressed(2);// || this.isTimedOut();
+    	return this.isTimedOut();
+    		//return (spd<0.05) || this.isTimedOut();
     	
     }
 
