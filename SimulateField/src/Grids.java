@@ -2,6 +2,8 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -11,13 +13,14 @@ import java.awt.event.WindowEvent;
  * @author Ian Darwin, http://www.darwinsys.com/
  */
 class GridsCanvas extends Canvas {
-  int width, height, squareLength, offset;
+ public int width, height, squareLength, offset, robotX, robotY;
 
   int rows; int cols;
   
   int[] XpointsYCoord, YpointsXCoord;
   
   boolean registered = false;
+  
 
   GridsCanvas(int w, int h, int r, int c, int singleSquareL, int offSet) {
 	  
@@ -28,7 +31,7 @@ class GridsCanvas extends Canvas {
     height = h;
     squareLength = singleSquareL;
     offset = offSet;
-    
+    robotX = 0; robotY = 0;
     
     XpointsYCoord= new int[r]; //pointsX[1] would find out what pixel coord is for all (1,y) points (note
     //that the pixel coord is actually y, because field is inverted
@@ -37,6 +40,7 @@ class GridsCanvas extends Canvas {
   }
 
   public void paint(Graphics g) {
+	  
     int i;
 
     // draw the rows
@@ -116,6 +120,17 @@ class GridsCanvas extends Canvas {
     drawThickLine(g,YpointsXCoord[54], XpointsYCoord[18]-squareLength/2, YpointsXCoord[54], XpointsYCoord[14]-squareLength/2,
     		3, Color.YELLOW);
    //left exchange
+    
+    g.setColor(Color.orange);
+    g.fillRect(YpointsXCoord[robotY], XpointsYCoord[robotX], 80, 70);
+    //robot
+    
+    g.setColor(Color.black);
+    g.drawString(Integer.toString(robotX), 0, 0);
+    g.drawString(Integer.toString(robotY), width-20, height-20);
+    System.out.println(robotX);
+    //print out coords of robot
+    
   }
   
   public void drawThickLine(Graphics g, int x1, int y1, int x2, int y2, int thickness, Color c) {
@@ -152,16 +167,20 @@ class GridsCanvas extends Canvas {
 
 /** This is the demo class. */
 
-public class Grids extends Frame {
+public class Grids extends Frame implements KeyListener{
   /*
    * Construct a GfxDemo2 given its title, width and height. Uses a
    * GridBagLayout to make the Canvas resize properly.
    */
+	public static Grids d;
+	public static GridsCanvas xyz;
+	
   Grids(String title, int w, int h, int rows, int cols, int sqrL) {
     setTitle(title);
-
+    
+    addKeyListener(this);
     // Now create a Canvas and add it to the Frame.
-    GridsCanvas xyz = new GridsCanvas(w, h, rows, cols, sqrL, 25);
+    xyz = new GridsCanvas(w, h, rows, cols, sqrL, 25);
     add(xyz);
 
     addWindowListener(new WindowAdapter() {
@@ -174,9 +193,61 @@ public class Grids extends Frame {
 
     // Normal end ... pack it up!
     pack();
+    
+   
   }
 
   public static void main(String[] a) {
-    new Grids("Field", 1800, 1200, 28, 55, 30).setVisible(true);
+    d = new Grids("Field", 1800, 1200, 28, 55, 30);
+    d.setVisible(true);
+    
   }
+
+  public final int getRobotX() {
+  	  return xyz.robotX;
+    }
+  
+  public final int getRobotY() {
+  	  return xyz.robotY;
+    }
+  
+@Override
+public void keyTyped(KeyEvent e) {
 }
+
+@Override
+public void keyPressed(KeyEvent e) {
+	switch(e.getKeyCode()) {
+	case KeyEvent.VK_UP:
+		if(getRobotX()<27) {
+			xyz.robotX+=1;
+		}
+		break;
+	case KeyEvent.VK_DOWN:
+		if(getRobotX()>0) {
+			xyz.robotX-=1;
+		}
+		break;
+	case KeyEvent.VK_LEFT:
+		if(getRobotX()<54) {
+			xyz.robotY+=1;
+		}
+		break;
+	case KeyEvent.VK_RIGHT:
+		if(getRobotX()>0) {
+			xyz.robotY-=1;
+		}
+		break;
+	default:
+		System.out.println("not sure what you want to do, but apparently you pressed a key.");
+		break;
+	}
+	
+	xyz.repaint();
+}
+
+@Override
+public void keyReleased(KeyEvent e) {
+	
+}
+} //end of demo class
