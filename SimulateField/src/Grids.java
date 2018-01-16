@@ -39,7 +39,6 @@ class GridsCanvas extends Canvas {
     points = new boolean[r][c];
     
     points[0][0] = true;
-    
   }
 
   public void paint(Graphics g) {
@@ -108,10 +107,22 @@ class GridsCanvas extends Canvas {
     g.fillRect(YpointsXCoord[42], XpointsYCoord[10]-squareLength/2, 4*squareLength, 3*squareLength);
     g.fillRect(YpointsXCoord[42], XpointsYCoord[19]-squareLength/2, 4*squareLength, 3*squareLength);
     //their switch
-    drawThickLine(g,YpointsXCoord[14], XpointsYCoord[10]-squareLength/2, YpointsXCoord[14], XpointsYCoord[16]-squareLength/2,3,Color.red);
-    drawThickLine(g,YpointsXCoord[40], XpointsYCoord[10]-squareLength/2, YpointsXCoord[40], XpointsYCoord[16]-squareLength/2,3,Color.red);
+    drawThickLine(g,YpointsXCoord[14], XpointsYCoord[10]-squareLength/2, YpointsXCoord[14], 
+    		XpointsYCoord[16]-squareLength/2,3,Color.cyan);
+    drawThickLine(g,YpointsXCoord[40], XpointsYCoord[10]-squareLength/2, YpointsXCoord[40], 
+    		XpointsYCoord[16]-squareLength/2,3,Color.cyan);
    
    
+    g.setColor(Color.magenta);
+    g.fillRect(YpointsXCoord[29], XpointsYCoord[9], 4*squareLength, 3*squareLength);
+    g.fillRect(YpointsXCoord[29], XpointsYCoord[21], 4*squareLength, 3*squareLength);
+    drawThickLine(g,YpointsXCoord[27], XpointsYCoord[9], YpointsXCoord[27],
+    		XpointsYCoord[18],3,Color.cyan);
+    //scale
+    
+    drawThickLine(g,YpointsXCoord[54], XpointsYCoord[13]-squareLength/2, YpointsXCoord[0],
+    		XpointsYCoord[13]-squareLength/2,3,Color.red);
+    //horizontal Midline
   
   }
   
