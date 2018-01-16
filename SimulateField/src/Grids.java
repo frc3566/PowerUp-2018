@@ -17,8 +17,6 @@ class GridsCanvas extends Canvas {
   
   int[] XpointsYCoord, YpointsXCoord;
   
-  boolean[][] points;
-  
   boolean registered = false;
 
   GridsCanvas(int w, int h, int r, int c, int singleSquareL, int offSet) {
@@ -36,9 +34,6 @@ class GridsCanvas extends Canvas {
     //that the pixel coord is actually y, because field is inverted
     YpointsXCoord= new int[c];
     
-    points = new boolean[r][c];
-    
-    points[0][0] = true;
   }
 
   public void paint(Graphics g) {
@@ -62,19 +57,9 @@ class GridsCanvas extends Canvas {
       }
     }
     
-    for (int c = 0; c < cols; c++) {
-    	  for (int r = 0; r < rows; r++) {
-    		  if (points[r][c] == true) {
-    			  g.setColor(Color.red);
-    			  g.fillOval(YpointsXCoord[c]-5, XpointsYCoord[r]-5, 10, 10);
-    			  
-    		  }
-    	  }
-    }
+    g.setColor(Color.red);
+	  g.fillOval(YpointsXCoord[0]-5, XpointsYCoord[0]-5, 10, 10); //Origin
     
-    
-    drawThickLine(g, YpointsXCoord[0], XpointsYCoord[2]-squareLength/2, YpointsXCoord[0], XpointsYCoord[24]-squareLength/2,
-    		3, Color.blue);
     drawThickLine(g,YpointsXCoord[0], XpointsYCoord[2]-squareLength/2, YpointsXCoord[0], XpointsYCoord[24]-squareLength/2,
     		3, Color.blue);
    //right bound
@@ -124,6 +109,13 @@ class GridsCanvas extends Canvas {
     		XpointsYCoord[13]-squareLength/2,3,Color.red);
     //horizontal Midline
   
+    
+    drawThickLine(g,YpointsXCoord[0], XpointsYCoord[8]-squareLength/2, YpointsXCoord[0], XpointsYCoord[12]-squareLength/2,
+    		3, Color.YELLOW);
+   //right exchange
+    drawThickLine(g,YpointsXCoord[54], XpointsYCoord[18]-squareLength/2, YpointsXCoord[54], XpointsYCoord[14]-squareLength/2,
+    		3, Color.YELLOW);
+   //left exchange
   }
   
   public void drawThickLine(Graphics g, int x1, int y1, int x2, int y2, int thickness, Color c) {
