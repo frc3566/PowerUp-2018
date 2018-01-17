@@ -8,21 +8,46 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Program to draw grids.
  * 
  * @author Ian Darwin, http://www.darwinsys.com/
  */
+class POINT {
+	double x, y;
+	
+	POINT(double X, double Y){
+		x=X; y=Y;
+	}
+	
+}
+
 class GridsCanvas extends Canvas {
  public int width, height, squareLength, offset, rbLength, rbWidth;
  public double robotX, robotY;
+ public char prev_dir='n';
+ public POINT prev_point, new_point;
+ public ArrayList<ArrayList<POINT>> routes;
+ public ArrayList<Color> routeColors;
 
   int rows; int cols;
   
   int[] XpointsYCoord, YpointsXCoord;
   
-  boolean registered = false;
+  boolean registered = false, routeCapture = false;
   
 
   GridsCanvas(int w, int h, int r, int c, int singleSquareL, int offSet, int rbL, int rbW) {
@@ -37,6 +62,9 @@ class GridsCanvas extends Canvas {
     robotX = 0; robotY = 0;
     rbLength = rbL;
     rbWidth = rbW;
+    
+    routes = new ArrayList<ArrayList<POINT>>();
+    routeColors = new ArrayList<Color>();
     
     XpointsYCoord= new int[r]; //pointsX[1] would find out what pixel coord is for all (1,y) points (note
     //that the pixel coord is actually y, because field is inverted
@@ -127,11 +155,12 @@ class GridsCanvas extends Canvas {
    //left exchange
     
     g.setColor(Color.orange);
-    g.fillRect((int)(YpointsXCoord[(int)robotY]-rbLength/2-(robotY%1)*30), 
-    		(int)(XpointsYCoord[(int)robotX]-rbWidth/2-(robotX%1)*30), rbLength, rbWidth);
+    g.fillRect((int)(YpointsXCoord[(int)(robotY-robotY%1)]-rbLength/2-(robotY%1)*squareLength), 
+    		(int)(XpointsYCoord[(int)(robotX-robotX%1)]-rbWidth/2-(robotX%1)*squareLength), 
+    		rbLength, rbWidth);
     g.setColor(Color.green);
-    g.fillOval((int)(YpointsXCoord[(int)robotY]-3-(robotY%1)*30), 
-                             (int)(XpointsYCoord[(int)robotX]-3-(robotX%1)*30), 6, 6);
+    g.fillOval((int)(YpointsXCoord[(int)(robotY-robotY%1)]-3-(robotY%1)*squareLength), 
+                             (int)(XpointsYCoord[(int)(robotX-robotX%1)]-3-(robotX%1)*squareLength), 6, 6);
     //robot
     
     g.setColor(Color.black);
@@ -139,6 +168,27 @@ class GridsCanvas extends Canvas {
     g.drawString("Y: "+Double.toString(robotY), YpointsXCoord[(int)robotY]-3, XpointsYCoord[(int)robotX]+20);
     //print out coords of robot
     
+    
+    for(int r=0; r<routes.size(); r++){
+    	drawOneRoute(routes.get(r), g, routeColors.get(r));
+    }
+    //drawing the route by connecting the points
+    
+  }
+  
+  public void drawOneRoute(ArrayList<POINT> route, Graphics g, Color myColor){
+	  for(int p=0; p<route.size()-1; p++){
+	    	double fpx = YpointsXCoord[(int)(route.get(p).y - (route.get(p).y % 1))]-
+	    			(route.get(p).y%1)*squareLength;
+	    	double fpy = XpointsYCoord[(int)(route.get(p).x - (route.get(p).x % 1))]-
+	    			(route.get(p).x%1)*squareLength;
+	    	double spx = YpointsXCoord[(int)(route.get(p+1).y - (route.get(p+1).y % 1))]-
+	    			(route.get(p+1).y%1)*squareLength;
+	    	double spy = XpointsYCoord[(int)(route.get(p+1).x - (route.get(p+1).x % 1))]-
+	    			(route.get(p+1).x%1)*squareLength;
+	    	
+	    	drawThickLine(g, (int)fpx, (int)fpy, (int)spx, (int)spy, 5, myColor);
+	    }
   }
   
   public void drawThickLine(Graphics g, int x1, int y1, int x2, int y2, int thickness, Color c) {
@@ -171,6 +221,40 @@ class GridsCanvas extends Canvas {
 		  g.fillPolygon(xPoints, yPoints, 4);
 		  }
 
+  public void addPointsToRoute(ArrayList<POINT> route, POINT point){
+	  if(routeCapture){
+	  route.add(point);
+	  }
+  }
+  
+  public void replaceLastPointOnRoute(ArrayList<POINT> route, POINT point){
+	  if(routeCapture){
+	  route.set(route.size()-1, point);
+	  }
+  }
+  
+  public void writePoints(){
+	  
+	  File newFile = new File("./routePoints"+LocalDateTime.now()+".txt");
+	  try {
+		newFile.createNewFile();
+		BufferedWriter writer = new BufferedWriter(new FileWriter(newFile));
+		for(ArrayList<POINT> route: routes){
+		writer.write("START\n\n");
+		for(POINT p:route){
+		writer.write("X: "+p.x+" Y: "+p.y+"\n");
+		}
+		writer.write("DONE\n\n");
+		}
+		writer.close();
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
+	 
+	  
+	  
+  }
+  
 }
 
 /** This is the demo class. */
@@ -235,22 +319,71 @@ public void keyPressed(KeyEvent e) {
 	switch(e.getKeyCode()) {
 	case KeyEvent.VK_UP:
 		if(getRobotX()<27) {
-			xyz.robotX+=0.5;
+			if((xyz.prev_dir!='x')){//changes direction or start
+			xyz.prev_point = new POINT(xyz.robotX, xyz.robotY); //record the turning point
+			xyz.prev_dir = 'x';
+			xyz.robotX+=0.25;
+			xyz.new_point = new POINT(xyz.robotX, xyz.robotY);
+			if(xyz.routeCapture)
+			xyz.addPointsToRoute(xyz.routes.get(xyz.routes.size()-1), xyz.new_point);
+			}else{//if not, keep the original turning point and go on, only setting the new_point
+			xyz.robotX+=0.25;
+			xyz.new_point = new POINT(xyz.robotX, xyz.robotY);
+			if(xyz.routeCapture)
+			xyz.replaceLastPointOnRoute(xyz.routes.get(xyz.routes.size()-1), xyz.new_point);
+			}
+			
 		}
 		break;
 	case KeyEvent.VK_DOWN:
 		if(getRobotX()>0) {
-			xyz.robotX-=0.5;
+			if(xyz.prev_dir!='x'){//changes direction or start
+				xyz.prev_point = new POINT(xyz.robotX, xyz.robotY); //record the turning point
+				xyz.prev_dir = 'x';
+				xyz.robotX-=0.25;
+				xyz.new_point = new POINT(xyz.robotX, xyz.robotY);
+				if(xyz.routeCapture)
+				xyz.addPointsToRoute(xyz.routes.get(xyz.routes.size()-1), xyz.new_point);
+				}else{//if not, keep the original turning point and go on, only setting the new_point
+				xyz.robotX-=0.25;
+				xyz.new_point = new POINT(xyz.robotX, xyz.robotY);
+				if(xyz.routeCapture)
+			    xyz.replaceLastPointOnRoute(xyz.routes.get(xyz.routes.size()-1), xyz.new_point);
+				}
 		}
 		break;
 	case KeyEvent.VK_LEFT:
 		if(getRobotX()<54) {
-			xyz.robotY+=0.5;
+			if(xyz.prev_dir!='y'){//changes direction or start
+				xyz.prev_point = new POINT(xyz.robotX, xyz.robotY); //record the turning point
+				xyz.prev_dir = 'y';
+				xyz.robotY+=0.25;
+				xyz.new_point = new POINT(xyz.robotX, xyz.robotY);
+				if(xyz.routeCapture)
+				xyz.addPointsToRoute(xyz.routes.get(xyz.routes.size()-1), xyz.new_point);
+				}else{//if not, keep the original turning point and go on, only setting the new_point
+				xyz.robotY+=0.25;
+				xyz.new_point = new POINT(xyz.robotX, xyz.robotY);
+				if(xyz.routeCapture)
+				xyz.replaceLastPointOnRoute(xyz.routes.get(xyz.routes.size()-1), xyz.new_point);
+				}
 		}
 		break;
 	case KeyEvent.VK_RIGHT:
 		if(getRobotX()>0) {
-			xyz.robotY-=0.5;
+			if(xyz.prev_dir!='y'){//changes direction or start
+				xyz.prev_point = new POINT(xyz.robotX, xyz.robotY); //record the turning point
+				xyz.prev_dir = 'y';
+				xyz.robotY-=0.25;
+				xyz.new_point = new POINT(xyz.robotX, xyz.robotY);
+				if(xyz.routeCapture)
+				xyz.addPointsToRoute(xyz.routes.get(xyz.routes.size()-1), xyz.new_point);
+				}else{//if not, keep the original turning point and go on, only setting the new_point
+				xyz.robotY-=0.25;
+				xyz.new_point = new POINT(xyz.robotX, xyz.robotY);
+				if(xyz.routeCapture)
+				xyz.replaceLastPointOnRoute(xyz.routes.get(xyz.routes.size()-1), xyz.new_point);
+				}
 		}
 		break;
 	case KeyEvent.VK_SPACE:
@@ -258,6 +391,19 @@ public void keyPressed(KeyEvent e) {
 		xyz.rbLength = xyz.rbWidth;
 		xyz.rbWidth = Lholder;
 		//swaps length and width; equal to rotating robot
+		break;
+	case KeyEvent.VK_R:
+		xyz.routeCapture = !xyz.routeCapture;
+		if(xyz.routeCapture){
+			xyz.routes.add(new ArrayList<POINT>());
+			xyz.routeColors.add(Color.getHSBColor((float)Math.random(), 
+					(float)Math.random(), (float)Math.random()));
+			xyz.routes.get(xyz.routes.size()-1).add(new POINT(xyz.robotX,xyz.robotY));
+		}
+		System.out.println("RouteCapture: "+xyz.routeCapture);
+		break;
+	case KeyEvent.VK_W:
+		xyz.writePoints();
 		break;
 	default:
 		System.out.println("not sure what you want to do, but apparently you pressed a key.");
