@@ -4,6 +4,8 @@ import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -13,7 +15,8 @@ import java.awt.event.WindowEvent;
  * @author Ian Darwin, http://www.darwinsys.com/
  */
 class GridsCanvas extends Canvas {
- public int width, height, squareLength, offset, robotX, robotY;
+ public int width, height, squareLength, offset, rbLength, rbWidth;
+ public double robotX, robotY;
 
   int rows; int cols;
   
@@ -22,7 +25,7 @@ class GridsCanvas extends Canvas {
   boolean registered = false;
   
 
-  GridsCanvas(int w, int h, int r, int c, int singleSquareL, int offSet) {
+  GridsCanvas(int w, int h, int r, int c, int singleSquareL, int offSet, int rbL, int rbW) {
 	  
     setSize(w, h);
     rows = r;
@@ -32,6 +35,8 @@ class GridsCanvas extends Canvas {
     squareLength = singleSquareL;
     offset = offSet;
     robotX = 0; robotY = 0;
+    rbLength = rbL;
+    rbWidth = rbW;
     
     XpointsYCoord= new int[r]; //pointsX[1] would find out what pixel coord is for all (1,y) points (note
     //that the pixel coord is actually y, because field is inverted
@@ -122,13 +127,16 @@ class GridsCanvas extends Canvas {
    //left exchange
     
     g.setColor(Color.orange);
-    g.fillRect(YpointsXCoord[robotY], XpointsYCoord[robotX], 80, 70);
+    g.fillRect((int)(YpointsXCoord[(int)robotY]-rbLength/2-(robotY%1)*30), 
+    		(int)(XpointsYCoord[(int)robotX]-rbWidth/2-(robotX%1)*30), rbLength, rbWidth);
+    g.setColor(Color.green);
+    g.fillOval((int)(YpointsXCoord[(int)robotY]-3-(robotY%1)*30), 
+                             (int)(XpointsYCoord[(int)robotX]-3-(robotX%1)*30), 6, 6);
     //robot
     
     g.setColor(Color.black);
-    g.drawString(Integer.toString(robotX), 0, 0);
-    g.drawString(Integer.toString(robotY), width-20, height-20);
-    System.out.println(robotX);
+    g.drawString("X: "+Double.toString(robotX), YpointsXCoord[(int)robotY]-3, XpointsYCoord[(int)robotX]-15);
+    g.drawString("Y: "+Double.toString(robotY), YpointsXCoord[(int)robotY]-3, XpointsYCoord[(int)robotX]+20);
     //print out coords of robot
     
   }
@@ -175,12 +183,13 @@ public class Grids extends Frame implements KeyListener{
 	public static Grids d;
 	public static GridsCanvas xyz;
 	
-  Grids(String title, int w, int h, int rows, int cols, int sqrL) {
+  Grids(String title, int w, int h, int rows, int cols, int sqrL, int rbL, int rbW) {
     setTitle(title);
     
     addKeyListener(this);
     // Now create a Canvas and add it to the Frame.
-    xyz = new GridsCanvas(w, h, rows, cols, sqrL, 25);
+    xyz = new GridsCanvas(w, h, rows, cols, sqrL, 25, rbL, rbW); 
+    //rb Length and Width in pixels, and 25 pixel offset
     add(xyz);
 
     addWindowListener(new WindowAdapter() {
@@ -198,16 +207,22 @@ public class Grids extends Frame implements KeyListener{
   }
 
   public static void main(String[] a) {
-    d = new Grids("Field", 1800, 1200, 28, 55, 30);
+	  String OS;
+	  OS = System.getProperty("os.name");
+	  if (OS.startsWith("Windows")) {
+		  d = new Grids("Field", 1800, 1200, 28, 55, 30, 80, 70);
+	  }else{
+    d = new Grids("Field", 1250, 750, 28, 55, 20, 53, 47);
+	  }
     d.setVisible(true);
     
   }
 
-  public final int getRobotX() {
+  public final double getRobotX() {
   	  return xyz.robotX;
     }
   
-  public final int getRobotY() {
+  public final double getRobotY() {
   	  return xyz.robotY;
     }
   
@@ -220,23 +235,29 @@ public void keyPressed(KeyEvent e) {
 	switch(e.getKeyCode()) {
 	case KeyEvent.VK_UP:
 		if(getRobotX()<27) {
-			xyz.robotX+=1;
+			xyz.robotX+=0.5;
 		}
 		break;
 	case KeyEvent.VK_DOWN:
 		if(getRobotX()>0) {
-			xyz.robotX-=1;
+			xyz.robotX-=0.5;
 		}
 		break;
 	case KeyEvent.VK_LEFT:
 		if(getRobotX()<54) {
-			xyz.robotY+=1;
+			xyz.robotY+=0.5;
 		}
 		break;
 	case KeyEvent.VK_RIGHT:
 		if(getRobotX()>0) {
-			xyz.robotY-=1;
+			xyz.robotY-=0.5;
 		}
+		break;
+	case KeyEvent.VK_SPACE:
+		int Lholder = xyz.rbLength;
+		xyz.rbLength = xyz.rbWidth;
+		xyz.rbWidth = Lholder;
+		//swaps length and width; equal to rotating robot
 		break;
 	default:
 		System.out.println("not sure what you want to do, but apparently you pressed a key.");
@@ -250,4 +271,5 @@ public void keyPressed(KeyEvent e) {
 public void keyReleased(KeyEvent e) {
 	
 }
+
 } //end of demo class
