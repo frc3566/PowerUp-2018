@@ -244,7 +244,7 @@ class GridsCanvas extends Canvas {
 		for(POINT p:route){
 		writer.write("X: "+p.x+" Y: "+p.y+"\n");
 		}
-		writer.write("DONE\n\n");
+		writer.write("\n\nDONE\n\n\n");
 		}
 		writer.close();
 	} catch (IOException e) {
@@ -269,7 +269,8 @@ public class Grids extends Frame implements KeyListener{
 	
   Grids(String title, int w, int h, int rows, int cols, int sqrL, int rbL, int rbW) {
     setTitle(title);
-    
+    toFront();
+    requestFocus();
     addKeyListener(this);
     // Now create a Canvas and add it to the Frame.
     xyz = new GridsCanvas(w, h, rows, cols, sqrL, 25, rbL, rbW); 
@@ -399,6 +400,9 @@ public void keyPressed(KeyEvent e) {
 			xyz.routeColors.add(Color.getHSBColor((float)Math.random(), 
 					(float)Math.random(), (float)Math.random()));
 			xyz.routes.get(xyz.routes.size()-1).add(new POINT(xyz.robotX,xyz.robotY));
+		}else{
+			xyz.prev_point = null;
+			xyz.new_point = null;
 		}
 		System.out.println("RouteCapture: "+xyz.routeCapture);
 		break;
