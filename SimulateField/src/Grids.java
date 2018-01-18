@@ -2,6 +2,8 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -43,6 +45,8 @@ class GridsCanvas extends Canvas {
  public ArrayList<ArrayList<POINT>> routes;
  public ArrayList<Color> routeColors;
 
+ public double deltaAngle=0;
+ 
   int rows; int cols;
   
   int[] XpointsYCoord, YpointsXCoord;
@@ -154,15 +158,22 @@ class GridsCanvas extends Canvas {
     		3, Color.YELLOW);
    //left exchange
     
-    g.setColor(Color.orange);
-    g.fillRect((int)(YpointsXCoord[(int)(robotY-robotY%1)]-rbLength/2-(robotY%1)*squareLength), 
-    		(int)(XpointsYCoord[(int)(robotX-robotX%1)]-rbWidth/2-(robotX%1)*squareLength), 
+    
+    Graphics2D g2d = (Graphics2D)g;
+    g2d.setColor(Color.orange);
+    int rectX = (int)(YpointsXCoord[(int)(robotY-robotY%1)]-rbLength/2-(robotY%1)*squareLength);
+    int rectY = (int)(XpointsYCoord[(int)(robotX-robotX%1)]-rbWidth/2-(robotX%1)*squareLength);
+    g2d.rotate(deltaAngle, rectX+rbLength/2, rectY+rbWidth/2);
+    Rectangle rect = new Rectangle(rectX, rectY, 
     		rbLength, rbWidth);
-    g.setColor(Color.green);
-    g.fillOval((int)(YpointsXCoord[(int)(robotY-robotY%1)]-3-(robotY%1)*squareLength), 
+    g2d.draw(rect);
+    g2d.fill(rect);
+    g2d.setColor(Color.green);
+    g2d.fillOval((int)(YpointsXCoord[(int)(robotY-robotY%1)]-3-(robotY%1)*squareLength), 
                              (int)(XpointsYCoord[(int)(robotX-robotX%1)]-3-(robotX%1)*squareLength), 6, 6);
     //robot
     
+    g2d.rotate(-deltaAngle, rectX+rbLength/2, rectY+rbWidth/2);
     g.setColor(Color.black);
     g.drawString("X: "+Double.toString(robotX), YpointsXCoord[(int)robotY]-3, XpointsYCoord[(int)robotX]-15);
     g.drawString("Y: "+Double.toString(robotY), YpointsXCoord[(int)robotY]-3, XpointsYCoord[(int)robotX]+20);
@@ -300,6 +311,7 @@ public class Grids extends Frame implements KeyListener{
     d = new Grids("Field", 1250, 750, 28, 55, 20, 53, 47);
 	  }
     d.setVisible(true);
+    d.requestFocus();
     
   }
 
@@ -322,11 +334,12 @@ public void keyPressed(KeyEvent e) {
 		if(getRobotX()<27) {
 			if((xyz.prev_dir!='x')){//changes direction or start
 			xyz.prev_point = new POINT(xyz.robotX, xyz.robotY); //record the turning point
-			xyz.prev_dir = 'x';
 			xyz.robotX+=0.25;
 			xyz.new_point = new POINT(xyz.robotX, xyz.robotY);
-			if(xyz.routeCapture)
-			xyz.addPointsToRoute(xyz.routes.get(xyz.routes.size()-1), xyz.new_point);
+			if(xyz.routeCapture){
+				xyz.prev_dir = 'x';
+				xyz.addPointsToRoute(xyz.routes.get(xyz.routes.size()-1), xyz.new_point);
+			}
 			}else{//if not, keep the original turning point and go on, only setting the new_point
 			xyz.robotX+=0.25;
 			xyz.new_point = new POINT(xyz.robotX, xyz.robotY);
@@ -340,11 +353,12 @@ public void keyPressed(KeyEvent e) {
 		if(getRobotX()>0) {
 			if(xyz.prev_dir!='x'){//changes direction or start
 				xyz.prev_point = new POINT(xyz.robotX, xyz.robotY); //record the turning point
-				xyz.prev_dir = 'x';
 				xyz.robotX-=0.25;
 				xyz.new_point = new POINT(xyz.robotX, xyz.robotY);
-				if(xyz.routeCapture)
+				if(xyz.routeCapture){
+					xyz.prev_dir = 'x';
 				xyz.addPointsToRoute(xyz.routes.get(xyz.routes.size()-1), xyz.new_point);
+				}
 				}else{//if not, keep the original turning point and go on, only setting the new_point
 				xyz.robotX-=0.25;
 				xyz.new_point = new POINT(xyz.robotX, xyz.robotY);
@@ -357,11 +371,12 @@ public void keyPressed(KeyEvent e) {
 		if(getRobotX()<54) {
 			if(xyz.prev_dir!='y'){//changes direction or start
 				xyz.prev_point = new POINT(xyz.robotX, xyz.robotY); //record the turning point
-				xyz.prev_dir = 'y';
 				xyz.robotY+=0.25;
 				xyz.new_point = new POINT(xyz.robotX, xyz.robotY);
-				if(xyz.routeCapture)
+				if(xyz.routeCapture){
+				xyz.prev_dir = 'y';
 				xyz.addPointsToRoute(xyz.routes.get(xyz.routes.size()-1), xyz.new_point);
+				}
 				}else{//if not, keep the original turning point and go on, only setting the new_point
 				xyz.robotY+=0.25;
 				xyz.new_point = new POINT(xyz.robotX, xyz.robotY);
@@ -374,11 +389,12 @@ public void keyPressed(KeyEvent e) {
 		if(getRobotX()>0) {
 			if(xyz.prev_dir!='y'){//changes direction or start
 				xyz.prev_point = new POINT(xyz.robotX, xyz.robotY); //record the turning point
-				xyz.prev_dir = 'y';
 				xyz.robotY-=0.25;
 				xyz.new_point = new POINT(xyz.robotX, xyz.robotY);
-				if(xyz.routeCapture)
+				if(xyz.routeCapture){
+				xyz.prev_dir = 'y';
 				xyz.addPointsToRoute(xyz.routes.get(xyz.routes.size()-1), xyz.new_point);
+				}
 				}else{//if not, keep the original turning point and go on, only setting the new_point
 				xyz.robotY-=0.25;
 				xyz.new_point = new POINT(xyz.robotX, xyz.robotY);
@@ -400,14 +416,21 @@ public void keyPressed(KeyEvent e) {
 			xyz.routeColors.add(Color.getHSBColor((float)Math.random(), 
 					(float)Math.random(), (float)Math.random()));
 			xyz.routes.get(xyz.routes.size()-1).add(new POINT(xyz.robotX,xyz.robotY));
+			System.out.println("capture start: "+xyz.routes.size()+" "+
+					xyz.routes.get(xyz.routes.size()-1).size());
 		}else{
+			System.out.println("capture finish: "+xyz.routes.size()+" "+
+					xyz.routes.get(xyz.routes.size()-1).size());
 			xyz.prev_point = null;
 			xyz.new_point = null;
+			xyz.prev_dir = 'n';
 		}
-		System.out.println("RouteCapture: "+xyz.routeCapture);
 		break;
 	case KeyEvent.VK_W:
 		xyz.writePoints();
+		break;
+	case KeyEvent.VK_Z:
+		xyz.deltaAngle+=Math.toRadians(30);
 		break;
 	default:
 		System.out.println("not sure what you want to do, but apparently you pressed a key.");
