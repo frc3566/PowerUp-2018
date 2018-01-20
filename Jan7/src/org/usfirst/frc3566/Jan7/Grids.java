@@ -1,11 +1,10 @@
+package org.usfirst.frc3566.Jan7;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
@@ -16,9 +15,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-
-import javax.swing.JPanel;
-import javax.swing.Timer;
 
 /**
  * Program to draw grids.
@@ -34,7 +30,7 @@ class POINT {
 	
 }
 
-class GridsCanvas extends JPanel {
+class GridsCanvas extends Canvas {
  public int width, height, squareLength, offset, rbLength, rbWidth;
  public double robotX, robotY;
  public char prev_dir='n';
@@ -53,6 +49,7 @@ class GridsCanvas extends JPanel {
 
   GridsCanvas(int w, int h, int r, int c, int singleSquareL, int offSet, int rbL, int rbW) {
 	  
+    setSize(w, h);
     rows = r;
     cols = c;
     width = w;
@@ -62,7 +59,6 @@ class GridsCanvas extends JPanel {
     robotX = 0; robotY = 0;
     rbLength = rbL;
     rbWidth = rbW;
-    this.setSize(width, height);
     
     routes = new ArrayList<ArrayList<POINT>>();
     routeColors = new ArrayList<Color>();
@@ -72,14 +68,9 @@ class GridsCanvas extends JPanel {
     YpointsXCoord= new int[c];
     
   }
-  
-//  public void update(Graphics g){
-//	 // g.clearRect(0, 0, width, height);
-//      paint(g);
-//}
-//  
-  public void paintComponent(Graphics g) {
-	  super.paintComponent(g);
+
+  public void paint(Graphics g) {
+	  
     int i;
 
     // draw the rows
@@ -247,46 +238,22 @@ class GridsCanvas extends JPanel {
   }
   
   public void writePoints(){
-
-	  File newFile;
 	  
-	  String OS;
-	  OS = System.getProperty("os.name");
-	  if (OS.startsWith("Windows")) {
-		  newFile = new File("routePoints"+System.currentTimeMillis()+".txt");
-		  try {
-			newFile.createNewFile();
-			BufferedWriter writer = new BufferedWriter(new FileWriter(newFile));
-			for(ArrayList<POINT> route: routes){
-			writer.write("START\n\n");
-			for(POINT p:route){
-			writer.write("X: "+p.x+" Y: "+p.y+"\n");
-			}
-			writer.write("\n\nDONE\n\n\n");
-			}
-			writer.close();
-			System.out.println("done writing: "+newFile.getAbsolutePath());
-		} catch (IOException e) {
-			e.printStackTrace();
+	  File newFile = new File("./routePoints"+LocalDateTime.now()+".txt");
+	  try {
+		newFile.createNewFile();
+		BufferedWriter writer = new BufferedWriter(new FileWriter(newFile));
+		for(ArrayList<POINT> route: routes){
+		writer.write("START\n\n");
+		for(POINT p:route){
+		writer.write("X: "+p.x+" Y: "+p.y+"\n");
 		}
-	  }else{
-		  newFile = new File("./routePoints"+LocalDateTime.now()+".txt");
-		  try {
-			newFile.createNewFile();
-			BufferedWriter writer = new BufferedWriter(new FileWriter(newFile));
-			for(ArrayList<POINT> route: routes){
-			writer.write("START\n\n");
-			for(POINT p:route){
-			writer.write("X: "+p.x+" Y: "+p.y+"\n");
-			}
-			writer.write("\n\nDONE\n\n\n");
-			}
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
+		writer.write("\n\nDONE\n\n\n");
 		}
-	  }
-	  
+		writer.close();
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
 	 
 	  
 	  
@@ -304,7 +271,7 @@ public class Grids extends Frame implements KeyListener{
 	public static Grids d;
 	public static GridsCanvas xyz;
 	
-  Grids(String title, int w, int h, int rows, int cols, int sqrL, int rbL, int rbW) {
+  public Grids(String title, int w, int h, int rows, int cols, int sqrL, int rbL, int rbW) {
     setTitle(title);
     toFront();
     requestFocus();
@@ -328,44 +295,6 @@ public class Grids extends Frame implements KeyListener{
    
   }
 
-  public static void main(String[] a) {
-	  
-	  
-	  String OS;
-	  OS = System.getProperty("os.name");
-	  if (OS.startsWith("Windows")) {
-		  d = new Grids("Field", 1800, 1200, 28, 55, 30, 80, 70);
-	  }else{
-    d = new Grids("Field", 1250, 750, 28, 55, 20, 53, 47);
-	  }
-    d.setVisible(true);
-    d.requestFocus();
-    
-    
-    /*
-	   
-	  ProcessBuilder pb = new ProcessBuilder("java", "-jar", "FieldSimulator.jar");
-		pb.directory(new File("C:\\Users\\chris\\Desktop"));
-		try {
-			Process p = pb.start();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		*/
-    ActionListener taskPerformer = new ActionListener() {
-    	  public void actionPerformed(ActionEvent evt) {
-    	    xyz.repaint();
-    	  }
-    	  };
-
-	
-
-    	new Timer(500, taskPerformer).start();
-    
-    
-		}
 
   public final double getRobotX() {
   	  return xyz.robotX;

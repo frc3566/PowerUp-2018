@@ -104,10 +104,16 @@ public class Rotate extends Command {
     SmartDashboard.putNumber("maxPower", maxPower);
     */
     	
-    	 P=1/(2.2*Math.abs(deltaDegree)+18)+0.012;
+    	// P=1/(2.2*Math.abs(deltaDegree)+18)+0.012;
+    	 P=1/(2.2*Math.abs(deltaDegree)+18)+0.0175;
     	 I=0;
     	 D=0.002;
         
+    	 SmartDashboard.putNumber("P", P);
+         SmartDashboard.putNumber("I", I);
+         SmartDashboard.putNumber("D", D);
+
+         SmartDashboard.putNumber("maxPower", maxPower); 
         
         RobotMap.pigeon.setYaw(0, 0);
         this.setTimeout(5);
