@@ -45,21 +45,22 @@ public class EncoderRun extends Command {
     	SmartDashboard.putNumber("power", power);
     	maxPower=SmartDashboard.getNumber("maxPower", 1);
     	power*=maxPower;
-    	RobotMap.drivetrainRobotDrive21.tankDrive(power,power);
+    	//new ControlledDrive(power,power).start();
+    	RobotMap.drive.tankDrive(power,power);
     }
 
     // Make this return true when this Command no		 longer needs to run execute()
     @Override
     protected boolean isFinished() {
     	if(Robot.oi.joystick1.getRawButton(1))return true;
-    	if(Math.abs(error)<100||Robot.encoder1.getRate()<100&&time>0.5)return true;//needs consideration
+    	if(Math.abs(error)<100&&Robot.encoder1.getRate()<100&&time>0.5)return true;//needs consideration
     	return false;
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end(){
-    	RobotMap.drivetrainRobotDrive21.tankDrive(0, 0);
+    	RobotMap.drive.tankDrive(0, 0);
     }
 
     // Called when another command which requires one or more of the same
