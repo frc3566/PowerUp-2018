@@ -45,7 +45,7 @@ public class DriveWithJoysticks extends Command {
     @Override
     protected void execute() {
     	RobotMap.driveTrainDrive.tankDrive(Robot.oi.getJoystick1().getRawAxis(1)*(-1), 
-Robot.oi.getJoystick1().getRawAxis(5));
+    				Robot.oi.getJoystick1().getRawAxis(5));
     }
 
     // Make this return true when this Command no longer needs to run execute()

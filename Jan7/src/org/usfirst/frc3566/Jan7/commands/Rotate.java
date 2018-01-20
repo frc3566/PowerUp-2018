@@ -18,49 +18,137 @@ import org.usfirst.frc3566.Jan7.RobotMap;
 
 /**
  *
+ *
  */
+
 public class Rotate extends Command {
 
-	private double spd;
-	private boolean dir;
-	private double startDegree, endDegree, deltaDegree, allowedError;
+	//NOTE: VALUES BELOW ARE ONLY FOR THE TEST DRIVETRAIN, NOT THE ACTUAL ROBOT!!
+	//A pretty good set of PID values: P:0.02, I:0.005; D:0.002
+	//really good values for 60 degrees: P:0.019 I:0 D:0.002 mxSPD:0.5
+	//really good values for 30 degrees: P:0.024 I:0 D:0.002 mxSPD:0.5
+	//really good values for 45 degrees: P:0.0214 I:0 D:0.002 mxSPD:0.5
+	//really good values for 90 degrees: P:0.017 I:0 D:0.002 mxSPD:0.5
+	//a function for P and theta: P=1/(2.2theta+18)+0.012 (for the positive cases!)
+	
+	private double spd=0, maxPower=0.5;
+	private boolean dir, givenAngle;
+	private double startDegree, endDegree, deltaDegree, error, previous_error;
 
-    public Rotate(double delta, double speed, boolean direction) {
-    	//direction==true: turn to right
-    	//for deltaDegree: left+ right-
-    	deltaDegree = delta;
-    	deltaDegree *= (direction? -1:1);
+	
+	private double P=0.02, I=0, D = 0.002;
+    double integral, derivative;
+    
+    
+    public Rotate() {
 
-    	spd = speed;
-    	dir = direction;
+    	givenAngle = false;
+    	
+    	SmartDashboard.putNumber("P", P);
+        SmartDashboard.putNumber("I", I);
+        SmartDashboard.putNumber("D", D);
+
+        SmartDashboard.putNumber("maxPower", maxPower); 
+    }
+    
+    public Rotate(double deltaD) {
+    	givenAngle = true;
+    	deltaDegree = deltaD;
     }
 
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
     	
-    	startDegree = SmartDashboard.getNumber("Yaw", 0);
+    	if(!givenAngle) {
+    	dir= Robot.var.rotateDirection;
+    	//direction==true: turn to right
+    	//for deltaDegree: left+ right-
+    	
+    	deltaDegree = Robot.var.rotateAngle;
+    	deltaDegree *= (dir? -1:1);
+    	} //if angle is given, then don't worry about Shuffleboard values 
+    	
+    	
+    	startDegree = 0;
     	endDegree = startDegree + deltaDegree;
-    	allowedError = 2;
-    	    	
+    	
+    	/*
+    switch((int)Math.abs(deltaDegree)) {
+    	case 30:
+    		P = 0.024;
+    		I = 0;
+    		D = 0.002;
+    		maxPower = 0.5;
+    		break;
+    	case 45:
+    		P = 0.0214;
+    		I = 0;
+    		D = 0.002;
+    		maxPower = 0.5;
+    		break;
+    	case 60:
+    		P = 0.019;
+    		I = 0;
+    		D = 0.002;
+    		maxPower = 0.5;
+    		break;
+    	case 90:
+    		P = 0.017;
+    		I = 0;
+    		D = 0.002;
+    		maxPower = 0.5;
+    		break;
+    		
+    	default:
+    		P=SmartDashboard.getNumber("P", 0);
+            I=SmartDashboard.getNumber("I", 0);
+            D=SmartDashboard.getNumber("D", 0);
+           
+            maxPower=SmartDashboard.getNumber("maxPower", 1);
+    }
+
+    SmartDashboard.putNumber("P", P);
+    SmartDashboard.putNumber("I", I);
+    SmartDashboard.putNumber("D", D);
+
+    SmartDashboard.putNumber("maxPower", maxPower);
+    */
+    	
+    	// P=1/(2.2*Math.abs(deltaDegree)+18)+0.012;
+    	 P=1/(2.2*Math.abs(deltaDegree)+18)+0.0175;
+    	 I=0;
+    	 D=0.002;
+        
+    	 SmartDashboard.putNumber("P", P);
+         SmartDashboard.putNumber("I", I);
+         SmartDashboard.putNumber("D", D);
+
+         SmartDashboard.putNumber("maxPower", maxPower); 
+        
+        RobotMap.pigeon.setYaw(0, 0);
+        this.setTimeout(3);
+        
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-    	Robot.driveTrain.rotate(spd, dir);
+    	
+    	PID();
+    	SmartDashboard.putNumber("power", spd);
+    	
+    	spd*=maxPower;
+    	Robot.driveTrain.rotate(spd);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-    	double value = SmartDashboard.getNumber("Yaw", -30000);
-    	if( endDegree-allowedError <= value
-    			&& value <= endDegree+allowedError) { //if actual yaw is in the range of allowed Error
-    		return true;
-    	}else {
-    		return false;
-    	}
+    	
+    	return error<2 || this.isTimedOut();
+    		//return (spd<0.05) || this.isTimedOut();
+    	
     }
 
     // Called once after isFinished returns true
@@ -75,4 +163,18 @@ public class Rotate extends Command {
     protected void interrupted() {
     	end();
     }
+    
+    
+    public void PID(){
+    	double yaw = SmartDashboard.getNumber("Yaw", 0);
+        error = endDegree - yaw; // Error = Target - Actual
+        this.integral += (error*.02); // Integral is increased by the error*time (which is .02 seconds using normal IterativeRobot)
+        derivative = (error - this.previous_error) / .02;
+        this.spd = P*error + I*this.integral + D*derivative;
+        previous_error = error;
+        
+    }
+
 }
+
+
