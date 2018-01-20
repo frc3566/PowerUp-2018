@@ -45,6 +45,7 @@ public class EncoderRun extends Command {
     	SmartDashboard.putNumber("power", power);
     	maxPower=SmartDashboard.getNumber("maxPower", 1);
     	power*=maxPower;
+    	power=Math.max(power, 1);
     	//new ControlledDrive(power,power).start();
     	RobotMap.drive.tankDrive(power,power);
     }
@@ -60,7 +61,7 @@ public class EncoderRun extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end(){
-    	RobotMap.drive.tankDrive(0, 0);
+    	//RobotMap.drive.tankDrive(0, 0);
     }
 
     // Called when another command which requires one or more of the same

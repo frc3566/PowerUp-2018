@@ -67,9 +67,9 @@ public class Robot extends TimedRobot {
         
         //encoder
         encoder1= new Encoder(0, 1, false, Encoder.EncodingType.k4X);
-        encoder1.setDistancePerPulse(1);
+        encoder1.setDistancePerPulse(-1.065);
         encoder2= new Encoder(2, 3, false, Encoder.EncodingType.k4X);
-        encoder2.setDistancePerPulse(-1.65696);
+        encoder2.setDistancePerPulse(-1.3184);
 
         //pdp
         //pdp = new PowerDistributionPanel();
@@ -143,7 +143,6 @@ public class Robot extends TimedRobot {
     	SmartDashboard.putNumber("encoderDis", encoder1.getDistance());
     	SmartDashboard.putNumber("OldEncoderDis", encoder2.getDistance());
         SmartDashboard.putNumber("speed", encoder1.getRate());
-        SmartDashboard.getNumber("maxA", 20);
         Scheduler.getInstance().run();
     }
     
