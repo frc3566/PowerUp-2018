@@ -4,11 +4,8 @@ import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-<<<<<<< HEAD
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-=======
->>>>>>> 25f8cbb8071cee0cd2595efc3de09b87788de7c9
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
@@ -17,22 +14,11 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-<<<<<<< HEAD
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
-=======
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
->>>>>>> 25f8cbb8071cee0cd2595efc3de09b87788de7c9
 
 /**
  * Program to draw grids.
@@ -48,11 +34,7 @@ class POINT {
 	
 }
 
-<<<<<<< HEAD
 class GridsCanvas extends JPanel {
-=======
-class GridsCanvas extends Canvas {
->>>>>>> 25f8cbb8071cee0cd2595efc3de09b87788de7c9
  public int width, height, squareLength, offset, rbLength, rbWidth;
  public double robotX, robotY;
  public char prev_dir='n';
@@ -268,7 +250,6 @@ class GridsCanvas extends Canvas {
   }
   
   public void writePoints(){
-<<<<<<< HEAD
 
 	  File newFile;
 	  
@@ -309,25 +290,6 @@ class GridsCanvas extends Canvas {
 		}
 	  }
 	  
-=======
-	  
-	  File newFile = new File("./routePoints"+LocalDateTime.now()+".txt");
-	  try {
-		newFile.createNewFile();
-		BufferedWriter writer = new BufferedWriter(new FileWriter(newFile));
-		for(ArrayList<POINT> route: routes){
-		writer.write("START\n\n");
-		for(POINT p:route){
-		writer.write("X: "+p.x+" Y: "+p.y+"\n");
-		}
-		writer.write("\n\nDONE\n\n\n");
-		}
-		writer.close();
-	} catch (IOException e) {
-		e.printStackTrace();
-	}
->>>>>>> 25f8cbb8071cee0cd2595efc3de09b87788de7c9
-	 
 	  
 	  
   }
