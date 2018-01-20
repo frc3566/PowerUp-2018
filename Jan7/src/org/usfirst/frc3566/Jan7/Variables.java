@@ -1,5 +1,7 @@
 package org.usfirst.frc3566.Jan7;
 
+import java.util.ArrayList;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Variables {
@@ -10,6 +12,13 @@ public class Variables {
 	public static char ourSwitchPos, ScalePos, oppSwitchPos;
 	public static String gameMessage;
 	
+	public static ArrayList<POINT> route;
+	
+	public void setUpRoutePoints() {
+		route.add(new POINT(3.5, 1.5));
+		route.add(new POINT(3.5, 14));
+		route.add(new POINT(6.25, 14));
+	}
 	
 	public void SendValuesToDashboard() {
 		SmartDashboard.putNumber("driveTimeOut", driveTimeOut);
