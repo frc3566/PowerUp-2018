@@ -76,10 +76,10 @@ public class DriveTrain extends Subsystem {
    }
    
    public void rotate(double spd) {
-	   FL.set(spd*-1);
-	   FR.set(spd);
-	   RL.set(spd*-1);
-	   RR.set(spd);
+	   FL.set(spd);
+	   FR.set(spd*-1);
+	   RL.set(spd);
+	   RR.set(spd*-1);
    }
     // Put methods for controlling this subsystem
     // here. Call these from Commands.

@@ -7,17 +7,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Variables {
 
 	public static double driveSpeed = 0.1, rotateSpeed=0.15; //0.15 is enough for current driveTrain
-	public static double driveTimeOut = 1, rotateAngle = 60;
+	public static double driveTimeOut, rotateAngle = 60;
 	public static boolean rotateDirection;
 	public static char ourSwitchPos, ScalePos, oppSwitchPos;
 	public static String gameMessage;
 	
-	public static ArrayList<POINT> route;
+	public static ArrayList<POINT> route1;
 	
 	public void setUpRoutePoints() {
-		route.add(new POINT(3.5, 1.5));
-		route.add(new POINT(3.5, 14));
-		route.add(new POINT(6.25, 14));
+		route1 = new ArrayList<POINT>();
+		route1.add(new POINT(3.5, 1.5));
+		route1.add(new POINT(3.5, 14));
+		route1.add(new POINT(6.25, 14));
 	}
 	
 	public void SendValuesToDashboard() {

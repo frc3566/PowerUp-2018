@@ -16,13 +16,19 @@ import org.usfirst.frc3566.Jan7.Robot;
 /**
  *
  */
-public class DriveForSeconds extends Command {
+public class DriveForSomething extends Command {
+	//on smooth STEM base floor, drive at speed=0.1 for 4 seconds goes 1 meter, or 3.28 feet. 
+	//which means that each second, the robot goes 0.82 foot. 
 
 	private double spd;
 	private boolean dir;
 	
-    public DriveForSeconds(double timeOut, double speed, boolean direction) {
-    	this.setTimeout(timeOut);
+    public DriveForSomething(boolean DriveForDistance, double timeoutORdistance, double speed, boolean direction) {
+    	if(DriveForDistance) {
+    		timeoutORdistance = (Math.abs(timeoutORdistance)/0.82);
+    		//even if driving in distance, should never be negative, but should use direction
+    	}
+    	this.setTimeout(timeoutORdistance);
     	spd = speed;
     	dir = direction;
     }

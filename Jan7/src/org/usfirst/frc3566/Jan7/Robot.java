@@ -135,7 +135,7 @@ public class Robot extends TimedRobot {
     	double[] ypr = new double[3];
     	RobotMap.pigeon.getYawPitchRoll(ypr);
     	//YAW: Continuous angle (Degrees) of the robot's heading. A complete turn is 360. 
-    	SmartDashboard.putNumber("Yaw", ypr[0]);
-    	return ypr[0];
+    	SmartDashboard.putNumber("Yaw", ypr[0]*-1); //IMPORTANT: DO NOT CHANGE THIS. DANGER OF MESSING EVEYTHING UP.
+    	return ypr[0]*-1; //made so that gyro's positive is to the right. Originally, it's to the left. 
     }
 }

@@ -1,5 +1,5 @@
 {
-  "dividerPosition": 0.24210526315789474,
+  "dividerPosition": 0.2159024956471271,
   "tabPane": [
     {
       "title": "SmartDashboard",
@@ -12,7 +12,7 @@
         "tiles": {
           "2,0": {
             "size": [
-              3,
+              2,
               2
             ],
             "content": {
@@ -71,12 +71,9 @@
               1
             ],
             "content": {
-              "_type": "Number Slider",
+              "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/driveTimeOut",
-              "_title": "driveTimeOut",
-              "min": 0.0,
-              "max": 5.0,
-              "blockIncrement": 0.0625
+              "_title": "driveTimeOut"
             }
           },
           "6,1": {
@@ -85,15 +82,12 @@
               1
             ],
             "content": {
-              "_type": "Number Slider",
+              "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/DriveSpeed",
-              "_title": "DriveSpeed",
-              "min": 0.0,
-              "max": 1.0,
-              "blockIncrement": 0.0625
+              "_title": "DriveSpeed"
             }
           },
-          "0,4": {
+          "4,4": {
             "size": [
               2,
               1
@@ -139,7 +133,7 @@
               "_title": "rotateDirection"
             }
           },
-          "5,0": {
+          "4,0": {
             "size": [
               1,
               1
@@ -164,40 +158,7 @@
               "blockIncrement": 0.0625
             }
           },
-          "5,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/RotatingDirection",
-              "_title": "RotatingDirection"
-            }
-          },
-          "5,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/ResetGyro",
-              "_title": "ResetGyro"
-            }
-          },
-          "7,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/power",
-              "_title": "power"
-            }
-          },
-          "4,3": {
+          "4,1": {
             "size": [
               1,
               1
@@ -208,7 +169,7 @@
               "_title": "P"
             }
           },
-          "4,4": {
+          "4,2": {
             "size": [
               1,
               1
@@ -219,7 +180,7 @@
               "_title": "I"
             }
           },
-          "4,5": {
+          "4,3": {
             "size": [
               1,
               1
@@ -239,6 +200,83 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/maxPower",
               "_title": "maxPower"
+            }
+          },
+          "3,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/EncoderDistance",
+              "_title": "EncoderDistance"
+            }
+          },
+          "0,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Perform Route",
+              "_title": "Perform Route"
+            }
+          },
+          "8,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/OurSwitch",
+              "_title": "OurSwitch"
+            }
+          },
+          "8,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Scale",
+              "_title": "Scale"
+            }
+          },
+          "8,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/OppSwitch",
+              "_title": "OppSwitch"
+            }
+          },
+          "5,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/power",
+              "_title": "power"
+            }
+          },
+          "7,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/error",
+              "_title": "error"
             }
           }
         }
@@ -286,7 +324,7 @@
           },
           "5,0": {
             "size": [
-              2,
+              1,
               3
             ],
             "content": {
@@ -304,7 +342,7 @@
               ]
             }
           },
-          "7,0": {
+          "6,0": {
             "size": [
               1,
               3
@@ -315,9 +353,9 @@
               "_children": []
             }
           },
-          "8,0": {
+          "7,0": {
             "size": [
-              2,
+              1,
               4
             ],
             "content": {
@@ -369,6 +407,17 @@
             }
           }
         }
+      }
+    },
+    {
+      "title": "Tests",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {}
       }
     }
   ]
