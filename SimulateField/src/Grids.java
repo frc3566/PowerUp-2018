@@ -6,22 +6,16 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 /**
  * Program to draw grids.
@@ -277,6 +271,7 @@ public class Grids extends Frame implements KeyListener{
    */
 	public static Grids d;
 	public static GridsCanvas xyz;
+	public static NetworkTable nt;
 	
   Grids(String title, int w, int h, int rows, int cols, int sqrL, int rbL, int rbW) {
     setTitle(title);
