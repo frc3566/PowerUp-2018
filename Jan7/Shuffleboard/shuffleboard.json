@@ -1,5 +1,5 @@
 {
-  "dividerPosition": 0.2159024956471271,
+  "dividerPosition": 0.21578947368421053,
   "tabPane": [
     {
       "title": "SmartDashboard",
@@ -278,6 +278,83 @@
               "_source0": "network_table:///SmartDashboard/error",
               "_title": "error"
             }
+          },
+          "8,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/EncoderRun",
+              "_title": "EncoderRun"
+            }
+          },
+          "9,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Distance",
+              "_title": "Distance"
+            }
+          },
+          "5,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/maxA",
+              "_title": "maxA"
+            }
+          },
+          "7,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/encoderDis",
+              "_title": "encoderDis"
+            }
+          },
+          "8,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/OldEncoderDis",
+              "_title": "OldEncoderDis"
+            }
+          },
+          "9,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/speed",
+              "_title": "speed"
+            }
+          },
+          "5,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LastRotate",
+              "_title": "LastRotate"
+            }
           }
         }
       }
@@ -404,6 +481,52 @@
               "_type": "Text View",
               "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[0]/Distance per Tick",
               "_title": "Ungrouped/Encoder[0]/Distance per Tick"
+            }
+          },
+          "8,0": {
+            "size": [
+              2,
+              4
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_source0": "network_table:///LiveWindow/Ungrouped",
+              "_title": "Ungrouped",
+              "_children": [
+                {
+                  "_type": "Differential Drivebase",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DifferentialDrive[1]",
+                  "_title": "DifferentialDrive[1]",
+                  "numberOfWheels": 4,
+                  "wheelDiameter": 80.0,
+                  "showVectors": true
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[0]/Speed",
+                  "_title": "Encoder[0]/Speed"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[0]/Distance",
+                  "_title": "Encoder[0]/Distance"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[1]/Distance per Tick",
+                  "_title": "Encoder[1]/Distance per Tick"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[1]/Distance",
+                  "_title": "Encoder[1]/Distance"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[1]/Speed",
+                  "_title": "Encoder[1]/Speed"
+                }
+              ]
             }
           }
         }

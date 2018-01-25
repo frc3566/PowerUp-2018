@@ -307,7 +307,6 @@ public class Grids extends Frame implements KeyListener{
    */
 	public static Grids d;
 	public static GridsCanvas xyz;
-	public static NetworkTable nt;
 	
   Grids(String title, int w, int h, int rows, int cols, int sqrL, int rbL, int rbW) {
     setTitle(title);
@@ -347,6 +346,11 @@ public class Grids extends Frame implements KeyListener{
     d.requestFocus();
     
     
+    NetworkTable.setClientMode();
+    NetworkTable.setIPAddress("10.35.66.2");
+    NetworkTable table = NetworkTable.getTable("datatable");
+    
+    
     /*
 	   
 	  ProcessBuilder pb = new ProcessBuilder("java", "-jar", "FieldSimulator.jar");
@@ -362,7 +366,6 @@ public class Grids extends Frame implements KeyListener{
     ActionListener taskPerformer = new ActionListener() {
     	  public void actionPerformed(ActionEvent evt) {
     	    xyz.repaint();
-    	   System.out.println("SD "+ nt.getNumber("Yaw", 0));
     	    
     	  }
     	  };
