@@ -44,9 +44,9 @@ public class Rotate extends Command {
 
     	givenAngle = false;
     	
-    	SmartDashboard.putNumber("P", P);
-        SmartDashboard.putNumber("I", I);
-        SmartDashboard.putNumber("D", D);
+//    	SmartDashboard.putNumber("P", P);
+//        SmartDashboard.putNumber("I", I);
+//        SmartDashboard.putNumber("D", D);
 
         SmartDashboard.putNumber("maxPower", maxPower); 
     }
@@ -72,6 +72,9 @@ public class Rotate extends Command {
     	deltaDegree *= (dir? -1:1);
     	} //if angle is given, then don't worry about Shuffleboard values 
     	
+    	P=0.015;
+    	I=0.006;
+    	D=0.008;
     	
     	startDegree = 0;
     	endDegree = startDegree + deltaDegree;
@@ -120,13 +123,13 @@ public class Rotate extends Command {
     	
     	// P=1/(2.2*Math.abs(deltaDegree)+18)+0.012;
     	// P=1/(2.2*Math.abs(deltaDegree)+18)+0.014; //A
-    	 P=1/(2.2*Math.abs(deltaDegree)+18)+0.0175;
-    	 I=0;
-    	 D=0.002;
+    	 //P=1/(2.2*Math.abs(deltaDegree)+18)+0.0175;
+    	 //I=0;
+    	 //D=0.002;
         
-    	 SmartDashboard.putNumber("P", P);
-         SmartDashboard.putNumber("I", I);
-         SmartDashboard.putNumber("D", D);
+//    	 P=SmartDashboard.getNumber("P", 0);
+//         I=SmartDashboard.getNumber("I", 0);
+//         D=SmartDashboard.getNumber("D", 0);
 
          SmartDashboard.putNumber("maxPower", maxPower); 
         
@@ -142,14 +145,15 @@ public class Rotate extends Command {
     	SmartDashboard.putNumber("error", error);
     	
     	spd*=maxPower;
-    	Robot.driveTrain.rotate(spd);
+    	RobotMap.driveTrainDrive.tankDrive(spd, -spd);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
     	
-    	return Math.abs(error)<2 || this.isTimedOut();
+    	if( Math.abs(error)<3&&Robot.encoder1.getRate()<500)return true;
+    	return false;
     	
     }
 
@@ -158,7 +162,7 @@ public class Rotate extends Command {
     protected void end() {
     	Robot.driveTrain.stopDrive();
     	SmartDashboard.putNumber("LastRotate", SmartDashboard.getNumber("Yaw", 0));
-    	RobotMap.pigeon.setYaw(0, 0);
+    	//RobotMap.pigeon.setYaw(0, 0);
     }
     
 
@@ -171,13 +175,13 @@ public class Rotate extends Command {
     
     
     public void PID(){
-    	double yaw = SmartDashboard.getNumber("Yaw", 0);
+    	double yaw = Robot.updatePigeonValues();
         error = endDegree - yaw; // Error = Target - Actual
         this.integral += (error*.02); // Integral is increased by the error*time (which is .02 seconds using normal IterativeRobot)
         derivative = (error - this.previous_error) / .02;
+        if(Math.abs(spd)>0.8)integral=0;
         this.spd = P*error + I*this.integral + D*derivative;
         previous_error = error;
-        
     }
 
 }

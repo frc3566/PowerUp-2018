@@ -50,13 +50,13 @@ public class RobotMap {
         
         
         FrontRight = new WPI_TalonSRX(2);
-        FrontRight.setInverted(true);
+        //FrontRight.setInverted(true);
         pigeon = new PigeonIMU(FrontRight);
        
         //pigeonIMU is connected to the talon with port 2. 
         
         RearRight = new WPI_TalonSRX(3);
-        RearRight.setInverted(true);
+        //RearRight.setInverted(true);
         
         
         left = new SpeedControllerGroup(FrontLeft, RearLeft);
