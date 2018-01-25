@@ -44,13 +44,18 @@ public class DriveWithJoystick extends Command {
     protected void execute() {
     	double maxPower=SmartDashboard.getNumber("maxPower", 1);
     	
+//    	if(Robot.oi.joystick1.getRawAxis(3)>0)
+//    		RobotMap.drive.tankDrive(Robot.oi.joystick1.getRawAxis(3),Robot.oi.joystick1.getRawAxis(3));
+//    		else if(Robot.oi.joystick1.getRawAxis(2)>0)
+//    			RobotMap.drive.tankDrive(Robot.oi.joystick1.getRawAxis(2)*-1,Robot.oi.joystick1.getRawAxis(2)*-1);
+//    			else  RobotMap.drive.tankDrive(Robot.oi.joystick1.getRawAxis(1)*-1*maxPower, 
+//    					Robot.oi.joystick1.getRawAxis(5)*-1*maxPower);
     	if(Robot.oi.joystick1.getRawAxis(3)>0)
-    		RobotMap.drive.tankDrive(Robot.oi.joystick1.getRawAxis(3),Robot.oi.joystick1.getRawAxis(3));
-    		else if(Robot.oi.joystick1.getRawAxis(2)>0)
-    			RobotMap.drive.tankDrive(Robot.oi.joystick1.getRawAxis(2)*-1,Robot.oi.joystick1.getRawAxis(2)*-1);
-    			else  RobotMap.drive.tankDrive(Robot.oi.joystick1.getRawAxis(1)*-1*maxPower, 
-    					Robot.oi.joystick1.getRawAxis(5)*-1*maxPower);
-		
+    		RobotMap.drive.tankDrive(1, 1);
+    	else if(Robot.oi.joystick1.getRawAxis(2)>0)
+    		RobotMap.drive.tankDrive(0, 0);
+    	else  RobotMap.drive.tankDrive(Robot.oi.joystick1.getRawAxis(1)*-1*maxPower, 
+				Robot.oi.joystick1.getRawAxis(5)*-1*maxPower);
     }
 
     // Make this return true when this Command no longer needs to run execute()
