@@ -1,14 +1,11 @@
-import java.awt.Canvas;
+
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-<<<<<<< HEAD
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-=======
->>>>>>> 25f8cbb8071cee0cd2595efc3de09b87788de7c9
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
@@ -17,22 +14,13 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-<<<<<<< HEAD
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
-=======
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
->>>>>>> 25f8cbb8071cee0cd2595efc3de09b87788de7c9
+
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 /**
  * Program to draw grids.
@@ -48,11 +36,7 @@ class POINT {
 	
 }
 
-<<<<<<< HEAD
 class GridsCanvas extends JPanel {
-=======
-class GridsCanvas extends Canvas {
->>>>>>> 25f8cbb8071cee0cd2595efc3de09b87788de7c9
  public int width, height, squareLength, offset, rbLength, rbWidth;
  public double robotX, robotY;
  public char prev_dir='n';
@@ -268,7 +252,6 @@ class GridsCanvas extends Canvas {
   }
   
   public void writePoints(){
-<<<<<<< HEAD
 
 	  File newFile;
 	  
@@ -309,25 +292,6 @@ class GridsCanvas extends Canvas {
 		}
 	  }
 	  
-=======
-	  
-	  File newFile = new File("./routePoints"+LocalDateTime.now()+".txt");
-	  try {
-		newFile.createNewFile();
-		BufferedWriter writer = new BufferedWriter(new FileWriter(newFile));
-		for(ArrayList<POINT> route: routes){
-		writer.write("START\n\n");
-		for(POINT p:route){
-		writer.write("X: "+p.x+" Y: "+p.y+"\n");
-		}
-		writer.write("\n\nDONE\n\n\n");
-		}
-		writer.close();
-	} catch (IOException e) {
-		e.printStackTrace();
-	}
->>>>>>> 25f8cbb8071cee0cd2595efc3de09b87788de7c9
-	 
 	  
 	  
   }
@@ -382,6 +346,11 @@ public class Grids extends Frame implements KeyListener{
     d.requestFocus();
     
     
+    NetworkTable.setClientMode();
+    NetworkTable.setIPAddress("10.35.66.2");
+    NetworkTable table = NetworkTable.getTable("datatable");
+    
+    
     /*
 	   
 	  ProcessBuilder pb = new ProcessBuilder("java", "-jar", "FieldSimulator.jar");
@@ -397,6 +366,7 @@ public class Grids extends Frame implements KeyListener{
     ActionListener taskPerformer = new ActionListener() {
     	  public void actionPerformed(ActionEvent evt) {
     	    xyz.repaint();
+    	    
     	  }
     	  };
 

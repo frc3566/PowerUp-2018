@@ -54,16 +54,19 @@ public class Rotate extends Command {
     public Rotate(double deltaD) {
     	givenAngle = true;
     	deltaDegree = deltaD;
+    	System.out.println("trying to rotate: "+deltaDegree+" degrees!");
     }
 
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-    	
+    	RobotMap.pigeon.setYaw(0, 0);
+        this.setTimeout(2);
+        
     	if(!givenAngle) {
     	dir= Robot.var.rotateDirection;
     	//direction==true: turn to right
-    	//for deltaDegree: left+ right-
+    	//for deltaDegree: left- right+
     	
     	deltaDegree = Robot.var.rotateAngle;
     	deltaDegree *= (dir? -1:1);
@@ -116,6 +119,7 @@ public class Rotate extends Command {
     */
     	
     	// P=1/(2.2*Math.abs(deltaDegree)+18)+0.012;
+    	// P=1/(2.2*Math.abs(deltaDegree)+18)+0.014; //A
     	 P=1/(2.2*Math.abs(deltaDegree)+18)+0.0175;
     	 I=0;
     	 D=0.002;
@@ -126,8 +130,6 @@ public class Rotate extends Command {
 
          SmartDashboard.putNumber("maxPower", maxPower); 
         
-        RobotMap.pigeon.setYaw(0, 0);
-        this.setTimeout(3);
         
     }
 
@@ -137,6 +139,7 @@ public class Rotate extends Command {
     	
     	PID();
     	SmartDashboard.putNumber("power", spd);
+    	SmartDashboard.putNumber("error", error);
     	
     	spd*=maxPower;
     	Robot.driveTrain.rotate(spd);
@@ -146,8 +149,7 @@ public class Rotate extends Command {
     @Override
     protected boolean isFinished() {
     	
-    	return error<2 || this.isTimedOut();
-    		//return (spd<0.05) || this.isTimedOut();
+    	return Math.abs(error)<2 || this.isTimedOut();
     	
     }
 
@@ -155,7 +157,10 @@ public class Rotate extends Command {
     @Override
     protected void end() {
     	Robot.driveTrain.stopDrive();
+    	SmartDashboard.putNumber("LastRotate", SmartDashboard.getNumber("Yaw", 0));
+    	RobotMap.pigeon.setYaw(0, 0);
     }
+    
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
