@@ -15,7 +15,9 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 
 /**
  * Program to draw grids.
@@ -273,6 +275,7 @@ public class Grids extends Frame implements KeyListener{
 	public static GridsCanvas xyz;
 	public static NetworkTable nt;
 	
+	
   Grids(String title, int w, int h, int rows, int cols, int sqrL, int rbL, int rbW) {
     setTitle(title);
     toFront();
@@ -307,6 +310,27 @@ public class Grids extends Frame implements KeyListener{
 	  }
     d.setVisible(true);
     d.requestFocus();
+    
+    ///////
+    NetworkTableInstance inst = NetworkTableInstance.getDefault();
+    NetworkTable table = inst.getTable("datatable");
+    NetworkTableEntry yawEntry = table.getEntry("Yaw");
+
+    inst.startClientTeam(3566);  // where TEAM=190, 294, etc, or use inst.startClient("hostname") or similar
+    inst.startDSClient();  // recommended if running on DS computer; this gets the robot IP from the DS
+
+    while (true) {
+      try {
+        Thread.sleep(1000);
+      } catch (InterruptedException ex) {
+        System.out.println("interrupted");
+        return;
+      }
+
+      double yaw = yawEntry.getDouble(0);
+      System.out.println("Yaw from NT: "+yaw);
+    
+  }
     
   }
 
