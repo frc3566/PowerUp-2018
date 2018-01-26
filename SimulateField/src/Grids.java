@@ -159,6 +159,7 @@ class GridsCanvas extends Canvas {
     g2d.setColor(Color.orange);
     int rectX = (int)(YpointsXCoord[(int)(robotY-robotY%1)]-rbLength/2-(robotY%1)*squareLength);
     int rectY = (int)(XpointsYCoord[(int)(robotX-robotX%1)]-rbWidth/2-(robotX%1)*squareLength);
+   //ROTATE
     g2d.rotate(deltaAngle, rectX+rbLength/2, rectY+rbWidth/2);
     Rectangle rect = new Rectangle(rectX, rectY, 
     		rbLength, rbWidth);
@@ -274,6 +275,7 @@ public class Grids extends Frame implements KeyListener{
 	public static Grids d;
 	public static GridsCanvas xyz;
 	public static NetworkTable nt;
+	public static double Yaw;
 	
 	
   Grids(String title, int w, int h, int rows, int cols, int sqrL, int rbL, int rbW) {
@@ -313,10 +315,13 @@ public class Grids extends Frame implements KeyListener{
     
     ///////
     NetworkTableInstance inst = NetworkTableInstance.getDefault();
-    NetworkTable table = inst.getTable("datatable");
-    NetworkTableEntry yawEntry = table.getEntry("Yaw");
+    NetworkTable table = inst.getTable("/");
+    NetworkTable smart = table.getSubTable("SmartDashboard");
+    
+    NetworkTableEntry yawEntry = smart.getEntry("Yaw");
 
-    inst.startClientTeam(3566);  // where TEAM=190, 294, etc, or use inst.startClient("hostname") or similar
+    inst.startClientTeam(3566, 1735);  // where TEAM=190, 294, etc, or use inst.startClient("hostname") or similar
+   
     inst.startDSClient();  // recommended if running on DS computer; this gets the robot IP from the DS
 
     while (true) {
@@ -327,8 +332,9 @@ public class Grids extends Frame implements KeyListener{
         return;
       }
 
-      double yaw = yawEntry.getDouble(0);
-      System.out.println("Yaw from NT: "+yaw);
+      Yaw = yawEntry.getDouble(0);
+      System.out.println("Yaw from NT: "+Yaw);
+      xyz.deltaAngle = Math.toRadians(Yaw);
     
   }
     
