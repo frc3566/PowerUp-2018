@@ -59,6 +59,9 @@ public class CompleteRoute extends CommandGroup {
     		previousTheta = deltaTheta;
     		
     		addSequential(new DriveForSomething(true, Math.abs(distance), 0.1, (distance>0? true:false)));
+    		//THIS IS FOR DRIVING FORWARD WITH DISTANCE IN FEET
+    		
+    		
     		System.out.println("Drive!");
     		
     	} //end for loop

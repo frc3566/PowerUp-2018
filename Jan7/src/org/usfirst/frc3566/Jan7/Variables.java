@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Variables {
 
 	public static double driveSpeed = 0.1, rotateSpeed=0.15; //0.15 is enough for current driveTrain
+	public static double rotateNonStopSpd = 0.25;
 	public static double driveTimeOut, rotateAngle = 60;
 	public static boolean rotateDirection;
 	public static char ourSwitchPos, ScalePos, oppSwitchPos;

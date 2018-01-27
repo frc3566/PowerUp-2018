@@ -11,6 +11,8 @@
 
 package org.usfirst.frc3566.Jan7.commands;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc3566.Jan7.Robot;
 import org.usfirst.frc3566.Jan7.RobotMap;
 
@@ -44,8 +46,16 @@ public class DriveWithJoysticks extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-    	RobotMap.driveTrainDrive.tankDrive(Robot.oi.getJoystick1().getRawAxis(1)*(-1), 
-    				Robot.oi.getJoystick1().getRawAxis(5));
+    	
+//    	Robot.driveTrain.goForward(Robot.oi.getJoystick1().getRawAxis(1)*(-1));
+    	double v = Robot.oi.joystick1.getRawAxis(1);
+    	if (v>0.05) {
+    	RobotMap.driveTrainDrive.tankDrive(v*-1, v);
+    	//driveStraight
+    	SmartDashboard.putBoolean("Driving", true);
+    	}else {
+    		SmartDashboard.putBoolean("Driving", false);
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()

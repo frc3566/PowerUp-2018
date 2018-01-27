@@ -67,10 +67,10 @@ public class OI {
         joystick1 = new Joystick(0);
         
         rotateLeft = new JoystickButton(joystick1, 5);
-        rotateLeft.whenPressed(new Rotate());
+        rotateLeft.whileHeld(new RotateNonStop(Robot.var.rotateNonStopSpd));
         
         rotateRight = new JoystickButton(joystick1, 6);
-        rotateRight.whenPressed(new Rotate());
+        rotateRight.whileHeld(new RotateNonStop(Robot.var.rotateNonStopSpd*-1));
         
         openField = new JoystickButton(joystick1, 8);
         openField.whenPressed(new OpenFieldSimulator());
