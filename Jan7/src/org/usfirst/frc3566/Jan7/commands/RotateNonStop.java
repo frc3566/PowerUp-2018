@@ -37,7 +37,13 @@ public class RotateNonStop extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.driveTrain.stopDrive();
+    	
+//    	try {
+//    		Thread.sleep(3000);
     	SmartDashboard.putBoolean("Driving", true);
+//    	}catch(Exception e) {
+//    		
+//    	}
     }
 
     // Called when another command which requires one or more of the same

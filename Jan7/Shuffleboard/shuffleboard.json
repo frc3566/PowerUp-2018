@@ -133,7 +133,7 @@
               "_title": "rotateDirection"
             }
           },
-          "4,0": {
+          "6,5": {
             "size": [
               1,
               1
@@ -202,7 +202,7 @@
               "_title": "maxPower"
             }
           },
-          "3,2": {
+          "7,5": {
             "size": [
               1,
               1
@@ -355,6 +355,63 @@
               "_source0": "network_table:///SmartDashboard/LastRotate",
               "_title": "LastRotate"
             }
+          },
+          "7,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/DriveForTenF",
+              "_title": "DriveForTenF"
+            }
+          },
+          "9,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/x",
+              "_title": "x"
+            }
+          },
+          "3,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/y",
+              "_title": "y"
+            }
+          },
+          "5,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/theta",
+              "_title": "theta"
+            }
+          },
+          "5,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Driving",
+              "_title": "Driving",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
           }
         }
       }
@@ -490,7 +547,6 @@
             ],
             "content": {
               "_type": "List Layout",
-              "_source0": "network_table:///LiveWindow/Ungrouped",
               "_title": "Ungrouped",
               "_children": [
                 {
@@ -530,17 +586,6 @@
             }
           }
         }
-      }
-    },
-    {
-      "title": "Tests",
-      "autoPopulate": false,
-      "autoPopulatePrefix": "",
-      "widgetPane": {
-        "gridSize": 128.0,
-        "hgap": 16.0,
-        "vgap": 16.0,
-        "tiles": {}
       }
     }
   ]

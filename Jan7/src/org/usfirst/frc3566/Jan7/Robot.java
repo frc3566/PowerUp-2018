@@ -131,8 +131,8 @@ public class Robot extends TimedRobot {
         var.updateValues();
         oi.updateCommands();
         updatePigeonValues();
+        
         SmartDashboard.putNumber("EncoderDistance", encoder1.getDistance());
-
         
     }
     
