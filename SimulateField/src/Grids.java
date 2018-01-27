@@ -19,11 +19,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
-/**
- * Program to draw grids.
- * 
- * @author Ian Darwin, http://www.darwinsys.com/
- */
+
 class POINT {
 	double x, y;
 	
@@ -275,7 +271,7 @@ public class Grids extends Frame implements KeyListener{
 	public static Grids d;
 	public static GridsCanvas xyz;
 	public static NetworkTable nt;
-	public static double Yaw;
+	public static double Yaw, dist, prev_encoder=0;
 	
 	
   Grids(String title, int w, int h, int rows, int cols, int sqrL, int rbL, int rbW) {
@@ -319,6 +315,7 @@ public class Grids extends Frame implements KeyListener{
     NetworkTable smart = table.getSubTable("SmartDashboard");
     
     NetworkTableEntry yawEntry = smart.getEntry("Yaw");
+    NetworkTableEntry encoder = smart.getEntry("EncoderDistance");
 
     inst.startClientTeam(3566, 1735);  // where TEAM=190, 294, etc, or use inst.startClient("hostname") or similar
    
@@ -326,16 +323,32 @@ public class Grids extends Frame implements KeyListener{
 
     while (true) {
       try {
-        Thread.sleep(1000);
+        Thread.sleep(100);
       } catch (InterruptedException ex) {
         System.out.println("interrupted");
         return;
       }
 
       Yaw = yawEntry.getDouble(0);
-      System.out.println("Yaw from NT: "+Yaw);
+      dist = encoder.getDouble(0);
+      
       xyz.deltaAngle = Math.toRadians(Yaw);
-    
+      
+      double temp = dist - prev_encoder; //placeholder
+      prev_encoder = dist; //record prev_encoder for the next update
+      dist = temp; //now change distance to the real delta d
+      
+      //10 units of dist is 1cm. Convert it to ft
+      dist *= 0.001; //m
+      dist *=3.28; //ft
+      
+      //using yaw and delta d, calculate delta x and delta y
+      xyz.robotX += (dist * Math.cos(xyz.deltaAngle));
+      xyz.robotY += (dist * Math.sin(xyz.deltaAngle));
+      System.out.println("X: "+ xyz.robotX+" Y: "+xyz.robotY+ " dist: "+dist+ " prev: "+prev_encoder);
+      
+      
+      xyz.repaint();
   }
     
   }
@@ -462,7 +475,7 @@ public void keyPressed(KeyEvent e) {
 		break;
 	}
 	
-	xyz.repaint();
+	
 }
 
 @Override
