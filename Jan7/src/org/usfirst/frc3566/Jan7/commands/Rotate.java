@@ -61,6 +61,8 @@ public class Rotate extends Command {
     @Override
     protected void initialize() {
     	RobotMap.pigeon.setYaw(0, 0);
+    	SmartDashboard.putBoolean("Driving", false);
+    	
         this.setTimeout(2);
         
     	if(!givenAngle) {
@@ -159,6 +161,7 @@ public class Rotate extends Command {
     	Robot.driveTrain.stopDrive();
     	SmartDashboard.putNumber("LastRotate", SmartDashboard.getNumber("Yaw", 0));
     	RobotMap.pigeon.setYaw(0, 0);
+    	SmartDashboard.putBoolean("Driving", true);
     }
     
 

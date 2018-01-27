@@ -28,6 +28,7 @@ public class Variables {
 		SmartDashboard.putNumber("rotateAngle", rotateAngle);
 		SmartDashboard.putNumber("rotateSpeed", rotateSpeed);
 		SmartDashboard.putBoolean("rotateDirection", rotateDirection);
+		SmartDashboard.putBoolean("Driving", true);
 	}
 	
 	public void updateValues() {
@@ -36,6 +37,9 @@ public class Variables {
 		rotateAngle = SmartDashboard.getNumber("rotateAngle", -1);
 		rotateSpeed = SmartDashboard.getNumber("rotateSpeed", -0.1);
 		rotateDirection = SmartDashboard.getBoolean("rotateDirection", true);
+		
+		double v = Robot.oi.joystick1.getRawAxis(1);
+    	
 	}
 	
 	public void setSwitchScaleSides() {
