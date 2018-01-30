@@ -13,40 +13,43 @@ public class DriveStraight extends Command {
     double power=0,error=0;
     double maxPower=1;
     double time=0;
-  
+    boolean isAuto=false;
     //input in feet
     public DriveStraight(double _setPoint) {
     	setPoint=_setPoint*304.8;
+    	isAuto=false;
     }
     
     public DriveStraight() {
     	//System.out.println(Robot.var.distance);
+    	isAuto=true;
     }
 
     @Override
     protected void initialize() {
     	//SmartDashboard.putBoolean("Driving", true);
-    	setPoint=Robot.var.distance;
-    	//System.out.println("drive for" + setPoint);
-    	Robot.var.lastEncoderDis=0;// to use updateXY
-    	Robot.encoder1.reset();
+    	if(isAuto)setPoint=Robot.var.distance;
+    	Robot.var.lastL=Robot.var.lastR=0;// to use updateXY
+    	Robot.encoderL.reset();
+    	Robot.encoderR.reset();
+    	error = setPoint - Robot.encoderL.getDistance();
     	time=0;
     }
 
     void PID() {
-    	error = setPoint - Robot.encoder1.getDistance();
+    	error = setPoint - Robot.encoderL.getDistance();
         this.integral += (error*.02);
         derivative = (error - previousError) / .02;
         previousError=error;
         if(power>=0.9999||power<=-0.9999)integral=0;
-        if(time<0.3&&power>0.7)power=0.7;
-        else if(time<0.3&&power<-0.7)power=-0.7;
+//        if(time<0.3&&power>0.7)power=0.7;
+//        else if(time<0.3&&power<-0.7)power=-0.7;
         power = P*error + I*this.integral + D*derivative;
     }
     
     @Override
     protected void execute() {
-    	Robot.var.updateXY();
+    	//Robot.var.updateXY();
     	time+=0.02;
         PID();
 //    	if(Robot.encoder1.getRate()>1800)power=Math.min(0.6, power);
@@ -58,8 +61,8 @@ public class DriveStraight extends Command {
 
     @Override
     protected boolean isFinished() {
-    	if(Robot.oi.joystick1.getRawButton(1))return true;
-    	if(Math.abs(error)<100&&Robot.encoder1.getRate()<100)return true;//needs consideration
+    	//if(Robot.oi.joystick1.getRawButton(1))return true;
+    	if(Math.abs(error)<100&&Robot.encoderL.getRate()<100)return true;//needs consideration
     	if(time> Math.abs(setPoint) / 300 )return true;
     	return false;
     }

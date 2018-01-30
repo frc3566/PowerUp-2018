@@ -33,22 +33,21 @@ public class Rotate extends Command {
 	//a function for P and theta: P=1/(2.2theta+18)+0.012 (for the positive cases!)
 	
 	private double spd=0, maxPower=0.5;
-	private boolean dir, givenAngle;
 	private double startDegree, endDegree, deltaDegree, error, previous_error;
-
+	public boolean isAuto;
 	
 	private double P=0.02, I=0, D = 0.002;
     double integral, derivative;
     
     
     public Rotate() {
-    	givenAngle = true;
+    	isAuto=true;
     	//System.out.println(deltaDegree);
     }
     
     public Rotate(double deltaD) {
-    	givenAngle = true;
-    	deltaDegree = deltaD;
+    	deltaDegree=deltaD;
+    	isAuto=false;
     	//System.out.println("trying to rotate: "+deltaDegree+" degrees!");
     }
 
@@ -56,23 +55,15 @@ public class Rotate extends Command {
     @Override
     protected void initialize() {
     	SmartDashboard.putBoolean("Driving", false);
+    	System.out.println(deltaDegree);
     	this.setTimeout(5);
-    	deltaDegree = Robot.var.rotateTheta;
+    	if(isAuto)deltaDegree = Robot.var.rotateTheta;
     	//System.out.println("rotate "+deltaDegree);
-    	
-    	if(!givenAngle) {
-    	dir= Robot.var.rotateDirection;
-    	//direction==true: turn to right
-    	//for deltaDegree: left- right+
-    	
-    	deltaDegree = Robot.var.rotateAngle;
-    	deltaDegree *= (dir? -1:1);
-    	} //if angle is given, then don't worry about Shuffleboard values 
-    	
-    	P=0.018;
-    	I=0.011;
-    	D=0.006;
-    	
+    	//18,11,06 e-2
+    	P=0.03;
+    	I=0.035;
+    	D=0.01;
+
     	startDegree = Robot.var.getTheta();
     	endDegree = startDegree - deltaDegree;
     	//System.out.println(deltaDegree);
@@ -96,7 +87,7 @@ public class Rotate extends Command {
     @Override
     protected boolean isFinished() {
     	
-    	if( Math.abs(error)<2&&Robot.encoder1.getRate()<500)return true;
+    	if( Math.abs(error)<2&&Robot.encoderL.getRate()<500)return true;
     	if(this.isTimedOut())return true;
     	return false;
     	

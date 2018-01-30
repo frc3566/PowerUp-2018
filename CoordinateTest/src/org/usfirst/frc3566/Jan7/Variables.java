@@ -50,7 +50,7 @@ public class Variables {
 	
 	//coordinate system
 	public static double x=0,y=0;
-	public static double lastEncoderDis=0;
+	public static double lastL=0,lastR=0;
 	/*
 	 * return the degree in the polar system, range [0,360), add 90 degrees to make polar
 	 */
@@ -80,10 +80,13 @@ public class Variables {
 	 */
 	public static void updateXY()
 	{
-		double theta=getTheta(), curDis=Robot.encoder1.getDistance(), dis=curDis-lastEncoderDis;
+		double theta=getTheta();
+		double curL=Robot.encoderL.getDistance(),curR=Robot.encoderR.getDistance();
+		double dis=(curL-lastL+curR-lastR)/2;
 		x+= dis* Math.cos(Math.toRadians(theta));
 		y+= dis* Math.sin(Math.toRadians(theta));
-		lastEncoderDis=curDis;
+		lastL=curL;
+		lastR=curR;
 	}
 	
 	public double rotateTheta;
