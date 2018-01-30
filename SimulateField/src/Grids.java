@@ -1,12 +1,16 @@
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.geom.AffineTransform;
@@ -18,6 +22,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import edu.wpi.first.networktables.NetworkTable;
@@ -41,8 +46,9 @@ class GridsCanvas extends JPanel {
  public POINT prev_point, new_point;
  public ArrayList<ArrayList<POINT>> routes;
  public ArrayList<Color> routeColors;
+ public Image arrow;
 
- public double deltaAngle=0;
+ public double deltaAngle=0, fixedAngle=0;
  
   int rows; int cols;
   
@@ -54,6 +60,7 @@ class GridsCanvas extends JPanel {
   GridsCanvas(int w, int h, int r, int c, int singleSquareL, int offSet, int rbL, int rbW) {
 	  
     setSize(w, h);
+    this.setMinimumSize(new Dimension(w, h));
     rows = r;
     cols = c;
     width = w;
@@ -63,6 +70,12 @@ class GridsCanvas extends JPanel {
     robotX = 3.75; robotY = 1.5;
     rbLength = rbL;
     rbWidth = rbW;
+    
+    try {
+		arrow = ImageIO.read(new File("src/arrow.png"));
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
     
     routes = new ArrayList<ArrayList<POINT>>();
     routeColors = new ArrayList<Color>();
@@ -172,27 +185,10 @@ class GridsCanvas extends JPanel {
     //robot
     
     
-    g2d.setColor(Color.blue);
-    AffineTransform tx = new AffineTransform();
-    Line2D.Double line = new Line2D.Double(rectX+rbLength/2, rectY+rbWidth/2, rectX, rectY+rbWidth/2);
-
-    Polygon arrowHead = new Polygon();  
-    arrowHead.addPoint( 0,5);
-    arrowHead.addPoint( -5, -5);
-    arrowHead.addPoint( 5,-5);
+    g2d.drawImage(arrow, rectX, rectY, rbLength, rbWidth, null);
+    //arrow image
+   
     
-    tx.setToIdentity();
-    double angle = Math.atan2(line.y2-line.y1, line.x2-line.x1);
-    tx.translate(line.x2, line.y2);
-    tx.rotate((angle-Math.PI/2d));  
-
-    Graphics2D a = (Graphics2D) g2d.create();
-    a.rotate(deltaAngle, rectX+rbLength/2, rectY+rbWidth/2);
-    a.setTransform(tx);   
-    a.fill(arrowHead);
-    a.dispose();
-    
-    //arrow
     
     g2d.rotate(-deltaAngle, rectX+rbLength/2, rectY+rbWidth/2);
     g.setColor(Color.black);
@@ -268,7 +264,7 @@ class GridsCanvas extends JPanel {
 
 		  g.fillPolygon(xPoints, yPoints, 4);
 		  }
-
+  
   public void addPointsToRoute(ArrayList<POINT> route, POINT point){
 	  if(routeCapture){
 	  route.add(point);
@@ -362,6 +358,7 @@ public class Grids extends Frame implements KeyListener{
     NetworkTableEntry yawEntry = smart.getEntry("Yaw");
     NetworkTableEntry encoder = smart.getEntry("EncoderDistance");
     NetworkTableEntry driving = smart.getEntry("Driving");
+    
 
     inst.startClientTeam(3566, 1735);  // where TEAM=190, 294, etc, or use inst.startClient("hostname") or similar
    
@@ -369,32 +366,41 @@ public class Grids extends Frame implements KeyListener{
 
     while (true) {
       try {
-        Thread.sleep(50);
+        Thread.sleep(100);
       } catch (InterruptedException ex) {
         System.out.println("interrupted");
         return;
       }
 
+      if(yawEntry.exists()){
       Yaw = yawEntry.getDouble(0);
+      }else{
+    	  Yaw = xyz.fixedAngle;
+      }
       dist = encoder.getDouble(0);
       drivin = driving.getBoolean(false);
       
+      
       xyz.deltaAngle = Math.toRadians(Yaw);
       
-      if(drivin){
-      double temp = dist - prev_encoder; //placeholder
+      
+      double difference = dist - prev_encoder; //placeholder
       prev_encoder = dist; //record prev_encoder for the next update
-      dist = temp; //now change distance to the real delta d
+      dist = difference; //now change distance to the real delta d
       
       //10 units of dist is 1cm. Convert it to ft
       dist *= 0.001; //m
       dist *=3.28; //ft
-      
+    
+      if(drivin){
+    	  
       //using yaw and delta d, calculate delta x and delta y
       xyz.addToRobotX(dist * Math.sin(xyz.deltaAngle));
       xyz.addToRobotY(dist * Math.cos(xyz.deltaAngle));
-      System.out.println("X: "+ xyz.robotX+" Y: "+xyz.robotY+ " dist: "+dist+ " prev: "+prev_encoder);
       }
+      
+      
+      System.out.println("X: "+ xyz.robotX+" Y: "+xyz.robotY+ " dist: "+dist+ " prev: "+prev_encoder+" "+drivin);
       
       xyz.repaint();
   }
@@ -516,7 +522,8 @@ public void keyPressed(KeyEvent e) {
 		xyz.writePoints();
 		break;
 	case KeyEvent.VK_Z:
-		xyz.deltaAngle+=Math.toRadians(30);
+		xyz.fixedAngle+= 30; //no need to be in radians here
+		
 		break;
 	default:
 		System.out.println("not sure what you want to do, but apparently you pressed a key.");
@@ -530,6 +537,7 @@ public void keyPressed(KeyEvent e) {
 public void keyReleased(KeyEvent e) {
 	
 }
+
 
 
 } //end of demo class
