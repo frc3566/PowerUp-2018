@@ -1,21 +1,12 @@
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-<<<<<<< HEAD
 import java.awt.Image;
-import java.awt.Polygon;
-=======
->>>>>>> origin/master
 import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.BufferedWriter;
@@ -27,15 +18,12 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 
-/**
- * Program to draw grids.
- * 
- * @author Ian Darwin, http://www.darwinsys.com/
- */
+
 class POINT {
 	double x, y;
 	
@@ -47,7 +35,7 @@ class POINT {
 
 class GridsCanvas extends JPanel {
  public int width, height, squareLength, offset, rbLength, rbWidth;
- public double robotX, robotY;
+ public double robotX, robotY;//Y range: 1.5 - 52.5 		X range: 1.25 - 25.75
  public char prev_dir='n';
  public POINT prev_point, new_point;
  public ArrayList<ArrayList<POINT>> routes;
@@ -65,24 +53,17 @@ class GridsCanvas extends JPanel {
 
   GridsCanvas(int w, int h, int r, int c, int singleSquareL, int offSet, int rbL, int rbW) {
 	  
-<<<<<<< HEAD
     setSize(w, h);
     this.setMinimumSize(new Dimension(w, h));
-=======
->>>>>>> origin/master
     rows = r;
     cols = c;
     width = w;
     height = h;
     squareLength = singleSquareL;
     offset = offSet;
-    robotX = 0; robotY = 0;
+    robotX = 3.75; robotY = 1.5;
     rbLength = rbL;
     rbWidth = rbW;
-    this.setSize(width, height);
-    
-    routes = new ArrayList<ArrayList<POINT>>();
-    routeColors = new ArrayList<Color>();
     
     try {
 		arrow = ImageIO.read(new File("src/arrow.png"));
@@ -98,14 +79,9 @@ class GridsCanvas extends JPanel {
     YpointsXCoord= new int[c];
     
   }
-  
-//  public void update(Graphics g){
-//	 // g.clearRect(0, 0, width, height);
-//      paint(g);
-//}
-//  
-  public void paintComponent(Graphics g) {
-	  super.paintComponent(g);
+
+  public void paint(Graphics g) {
+	  
     int i;
 
     // draw the rows
@@ -191,6 +167,7 @@ class GridsCanvas extends JPanel {
     g2d.setColor(Color.orange);
     int rectX = (int)(YpointsXCoord[(int)(robotY-robotY%1)]-rbLength/2-(robotY%1)*squareLength);
     int rectY = (int)(XpointsYCoord[(int)(robotX-robotX%1)]-rbWidth/2-(robotX%1)*squareLength);
+   //ROTATE
     g2d.rotate(deltaAngle, rectX+rbLength/2, rectY+rbWidth/2);
     Rectangle rect = new Rectangle(rectX, rectY, 
     		rbLength, rbWidth);
@@ -201,15 +178,12 @@ class GridsCanvas extends JPanel {
                              (int)(XpointsYCoord[(int)(robotX-robotX%1)]-3-(robotX%1)*squareLength), 6, 6);
     //robot
     
-<<<<<<< HEAD
     
     g2d.drawImage(arrow, rectX, rectY, rbLength, rbWidth, null);
     //arrow image
    
     
     
-=======
->>>>>>> origin/master
     g2d.rotate(-deltaAngle, rectX+rbLength/2, rectY+rbWidth/2);
     g.setColor(Color.black);
     g.drawString("X: "+Double.toString(robotX), YpointsXCoord[(int)robotY]-3, XpointsYCoord[(int)robotX]-15);
@@ -222,6 +196,22 @@ class GridsCanvas extends JPanel {
     }
     //drawing the route by connecting the points
     
+  }
+  
+  public void addToRobotX(double deltaX){
+	  if((robotX + deltaX < 1.25)||(robotX + deltaX > 25.75)){
+		  System.out.println("robot x out of range. You would be bumpin the wall now.");
+	  }else{
+		  robotX+=deltaX;
+	  }
+  }
+  
+  public void addToRobotY(double deltaY){
+	  if((robotY + deltaY < 1.5)||(robotY + deltaY > 52.5)){
+		  System.out.println("robot y out of range. You would be bumpin the wall now.");
+	  }else{
+		  robotY+=deltaY;
+	  }
   }
   
   public void drawOneRoute(ArrayList<POINT> route, Graphics g, Color myColor){
@@ -282,46 +272,23 @@ class GridsCanvas extends JPanel {
   }
   
   public void writePoints(){
-
-	  File newFile;
 	  
-	  String OS;
-	  OS = System.getProperty("os.name");
-	  if (OS.startsWith("Windows")) {
-		  newFile = new File("routePoints"+System.currentTimeMillis()+".txt");
-		  try {
-			newFile.createNewFile();
-			BufferedWriter writer = new BufferedWriter(new FileWriter(newFile));
-			for(ArrayList<POINT> route: routes){
-			writer.write("START\n\n");
-			for(POINT p:route){
-			writer.write("X: "+p.x+" Y: "+p.y+"\n");
-			}
-			writer.write("\n\nDONE\n\n\n");
-			}
-			writer.close();
-			System.out.println("done writing: "+newFile.getAbsolutePath());
-		} catch (IOException e) {
-			e.printStackTrace();
+	  File newFile = new File("./routePoints"+LocalDateTime.now()+".txt");
+	  try {
+		newFile.createNewFile();
+		BufferedWriter writer = new BufferedWriter(new FileWriter(newFile));
+		for(ArrayList<POINT> route: routes){
+		writer.write("START\n\n");
+		for(POINT p:route){
+		writer.write("X: "+p.x+" Y: "+p.y+"\n");
 		}
-	  }else{
-		  newFile = new File("./routePoints"+LocalDateTime.now()+".txt");
-		  try {
-			newFile.createNewFile();
-			BufferedWriter writer = new BufferedWriter(new FileWriter(newFile));
-			for(ArrayList<POINT> route: routes){
-			writer.write("START\n\n");
-			for(POINT p:route){
-			writer.write("X: "+p.x+" Y: "+p.y+"\n");
-			}
-			writer.write("\n\nDONE\n\n\n");
-			}
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
+		writer.write("\n\nDONE\n\n\n");
 		}
-	  }
-	  
+		writer.close();
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
+	 
 	  
 	  
   }
@@ -337,6 +304,10 @@ public class Grids extends Frame implements KeyListener{
    */
 	public static Grids d;
 	public static GridsCanvas xyz;
+	public static NetworkTable nt;
+	public static double Yaw, dist, prev_encoder=0;
+	public static boolean drivin;
+	
 	
   Grids(String title, int w, int h, int rows, int cols, int sqrL, int rbL, int rbW) {
     setTitle(title);
@@ -363,8 +334,6 @@ public class Grids extends Frame implements KeyListener{
   }
 
   public static void main(String[] a) {
-	  
-	  
 	  String OS;
 	  OS = System.getProperty("os.name");
 	  if (OS.startsWith("Windows")) {
@@ -375,8 +344,11 @@ public class Grids extends Frame implements KeyListener{
     d.setVisible(true);
     d.requestFocus();
     
+    ///////
+    NetworkTableInstance inst = NetworkTableInstance.getDefault();
+    NetworkTable table = inst.getTable("/");
+    NetworkTable smart = table.getSubTable("SmartDashboard");
     
-<<<<<<< HEAD
     NetworkTableEntry yawEntry = smart.getEntry("Yaw");
     NetworkTableEntry encoder = smart.getEntry("EncoderDistance");
     NetworkTableEntry driving = smart.getEntry("Driving");
@@ -426,38 +398,8 @@ public class Grids extends Frame implements KeyListener{
       
       xyz.repaint();
   }
-=======
-    NetworkTable.setClientMode();
-    NetworkTable.setIPAddress("10.35.66.2");
-    NetworkTable table = NetworkTable.getTable("datatable");
     
-    
-    /*
-	   
-	  ProcessBuilder pb = new ProcessBuilder("java", "-jar", "FieldSimulator.jar");
-		pb.directory(new File("C:\\Users\\chris\\Desktop"));
-		try {
-			Process p = pb.start();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		*/
-    ActionListener taskPerformer = new ActionListener() {
-    	  public void actionPerformed(ActionEvent evt) {
-    	    xyz.repaint();
-    	    
-    	  }
-    	  };
-
-	
-
-    	new Timer(500, taskPerformer).start();
->>>>>>> origin/master
-    
-    
-		}
+  }
 
   public final double getRobotX() {
   	  return xyz.robotX;
@@ -478,14 +420,14 @@ public void keyPressed(KeyEvent e) {
 		if(getRobotX()<27) {
 			if((xyz.prev_dir!='x')){//changes direction or start
 			xyz.prev_point = new POINT(xyz.robotX, xyz.robotY); //record the turning point
-			xyz.robotX+=0.25;
+			xyz.addToRobotX(0.25);
 			xyz.new_point = new POINT(xyz.robotX, xyz.robotY);
 			if(xyz.routeCapture){
 				xyz.prev_dir = 'x';
 				xyz.addPointsToRoute(xyz.routes.get(xyz.routes.size()-1), xyz.new_point);
 			}
 			}else{//if not, keep the original turning point and go on, only setting the new_point
-			xyz.robotX+=0.25;
+				xyz.addToRobotX(0.25);
 			xyz.new_point = new POINT(xyz.robotX, xyz.robotY);
 			if(xyz.routeCapture)
 			xyz.replaceLastPointOnRoute(xyz.routes.get(xyz.routes.size()-1), xyz.new_point);
@@ -497,14 +439,14 @@ public void keyPressed(KeyEvent e) {
 		if(getRobotX()>0) {
 			if(xyz.prev_dir!='x'){//changes direction or start
 				xyz.prev_point = new POINT(xyz.robotX, xyz.robotY); //record the turning point
-				xyz.robotX-=0.25;
+				xyz.addToRobotX(-0.25);
 				xyz.new_point = new POINT(xyz.robotX, xyz.robotY);
 				if(xyz.routeCapture){
 					xyz.prev_dir = 'x';
 				xyz.addPointsToRoute(xyz.routes.get(xyz.routes.size()-1), xyz.new_point);
 				}
 				}else{//if not, keep the original turning point and go on, only setting the new_point
-				xyz.robotX-=0.25;
+					xyz.addToRobotX(-0.25);
 				xyz.new_point = new POINT(xyz.robotX, xyz.robotY);
 				if(xyz.routeCapture)
 			    xyz.replaceLastPointOnRoute(xyz.routes.get(xyz.routes.size()-1), xyz.new_point);
@@ -515,14 +457,14 @@ public void keyPressed(KeyEvent e) {
 		if(getRobotX()<54) {
 			if(xyz.prev_dir!='y'){//changes direction or start
 				xyz.prev_point = new POINT(xyz.robotX, xyz.robotY); //record the turning point
-				xyz.robotY+=0.25;
+				xyz.addToRobotY(0.25);
 				xyz.new_point = new POINT(xyz.robotX, xyz.robotY);
 				if(xyz.routeCapture){
 				xyz.prev_dir = 'y';
 				xyz.addPointsToRoute(xyz.routes.get(xyz.routes.size()-1), xyz.new_point);
 				}
 				}else{//if not, keep the original turning point and go on, only setting the new_point
-				xyz.robotY+=0.25;
+					xyz.addToRobotY(0.25);
 				xyz.new_point = new POINT(xyz.robotX, xyz.robotY);
 				if(xyz.routeCapture)
 				xyz.replaceLastPointOnRoute(xyz.routes.get(xyz.routes.size()-1), xyz.new_point);
@@ -533,14 +475,14 @@ public void keyPressed(KeyEvent e) {
 		if(getRobotX()>0) {
 			if(xyz.prev_dir!='y'){//changes direction or start
 				xyz.prev_point = new POINT(xyz.robotX, xyz.robotY); //record the turning point
-				xyz.robotY-=0.25;
+				xyz.addToRobotY(-0.25);
 				xyz.new_point = new POINT(xyz.robotX, xyz.robotY);
 				if(xyz.routeCapture){
 				xyz.prev_dir = 'y';
 				xyz.addPointsToRoute(xyz.routes.get(xyz.routes.size()-1), xyz.new_point);
 				}
 				}else{//if not, keep the original turning point and go on, only setting the new_point
-				xyz.robotY-=0.25;
+					xyz.addToRobotY(-0.25);
 				xyz.new_point = new POINT(xyz.robotX, xyz.robotY);
 				if(xyz.routeCapture)
 				xyz.replaceLastPointOnRoute(xyz.routes.get(xyz.routes.size()-1), xyz.new_point);
@@ -582,7 +524,7 @@ public void keyPressed(KeyEvent e) {
 		break;
 	}
 	
-	xyz.repaint();
+	
 }
 
 @Override
@@ -590,9 +532,6 @@ public void keyReleased(KeyEvent e) {
 	
 }
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> origin/master
 } //end of demo class
