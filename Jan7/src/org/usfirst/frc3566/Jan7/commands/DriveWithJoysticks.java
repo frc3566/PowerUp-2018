@@ -47,15 +47,8 @@ public class DriveWithJoysticks extends Command {
     @Override
     protected void execute() {
     	
-//    	Robot.driveTrain.goForward(Robot.oi.getJoystick1().getRawAxis(1)*(-1));
-//    	double v = Robot.oi.joystick1.getRawAxis(1);
-//    	if (Math.abs(v)>0.05) {
     	RobotMap.driveTrainDrive.tankDrive(Robot.oi.joystick1.getRawAxis(1)*-1, Robot.oi.joystick1.getRawAxis(1));
-    	//driveStraight
-//    	SmartDashboard.putBoolean("Driving", true);
-//    	}else {
-//    		SmartDashboard.putBoolean("Driving", false);
-//    	}
+
     }
 
     // Make this return true when this Command no longer needs to run execute()

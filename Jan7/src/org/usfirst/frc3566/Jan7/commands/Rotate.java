@@ -78,50 +78,7 @@ public class Rotate extends Command {
     	startDegree = 0;
     	endDegree = startDegree + deltaDegree;
     	
-    	/*
-    switch((int)Math.abs(deltaDegree)) {
-    	case 30:
-    		P = 0.024;
-    		I = 0;
-    		D = 0.002;
-    		maxPower = 0.5;
-    		break;
-    	case 45:
-    		P = 0.0214;
-    		I = 0;
-    		D = 0.002;
-    		maxPower = 0.5;
-    		break;
-    	case 60:
-    		P = 0.019;
-    		I = 0;
-    		D = 0.002;
-    		maxPower = 0.5;
-    		break;
-    	case 90:
-    		P = 0.017;
-    		I = 0;
-    		D = 0.002;
-    		maxPower = 0.5;
-    		break;
-    		
-    	default:
-    		P=SmartDashboard.getNumber("P", 0);
-            I=SmartDashboard.getNumber("I", 0);
-            D=SmartDashboard.getNumber("D", 0);
-           
-            maxPower=SmartDashboard.getNumber("maxPower", 1);
-    }
-
-    SmartDashboard.putNumber("P", P);
-    SmartDashboard.putNumber("I", I);
-    SmartDashboard.putNumber("D", D);
-
-    SmartDashboard.putNumber("maxPower", maxPower);
-    */
     	
-    	// P=1/(2.2*Math.abs(deltaDegree)+18)+0.012;
-    	// P=1/(2.2*Math.abs(deltaDegree)+18)+0.014; //A
     	 P=1/(2.2*Math.abs(deltaDegree)+18)+0.0175;
     	 I=0;
     	 D=0.002;

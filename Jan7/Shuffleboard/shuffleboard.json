@@ -87,16 +87,6 @@
               "_title": "DriveSpeed"
             }
           },
-          "4,4": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Encoder",
-              "_title": ""
-            }
-          },
           "0,3": {
             "size": [
               1,
@@ -133,7 +123,7 @@
               "_title": "rotateDirection"
             }
           },
-          "6,5": {
+          "6,4": {
             "size": [
               1,
               1
@@ -268,17 +258,6 @@
               "_title": "power"
             }
           },
-          "7,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/error",
-              "_title": "error"
-            }
-          },
           "8,0": {
             "size": [
               1,
@@ -312,28 +291,6 @@
               "_title": "maxA"
             }
           },
-          "7,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/encoderDis",
-              "_title": "encoderDis"
-            }
-          },
-          "8,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/OldEncoderDis",
-              "_title": "OldEncoderDis"
-            }
-          },
           "9,1": {
             "size": [
               1,
@@ -354,39 +311,6 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/LastRotate",
               "_title": "LastRotate"
-            }
-          },
-          "7,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/DriveForTenF",
-              "_title": "DriveForTenF"
-            }
-          },
-          "9,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/x",
-              "_title": "x"
-            }
-          },
-          "3,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/y",
-              "_title": "y"
             }
           },
           "5,3": {
@@ -411,6 +335,17 @@
               "_title": "Driving",
               "colorWhenTrue": "#7CFC00FF",
               "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "2,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Sonar",
+              "_title": "Sonar"
             }
           }
         }
@@ -583,6 +518,121 @@
                   "_title": "Encoder[1]/Speed"
                 }
               ]
+            }
+          },
+          "3,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Ultrasonic[1]/Value",
+              "_title": "Ungrouped/Ultrasonic[1]/Value"
+            }
+          },
+          "4,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Speed Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [25]",
+              "_title": "Ungrouped/Talon SRX [25]",
+              "controllable": false,
+              "orientation": "HORIZONTAL"
+            }
+          },
+          "0,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Speed Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [50]",
+              "_title": "Ungrouped/Talon SRX [50]",
+              "controllable": false,
+              "orientation": "HORIZONTAL"
+            }
+          },
+          "2,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Speed Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [60]",
+              "_title": "Ungrouped/Talon SRX [60]",
+              "controllable": false,
+              "orientation": "HORIZONTAL"
+            }
+          },
+          "4,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Speed Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [20]",
+              "_title": "Ungrouped/Talon SRX [20]",
+              "controllable": false,
+              "orientation": "HORIZONTAL"
+            }
+          },
+          "6,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Speed Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [35]",
+              "_title": "Ungrouped/Talon SRX [35]",
+              "controllable": false,
+              "orientation": "HORIZONTAL"
+            }
+          },
+          "8,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Speed Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [10]",
+              "_title": "Ungrouped/Talon SRX [10]",
+              "controllable": false,
+              "orientation": "HORIZONTAL"
+            }
+          },
+          "0,5": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Speed Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [40]",
+              "_title": "Ungrouped/Talon SRX [40]",
+              "controllable": false,
+              "orientation": "HORIZONTAL"
+            }
+          },
+          "2,5": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Speed Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [30]",
+              "_title": "Ungrouped/Talon SRX [30]",
+              "controllable": false,
+              "orientation": "HORIZONTAL"
             }
           }
         }
