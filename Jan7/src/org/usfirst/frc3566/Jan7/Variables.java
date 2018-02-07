@@ -38,6 +38,8 @@ public class Variables {
 		rotateSpeed = SmartDashboard.getNumber("rotateSpeed", -0.1);
 		rotateDirection = SmartDashboard.getBoolean("rotateDirection", true);
 		
+	
+		
 		double v = Robot.oi.joystick1.getRawAxis(1);
     	
 	}
