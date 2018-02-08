@@ -37,7 +37,7 @@ public class Robot extends TimedRobot {
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
    // UsbCamera cam1;
-    Encoder encoder1;
+   // Encoder encoder1;
     Ultrasonic sonar;
 
     public static OI oi;
@@ -129,15 +129,14 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
-    	System.out.println("teleopPeriodic printing out");
         Scheduler.getInstance().run();
-        SmartDashboard.putNumber("RearRight Current", RobotMap.RearRight.getOutputCurrent());
+        //SmartDashboard.putNumber("RearRight Current", RobotMap.RearRight.getOutputCurrent());
         var.updateValues();
         oi.updateCommands();
         updatePigeonValues();
         updateSonarValues();
         
-        SmartDashboard.putNumber("EncoderDistance", encoder1.getDistance());
+     //   SmartDashboard.putNumber("EncoderDistance", encoder1.getDistance());
         
     }
     
