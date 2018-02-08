@@ -12,6 +12,7 @@ import org.usfirst.frc.team3566.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -23,8 +24,9 @@ public class Robot extends TimedRobot {
 	public static DriveTrain drivetrain;
 	public static Variables var;
 	
-	public Encoder encoderL, encoderR;
+	public static Encoder encoderL, encoderR;
 	
+	public static Timer time;
 	
 	Autonomous auto;
 	SendableChooser<POINT> startingPosition = new SendableChooser<>();
@@ -44,6 +46,8 @@ public class Robot extends TimedRobot {
 		startingPosition.addDefault("Pos3", new POINT(25, 1.75));
 		
 		auto = new Autonomous(startingPosition.getSelected());
+		
+		time = new Timer();
 		
 	//	encoderL = new Encoder();
 	//	encoderL.setDistancePerPulse(distancePerPulse);
@@ -92,6 +96,10 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		
+		var.updateValues();
+		
+		
 	}
 
 
