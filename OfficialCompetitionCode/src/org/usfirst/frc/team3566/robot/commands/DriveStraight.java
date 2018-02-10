@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class DriveStraight extends Command {
-
+	static final double maxSpeed=1500;
 	double  P=0.0008, I=0.00035, D=0.00018;
     double integral, previousError, derivative, setPoint = 2000;
     double power=0,error=0;
@@ -17,6 +17,7 @@ public class DriveStraight extends Command {
     double startTime,time,length;
     double startAngle;
     boolean isAuto;
+    
     //input in feet
     public DriveStraight(double distanceInFt) {
     	setPoint= distanceInFt*304.8;
@@ -31,7 +32,9 @@ public class DriveStraight extends Command {
 
     @Override
     protected void initialize() {
-    	if(isAuto)setPoint=Robot.var.distance;
+    	//Robot.var.distance's unit is ft, while DriveStraight needs to use Encoder in cm. 
+    	//we're converting units here in the beginning to get rid of the problem
+    	if(isAuto)setPoint=Robot.var.distance * 304.8;   //1 ft = 304.8 mm. Distance (ft) converted to mm for encoder drive
     	length=setPoint;
     	Robot.var.collision.isCollide=false;
     	startAngle=Robot.var.getTheta();
@@ -42,11 +45,14 @@ public class DriveStraight extends Command {
     
     void ramp()
     {
-    	double max=1;
-    	if(time<0.5)max=time*1.5;
-    	if(Robot.encoderL.getRate()>1800)power=Math.min(0.8, power);
-    	else if(Robot.encoderL.getRate()<-1800)power=Math.max(-0.8, power);
-    	power=Math.min(max, power);
+    	if(time<0.5 && error>0)
+    		power=Math.min(time*2, power);
+    	else if(time<0.5 && error<0) power=Math.max(time*-2, power);
+    	if(Robot.encoderL.getRate()>maxSpeed*0.7)
+    		power=Math.min(1.6-Robot.encoderL.getRate()/maxSpeed, power);
+    	else if(Robot.encoderL.getRate()<maxSpeed*-0.7)
+    		power=Math.max(-1.6-Robot.encoderL.getRate()/maxSpeed, power);
+    	
     }
     
     void PID() {

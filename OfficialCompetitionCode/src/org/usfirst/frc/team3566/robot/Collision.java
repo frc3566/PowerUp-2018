@@ -15,7 +15,7 @@ public class Collision {
 	{
 		isCollide=false;
 		lastLSpeed=Robot.encoderL.getRate();
-		lastRSpeed=Robot.encoderR.getRate();
+		lastRSpeed=Robot.encoderL.getRate();//Robot.encoderR.getRate();
 		collideSpan=0;
 		lastStuck=Robot.time.get();
 	}
@@ -23,7 +23,9 @@ public class Collision {
 	{	
 		collideSpan+=timeSpan;
 		if( !(Math.abs(RobotMap.left.get())>0.4&&Math.abs(Robot.encoderL.getRate())<400 ||
-				Math.abs(RobotMap.right.get())>0.4&&Math.abs(Robot.encoderR.getRate())<400) )lastStuck=Robot.time.get();
+				Math.abs(RobotMap.right.get())>0.4&&
+				Math.abs(Robot.encoderL.getRate())<400) )//Robot.encoderR.getRate())<400) )
+			lastStuck=Robot.time.get();
 		else if(Robot.time.get()-lastStuck>0.3)isCollide=true;
 		if(collideSpan<0.15)return;
 		double newL=Robot.encoderL.getRate(),newR=Robot.encoderL.getRate();

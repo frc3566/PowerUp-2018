@@ -24,16 +24,20 @@ public class Robot extends TimedRobot {
 	public static DriveTrain drivetrain;
 	public static Variables var;
 	
-	public static Encoder encoderL, encoderR;
+	public static Encoder encoderL;//, encoderR;
 	
 	public static Timer time;
 	
 	Autonomous auto;
 	SendableChooser<POINT> startingPosition = new SendableChooser<>();
+	SendableChooser<Double> startingPositionX = new SendableChooser<>();
+	SendableChooser<Double> startingPositionY = new SendableChooser<>();
 
 
 	@Override
 	public void robotInit() {
+		RobotMap.init();
+		
 		//IMPORTANT THAT VAR IS INSTANTIATED FIRST
 		var = new Variables();
 		
@@ -41,18 +45,32 @@ public class Robot extends TimedRobot {
 		oi = new OI();
 		drivetrain = new DriveTrain();
 		
-		startingPosition.addDefault("Pos1", new POINT(3, 1.75));
-		startingPosition.addDefault("Pos2", new POINT(13, 1.75));
-		startingPosition.addDefault("Pos3", new POINT(25, 1.75));
+		startingPosition.addDefault("P1", new POINT(3.0, 1.75));
+		startingPosition.addObject("P2", new POINT(13.0, 1.75));
+		startingPosition.addObject("P3", new POINT(25.0, 1.75));
 		
-		auto = new Autonomous(startingPosition.getSelected());
+		startingPositionX.addObject("X1", 3.0);
+		startingPositionX.addObject("X2", 13.0);
+		startingPositionX.addObject("X3", 25.0);
+		
+		startingPositionY.addObject("Y1", 1.75);
+		startingPositionY.addObject("Y2", 3.0);
+		
+		SmartDashboard.putData("startingPosition", startingPosition);
+		
+		auto = new Autonomous(new POINT(startingPositionX.getSelected(), startingPositionY.getSelected()));
 		
 		time = new Timer();
 		
-	//	encoderL = new Encoder();
-	//	encoderL.setDistancePerPulse(distancePerPulse);
-	//	encoderR = new Encoder();
-//		encoderR.setDistancePerPulse(distancePerPulse);
+		encoderL = new Encoder(0,1,false,Encoder.EncodingType.k4X);
+		encoderL.setDistancePerPulse(1.3725);
+		//encoder wheel perimeter 227.13mm
+		/*
+		encoderR = new Encoder(0, 1);
+		encoderR.setDistancePerPulse(1);
+		*/
+		
+		
 		
 	}
 
@@ -98,8 +116,7 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 		
 		var.updateValues();
-		
-		
+		System.out.println(encoderL.getDistance());
 	}
 
 
