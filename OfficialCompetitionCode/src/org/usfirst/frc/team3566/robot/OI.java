@@ -8,6 +8,8 @@
 package org.usfirst.frc.team3566.robot;
 
 import org.usfirst.frc.team3566.*;
+import org.usfirst.frc.team3566.robot.commands.DriveStraight;
+import org.usfirst.frc.team3566.robot.commands.Rotate;
 import org.usfirst.frc.team3566.robot.commands.RotateNonStop;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -18,6 +20,8 @@ public class OI {
 	
     public Joystick joystick1;
     public JoystickButton rotateLeft, rotateRight;
+    public JoystickButton goStraight,rotate;
+    
 
 
     public OI() {
@@ -29,6 +33,12 @@ public class OI {
         
         rotateRight = new JoystickButton(joystick1, 6);
         rotateRight.whileHeld(new RotateNonStop(Robot.var.rotateNonStopSpd));
+        
+        goStraight= new JoystickButton(joystick1,1);
+        goStraight.whenPressed(new DriveStraight(10));
+        
+        rotate= new JoystickButton(joystick1,2);
+        rotate.whenPressed(new Rotate(90));
     }
 
     public void updateCommands() {

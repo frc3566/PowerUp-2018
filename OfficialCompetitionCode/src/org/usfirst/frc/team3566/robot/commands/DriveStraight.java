@@ -9,9 +9,10 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class DriveStraight extends Command {
-	static final double maxSpeed=1500;
+	static final double maxSpeed=2500;
 	double  P=0.0008, I=0.00035, D=0.00018;
-    double integral, previousError, derivative, setPoint = 2000;
+//    double P=0.0006,I=0.0002,D=0.0001;
+	double integral, previousError, derivative, setPoint = 2000;
     double power=0,error=0;
     double maxPower=1;
     double startTime,time,length;
@@ -69,14 +70,14 @@ public class DriveStraight extends Command {
     	//Robot.var.updateXY();
     	time=Robot.time.get()-startTime;
         PID();
-        ramp();
-    	RobotMap.drive.tankDrive(power,power);
+//        ramp();
+    	RobotMap.drive.tankDrive(power,-power);
     }
 
     @Override
     protected boolean isFinished() {
     	double errAngle=(Robot.var.getTheta()-startAngle+360)%360;
-    	if(errAngle>15 && errAngle<345)return true;
+//    	if(errAngle>15 && errAngle<345)return true;
     	if(Robot.oi.joystick1.getRawButton(3))return true;
     	if(Robot.var.isCollide)return true;
     	if(Math.abs(error)<100&&Robot.encoderL.getRate()<100)return true;//needs consideration

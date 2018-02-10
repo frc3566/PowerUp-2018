@@ -54,7 +54,7 @@ public class Rotate extends Command {
     	PID();
     	
     	spd*=maxPower;
-    	RobotMap.drive.tankDrive(spd, -spd);
+    	RobotMap.drive.tankDrive(spd, spd);
     }
 
     @Override

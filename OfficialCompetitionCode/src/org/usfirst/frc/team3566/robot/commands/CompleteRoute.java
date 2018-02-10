@@ -14,7 +14,7 @@ public class CompleteRoute extends CommandGroup {
 	
     public CompleteRoute(ArrayList<POINT> routeToComplete) {
 
-    	ArrayList<POINT> route = new ArrayList<POINT>();
+    	ArrayList<POINT> route = routeToComplete;
     	
     	for(int p=0; p<routeToComplete.size(); p++) {
     		addSequential(new CalculateAngle(route.get(p)));

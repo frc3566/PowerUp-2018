@@ -30,11 +30,13 @@ public class Autonomous extends Command {
     	SmartDashboard.putString("OppSwitch", Robot.var.oppSwitchPos+"");
     	
     	Robot.var.XYReset(startingPosition.getX(), startingPosition.getY());
+    	System.out.println("XY reset: "+ Robot.var.x+" "+Robot.var.y);
     	
     	ArrayList<POINT> routeToPerform = Robot.var.route11;  //default, go left and cross auto line
     	
     	if(startingPosition.getX()<10) { //starting Left
     		if(Robot.var.ourSwitchPos == 'L') {
+    			System.out.println("left "+startingPosition.getX());
     			routeToPerform = Robot.var.route1;
     		}else if(Robot.var.ScalePos == 'L') {
     			routeToPerform = Robot.var.route2;
@@ -67,6 +69,7 @@ public class Autonomous extends Command {
 
     @Override
     protected void execute() {
+    	Robot.var.updateValues();
     }
 
     @Override

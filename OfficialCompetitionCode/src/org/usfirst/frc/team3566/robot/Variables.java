@@ -101,13 +101,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 			SmartDashboard.putNumber("x", x);
 			SmartDashboard.putNumber("y", y);
 			SmartDashboard.putNumber("theta", getTheta()); 
-			
+			SmartDashboard.putNumber("encoderL", Robot.encoderL.getDistance());
 		}
 		
 		public void setSwitchScaleSides() {
-			ourSwitchPos = gameMessage.charAt(0);
-			ScalePos = gameMessage.charAt(1);
-			oppSwitchPos = gameMessage.charAt(2);
+			System.out.println("GameMessage!:"+gameMessage+gameMessage.indexOf('L'));
+			char[] chars = gameMessage.toCharArray();
+			
+			ourSwitchPos = chars[0];
+			ScalePos = chars[1];
+			oppSwitchPos = chars[2];
 		}
 		
 		
@@ -149,6 +152,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 		
 		public static void XYReset(double X, double Y)
 		{
+			coordinateReset();
 			x=X;
 	        y=Y;
 		}
@@ -175,6 +179,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 			lastL=curL;
 			lastR=curR;
 		}
+		
 		/* return the theta angle in degree of the vector (_x,_y) in the polar system, range[0,360)
 		 * try not to call if x==0 && y==0, that may cause problematic rotation
 		 */

@@ -47,9 +47,9 @@ public class Robot extends TimedRobot {
 		
 		drivetrain = new DriveTrain();
 		oi = new OI();
-		startingPosition.addDefault("P1", new POINT(3.0, 1.75));
-		startingPosition.addObject("P2", new POINT(13.0, 1.75));
-		startingPosition.addObject("P3", new POINT(25.0, 1.75));
+		startingPosition.addDefault("P1", new POINT(3.75, 1.5));
+		startingPosition.addObject("P2", new POINT(14.5, 1.5));
+		startingPosition.addObject("P3", new POINT(23.5, 1.5));
 		
 		startingPositionX.addObject("X1", 3.0);
 		startingPositionX.addObject("X2", 13.0);
@@ -62,16 +62,19 @@ public class Robot extends TimedRobot {
 		
 		time = new Timer();
 		
-		//encoder wheel perimeter 227.13mm
+		//encoder wheel perimeter 227.13mm,1171
 		encoderL = new Encoder(0,1,false,Encoder.EncodingType.k4X);
-		encoderL.setDistancePerPulse(1.3725);
-		encoderR = new Encoder(2,3,false,Encoder.EncodingType.k4X);
-		encoderR.setDistancePerPulse(2.47);
+		encoderL.setDistancePerPulse(-1.3725);
+		
+//		encoderR = new Encoder(2,3,false,Encoder.EncodingType.k4X);
+//		encoderR.setDistancePerPulse(2.394);
+		encoderR=encoderL;
 		
 		cam1 = CameraServer.getInstance().startAutomaticCapture(0);
         cam1.setResolution(640, 320);
         
         var.reset();
+        SmartDashboard.putNumber("maxPower", 1);
 	}
 
 
@@ -89,7 +92,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		
-		auto = new Autonomous(new POINT(startingPositionX.getSelected(), startingPositionY.getSelected()));
+		auto = new Autonomous(new POINT(startingPosition.getSelected().getX(), startingPosition.getSelected().getY()));
 		
 		if (auto != null) {
 			auto.start();
@@ -111,14 +114,15 @@ public class Robot extends TimedRobot {
 		}
 		encoderL.reset();
 		encoderR.reset();
-		
+		//var.XYReset(0, 0);
+		var.reset();
 	}
 
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		var.updateValues();
-		System.out.printf("L %.0f R%.0f\n",encoderL.getDistance(),encoderR.getDistance());
+//		System.out.printf("L %.0f R%.0f\n",encoderL.getDistance(),encoderR.getDistance());
 	}
 
 	@Override

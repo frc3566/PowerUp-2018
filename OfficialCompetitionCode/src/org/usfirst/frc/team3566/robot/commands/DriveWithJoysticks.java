@@ -27,7 +27,7 @@ public class DriveWithJoysticks extends Command {
 
     @Override
     protected void initialize() {
-    	System.out.println("joystick starts");
+//    	System.out.println("joystick starts");
     }
 
     @Override
@@ -44,11 +44,11 @@ public class DriveWithJoysticks extends Command {
 
     @Override
     protected void end() {
-    	System.out.println("joystick ends");
+//    	System.out.println("joystick ends");
     }
 
     @Override
     protected void interrupted() {
-    	System.out.println("joystick interrupts");
+//    	System.out.println("joystick interrupts");
     }
 }
