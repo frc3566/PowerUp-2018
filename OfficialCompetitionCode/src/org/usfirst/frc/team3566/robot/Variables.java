@@ -26,57 +26,68 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 		}
 		
 		public void setUpRoutePoints() {
+			
 			route1 = new ArrayList<POINT>();	//left switch left
 			route1.add(new POINT(3.75, 1.5));
 			route1.add(new POINT(3.75, 14.0));
 			route1.add(new POINT(6.25, 14.0));
 			
+			route2 = new ArrayList<POINT>();
 	    	route2.add(new POINT(3.75, 1.5));	//left scale left
 	    	route2.add(new POINT(3.75, 27.0));
 	    	route2.add(new POINT(4.75, 27.0));
 
+	    	route3 = new ArrayList<POINT>();
 	    	route3.add(new POINT(3.75, 1.5));	//left both right, to post 
 	    	route3.add(new POINT(10.5, 1.5));
 	    	//deliver
 	    	route3.add(new POINT(10.5, 10.0));  ////go to auto line
 	    	
+	    	route4 = new ArrayList<POINT>();
 	    	route4.add(new POINT(23.25, 1.5));	//right switch right
 	    	route4.add(new POINT(23.25, 14.0));
 	    	route4.add(new POINT(20.75, 14.0));
 	    	
+	    	route5 = new ArrayList<POINT>();
 	    	route5.add(new POINT(23.25, 1.5));	//right scale right
 	    	route5.add(new POINT(23.25, 27.0));
 	    	route5.add(new POINT(22.25, 27.0));
 	    	
+	    	route6 = new ArrayList<POINT>();
 	    	route6.add(new POINT(23.25, 1.5));	//right both left
 	    	route6.add(new POINT(10.5, 1.5));
 	    	//deliver
 	    	route6.add(new POINT(10.5, 10));   ////to auto line
 	    	
+	    	route7 = new ArrayList<POINT>();
 	    	route7.add(new POINT(14.5, 1.5));	//mid scale right
 	    	route7.add(new POINT(14.5, 4.25));
 	    	route7.add(new POINT(23.5, 4.25));
 	    	route7.add(new POINT(23.5, 27.0));
 	    	route7.add(new POINT(22.25, 27.0));
 	    	
+	    	route8 = new ArrayList<POINT>();
 	    	route8.add(new POINT(14.5, 1.5));	//mid scale left
 	    	route8.add(new POINT(14.5, 4.25));
 	    	route8.add(new POINT(3.5, 4.25));
 	    	route8.add(new POINT(3.5, 27.0));
 	    	route8.add(new POINT(4.75, 27.0));
 	    	
+	    	route9 = new ArrayList<POINT>();
 	    	route9.add(new POINT(14.5, 1.5));	//mid switch right
 	    	route9.add(new POINT(14.5, 4.5));
 	    	route9.add(new POINT(21.25, 4.5));
 	    	route9.add(new POINT(21.25, 14.0));
 	    	route9.add(new POINT(20.75, 14.0));
 	    	
+	    	route10 = new ArrayList<POINT>();
 	    	route10.add(new POINT(14.5, 1.5));	//mid switch left
 	    	route10.add(new POINT(14.5, 4.75));
 	    	route10.add(new POINT(5.75, 4.75));
 	    	route10.add(new POINT(5.75, 14.0));
 	    	route10.add(new POINT(6.25, 14.0));
 	    	
+	    	route11 = new ArrayList<POINT>();
 	    	route11.add(new POINT(14.5, 1.5));	//to the post
 	    	route11.add(new POINT(10.5, 1.5));
 	    	route11.add(new POINT(10.5, 10.0));
@@ -106,7 +117,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 		{
 			RobotMap.pigeon.setYaw(0, 0);
 	        Robot.encoderL.reset();
-	       // Robot.encoderR.reset();
+	        Robot.encoderR.reset();
 	        
 	        collision.collideReset();
 	        coordinateReset();
@@ -119,7 +130,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 		
 		public double getEncoder()
 		{
-			return (Robot.encoderL.getDistance()+Robot.encoderL.getDistance())/2;//Robot.encoderR.getDistance())/2;
+			return (Robot.encoderL.getDistance()+Robot.encoderR.getDistance())/2;//Robot.encoderR.getDistance())/2;
 		}
 		
 		//coordinate system
@@ -156,7 +167,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 		private static void updateXY()
 		{
 			double theta=getTheta();
-			double curL=Robot.encoderL.getDistance(),curR=Robot.encoderL.getDistance();//Robot.encoderR.getDistance();
+			double curL=Robot.encoderL.getDistance(),curR=Robot.encoderR.getDistance();//Robot.encoderR.getDistance();
 			double dis=(curL-lastL+curR-lastR)/2;
 			dis = dis / 304.8;		//convert to ft, so that x,y is in ft
 			x+= dis* Math.cos(Math.toRadians(theta));

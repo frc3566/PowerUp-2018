@@ -22,9 +22,7 @@ public class DriveWithJoysticks extends Command {
 
 
     public DriveWithJoysticks() {
-
         requires(Robot.drivetrain);
-
     }
 
     @Override
@@ -33,9 +31,8 @@ public class DriveWithJoysticks extends Command {
 
     @Override
     protected void execute() {
-    	
-    	RobotMap.drive.tankDrive(Robot.oi.joystick1.getRawAxis(1)*-1, Robot.oi.joystick1.getRawAxis(1));
-    
+    	double maxPower=SmartDashboard.getNumber("maxPower", 1);
+    	RobotMap.drive.tankDrive(Robot.oi.joystick1.getRawAxis(1)*-1*maxPower, Robot.oi.joystick1.getRawAxis(1)*maxPower);
     }
 
     @Override

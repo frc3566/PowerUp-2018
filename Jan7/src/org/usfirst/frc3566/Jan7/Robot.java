@@ -57,24 +57,18 @@ public class Robot extends TimedRobot {
       
         driveTrain = new DriveTrain();
         
-/*
-        cam1 = CameraServer.getInstance().startAutomaticCapture(0);
-        cam1.setResolution(640, 320);
-   
-        
-        encoder1 = new Encoder(0,1,false,Encoder.EncodingType.k4X);
-        encoder1.setDistancePerPulse(-1.065);
-        */
+//        cam1 = CameraServer.getInstance().startAutomaticCapture(0);
+//        cam1.setResolution(640, 320);
+//   
+//        
+//        encoder1 = new Encoder(0,1,false,Encoder.EncodingType.k4X);
+//        encoder1.setDistancePerPulse(-1.065);
          
         oi = new OI();
-        
         
         sonar = new Ultrasonic (0, 1);
         sonar.setAutomaticMode(true);
         
-        
-        // Add commands to Autonomous Sendable Chooser
-
         chooser.addDefault("Autonomous Command", new AutonomousCommand());
 
         SmartDashboard.putData("Auto mode", chooser);

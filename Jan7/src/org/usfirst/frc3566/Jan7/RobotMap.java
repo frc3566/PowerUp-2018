@@ -27,19 +27,19 @@ public class RobotMap {
     public static DifferentialDrive driveTrainDrive;
 
     public static void init() {
-        FrontLeft = new WPI_TalonSRX(17);
+        FrontLeft = new WPI_TalonSRX(10);
         
         
-        RearLeft = new WPI_TalonSRX(15);
+        RearLeft = new WPI_TalonSRX(11);
        // RearLeft.setInverted(true);
         
         
-        FrontRight = new WPI_TalonSRX(18);
+        FrontRight = new WPI_TalonSRX(12);
         FrontRight.setInverted(true);
         pigeon = new PigeonIMU(FrontRight);
         //pigeonIMU is connected to the talon with port 2. 
         
-        RearRight = new WPI_TalonSRX(16);
+        RearRight = new WPI_TalonSRX(13);
         RearRight.setInverted(true);
         
         

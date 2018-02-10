@@ -21,6 +21,8 @@ public class Autonomous extends Command {
 
     @Override
     protected void initialize() {
+    	
+    	
     	Robot.var.gameMessage = DriverStation.getInstance().getGameSpecificMessage();
     	Robot.var.setSwitchScaleSides(); //splits gameMessage into individual message
     	SmartDashboard.putString("OurSwitch", Robot.var.ourSwitchPos+"");

@@ -10,6 +10,8 @@ package org.usfirst.frc.team3566.robot;
 import org.usfirst.frc.team3566.robot.commands.Autonomous;
 import org.usfirst.frc.team3566.robot.subsystems.DriveTrain;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -24,7 +26,8 @@ public class Robot extends TimedRobot {
 	public static DriveTrain drivetrain;
 	public static Variables var;
 	
-	public static Encoder encoderL;//, encoderR;
+	public static Encoder encoderL, encoderR;
+	UsbCamera cam1;
 	
 	public static Timer time;
 	
@@ -40,7 +43,6 @@ public class Robot extends TimedRobot {
 		
 		//IMPORTANT THAT VAR IS INSTANTIATED FIRST
 		var = new Variables();
-		
 		
 		oi = new OI();
 		drivetrain = new DriveTrain();
@@ -58,20 +60,18 @@ public class Robot extends TimedRobot {
 		
 		SmartDashboard.putData("startingPosition", startingPosition);
 		
-		auto = new Autonomous(new POINT(startingPositionX.getSelected(), startingPositionY.getSelected()));
-		
 		time = new Timer();
 		
+		//encoder wheel perimeter 227.13mm
 		encoderL = new Encoder(0,1,false,Encoder.EncodingType.k4X);
 		encoderL.setDistancePerPulse(1.3725);
-		//encoder wheel perimeter 227.13mm
-		/*
-		encoderR = new Encoder(0, 1);
-		encoderR.setDistancePerPulse(1);
-		*/
+		encoderR = new Encoder(2,3,false,Encoder.EncodingType.k4X);
+		encoderR.setDistancePerPulse(2.47);
 		
-		
-		
+		cam1 = CameraServer.getInstance().startAutomaticCapture(0);
+        cam1.setResolution(640, 320);
+        
+        var.reset();
 	}
 
 
@@ -88,7 +88,9 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
-
+		
+		auto = new Autonomous(new POINT(startingPositionX.getSelected(), startingPositionY.getSelected()));
+		
 		if (auto != null) {
 			auto.start();
 		}
@@ -107,18 +109,17 @@ public class Robot extends TimedRobot {
 		if (auto != null) {
 			auto.cancel();
 		}
-		
+		encoderL.reset();
+		encoderR.reset();
 		
 	}
 
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		
 		var.updateValues();
-		System.out.println(encoderL.getDistance());
+		System.out.printf("L %.0f R%.0f\n",encoderL.getDistance(),encoderR.getDistance());
 	}
-
 
 	@Override
 	public void testPeriodic() {
