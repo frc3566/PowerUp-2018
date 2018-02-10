@@ -27,12 +27,14 @@ public class DriveWithJoysticks extends Command {
 
     @Override
     protected void initialize() {
+    	System.out.println("joystick starts");
     }
 
     @Override
     protected void execute() {
     	double maxPower=SmartDashboard.getNumber("maxPower", 1);
     	RobotMap.drive.tankDrive(Robot.oi.joystick1.getRawAxis(1)*-1*maxPower, Robot.oi.joystick1.getRawAxis(1)*maxPower);
+    	//Robot.drivetrain.runMotor(Robot.oi.joystick1.getRawAxis(1));
     }
 
     @Override
@@ -42,9 +44,11 @@ public class DriveWithJoysticks extends Command {
 
     @Override
     protected void end() {
+    	System.out.println("joystick ends");
     }
 
     @Override
     protected void interrupted() {
+    	System.out.println("joystick interrupts");
     }
 }

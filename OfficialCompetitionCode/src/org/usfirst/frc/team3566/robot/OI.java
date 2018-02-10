@@ -29,9 +29,6 @@ public class OI {
         
         rotateRight = new JoystickButton(joystick1, 6);
         rotateRight.whileHeld(new RotateNonStop(Robot.var.rotateNonStopSpd));
-        
-
-
     }
 
     public void updateCommands() {

@@ -44,6 +44,11 @@ public class DriveTrain extends Subsystem {
 
     }
     
+    public void runMotor(double spd)
+    {
+    	FR.set(spd);
+    }
+    
    public void stopDrive() {
 	  FL.stopMotor();
 	  RL.stopMotor();

@@ -44,9 +44,9 @@ public class Robot extends TimedRobot {
 		//IMPORTANT THAT VAR IS INSTANTIATED FIRST
 		var = new Variables();
 		
-		oi = new OI();
-		drivetrain = new DriveTrain();
 		
+		drivetrain = new DriveTrain();
+		oi = new OI();
 		startingPosition.addDefault("P1", new POINT(3.0, 1.75));
 		startingPosition.addObject("P2", new POINT(13.0, 1.75));
 		startingPosition.addObject("P3", new POINT(25.0, 1.75));
