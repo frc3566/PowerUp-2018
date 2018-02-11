@@ -5,6 +5,7 @@ import com.ctre.phoenix.sensors.PigeonIMU;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class RobotMap {
@@ -16,18 +17,19 @@ public class RobotMap {
     
     
     public static WPI_TalonSRX BPU1, BPU2, BPU3, BPU4;
-    public static WPI_TalonSRX Elev1, Elev2;
+    public static WPI_TalonSRX ElevLeft, ElevRight;
     public static WPI_TalonSRX Tilter;
     public static WPI_TalonSRX Climber;
     
     public static PigeonIMU pigeon;
     
-    public static SpeedControllerGroup left;
-    public static SpeedControllerGroup right;
+    public static SpeedControllerGroup left, right;
+    public static SpeedControllerGroup Elev;
     
     public static DifferentialDrive drive;
 
     public static void init() {
+    	
         FL = new WPI_TalonSRX(10); //17
         
         
@@ -52,12 +54,20 @@ public class RobotMap {
        /*
        BPU1 = new WPI_TalonSRX(10); 
        BPU2 = new WPI_TalonSRX(20); 
-       BPU3 = new WPI_TalonSRX(30); 
-       BPU4 = new WPI_TalonSRX(40); 
+       BPU3 = new WPI_TalonSRX(50); 
+       BPU4 = new WPI_TalonSRX(60); 
+              */
        
-       Elev1 = new WPI_TalonSRX(50);
-       Elev2 = new WPI_TalonSRX(60);
        
+       ElevRight = new WPI_TalonSRX(30);
+       ElevRight.setInverted(true);
+       
+       ElevLeft = new WPI_TalonSRX(40); 
+       
+       Elev = new SpeedControllerGroup(ElevLeft, ElevRight);
+       SmartDashboard.putData("Elevator", Elev);
+       
+       /*
        Climber = new WPI_TalonSRX(25);
        
        Tilter = new WPI_TalonSRX(35);
