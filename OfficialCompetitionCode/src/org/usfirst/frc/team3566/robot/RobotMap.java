@@ -3,6 +3,7 @@ package org.usfirst.frc.team3566.robot;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -27,6 +28,8 @@ public class RobotMap {
     public static SpeedControllerGroup Elev;
     
     public static DifferentialDrive drive;
+    
+	public static AnalogInput BPUsensor;
 
     public static void init() {
     	
@@ -57,7 +60,8 @@ public class RobotMap {
        BPUright = new WPI_TalonSRX(2); //right grabber
        BPUright.setInverted(true);
        
-       
+		BPUsensor = new AnalogInput(0);
+		
        /*
        BPU3 = new WPI_TalonSRX(50); 
        BPU4 = new WPI_TalonSRX(60); 

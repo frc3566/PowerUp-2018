@@ -32,7 +32,6 @@ public class Robot extends TimedRobot {
 	public static Variables var;
 	
 	public static Encoder encoderL, encoderR;
-	public static AnalogInput BPUsensor;
 	
 	UsbCamera cam1;
 	
@@ -71,7 +70,6 @@ public class Robot extends TimedRobot {
 //		encoderR.setDistancePerPulse(2.394);
 		encoderR=encoderL;
 		
-		BPUsensor = new AnalogInput(0);
 		
 		cam1 = CameraServer.getInstance().startAutomaticCapture(0);
         cam1.setResolution(640, 320);
