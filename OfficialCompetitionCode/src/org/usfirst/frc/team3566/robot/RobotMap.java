@@ -16,7 +16,7 @@ public class RobotMap {
     public static WPI_TalonSRX RR;
     
     
-    public static WPI_TalonSRX BPU1, BPU2, BPU3, BPU4;
+    public static WPI_TalonSRX BPUleft, BPUright, BPU3, BPU4;
     public static WPI_TalonSRX ElevLeft, ElevRight;
     public static WPI_TalonSRX Tilter;
     public static WPI_TalonSRX Climber;
@@ -30,19 +30,19 @@ public class RobotMap {
 
     public static void init() {
     	
-        FL = new WPI_TalonSRX(10); //17
+        FL = new WPI_TalonSRX(17); //17
         
         
-        RL = new WPI_TalonSRX(11);  //15
+        RL = new WPI_TalonSRX(15);  //15
        // RearLeft.setInverted(true);
         
         
-        FR = new WPI_TalonSRX(12);  //18
+        FR = new WPI_TalonSRX(18);  //18
         FR.setInverted(true);
         pigeon = new PigeonIMU(FR);
         //pigeonIMU is connected to the talon with port 2. 
         
-        RR = new WPI_TalonSRX(13);    //16
+        RR = new WPI_TalonSRX(16);    //16
         RR.setInverted(true);
         
         
@@ -51,9 +51,14 @@ public class RobotMap {
         
        drive = new DifferentialDrive(left, right);
    
+      
+       BPUleft = new WPI_TalonSRX(1); //left grabber
+       
+       BPUright = new WPI_TalonSRX(2); //right grabber
+       BPUright.setInverted(true);
+       
+       
        /*
-       BPU1 = new WPI_TalonSRX(10); 
-       BPU2 = new WPI_TalonSRX(20); 
        BPU3 = new WPI_TalonSRX(50); 
        BPU4 = new WPI_TalonSRX(60); 
               */

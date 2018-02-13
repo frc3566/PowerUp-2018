@@ -8,10 +8,12 @@
 package org.usfirst.frc.team3566.robot;
 
 import org.usfirst.frc.team3566.robot.commands.Autonomous;
+import org.usfirst.frc.team3566.robot.subsystems.BPU;
 import org.usfirst.frc.team3566.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3566.robot.subsystems.Elevator;
 
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -26,9 +28,12 @@ public class Robot extends TimedRobot {
 	public static OI oi;
 	public static DriveTrain drivetrain;
 	public static Elevator elevator;
+	public static BPU bpu;
 	public static Variables var;
 	
 	public static Encoder encoderL, encoderR;
+	public static AnalogInput BPUsensor;
+	
 	UsbCamera cam1;
 	
 	public static Timer time;
@@ -47,6 +52,7 @@ public class Robot extends TimedRobot {
 		
 		drivetrain = new DriveTrain();
 		elevator = new Elevator();
+		bpu = new BPU();
 		
 		oi = new OI();
 		startingPosition.addDefault("P1", new POINT(3.75, 1.5));
@@ -64,6 +70,8 @@ public class Robot extends TimedRobot {
 //		encoderR = new Encoder(2,3,false,Encoder.EncodingType.k4X);
 //		encoderR.setDistancePerPulse(2.394);
 		encoderR=encoderL;
+		
+		BPUsensor = new AnalogInput(0);
 		
 		cam1 = CameraServer.getInstance().startAutomaticCapture(0);
         cam1.setResolution(640, 320);
