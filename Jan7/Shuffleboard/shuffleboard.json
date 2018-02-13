@@ -1,5 +1,5 @@
 {
-  "dividerPosition": 0.24191866527632952,
+  "dividerPosition": 0.21578947368421053,
   "tabPane": [
     {
       "title": "SmartDashboard",
@@ -12,24 +12,13 @@
         "tiles": {
           "2,0": {
             "size": [
-              3,
+              2,
               2
             ],
             "content": {
               "_type": "Camera Stream",
               "_source0": "camera_server://USB Camera 0",
               "_title": "USB Camera 0"
-            }
-          },
-          "6,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/DriveForSeconds",
-              "_title": "DriveForSeconds"
             }
           },
           "1,0": {
@@ -41,17 +30,6 @@
               "_type": "ComboBox Chooser",
               "_source0": "network_table:///SmartDashboard/Auto mode",
               "_title": "Auto mode"
-            }
-          },
-          "0,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Autonomous Command",
-              "_title": "Autonomous Command"
             }
           },
           "0,1": {
@@ -71,12 +49,9 @@
               1
             ],
             "content": {
-              "_type": "Number Slider",
+              "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/driveTimeOut",
-              "_title": "driveTimeOut",
-              "min": 0.0,
-              "max": 5.0,
-              "blockIncrement": 0.0625
+              "_title": "driveTimeOut"
             }
           },
           "6,1": {
@@ -85,33 +60,9 @@
               1
             ],
             "content": {
-              "_type": "Number Slider",
+              "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/DriveSpeed",
-              "_title": "DriveSpeed",
-              "min": 0.0,
-              "max": 1.0,
-              "blockIncrement": 0.0625
-            }
-          },
-          "0,4": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Encoder",
-              "_title": ""
-            }
-          },
-          "0,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Rotate",
-              "_title": "/SmartDashboard/Rotate"
+              "_title": "DriveSpeed"
             }
           },
           "1,3": {
@@ -139,17 +90,6 @@
               "_title": "rotateDirection"
             }
           },
-          "5,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Yaw",
-              "_title": "Yaw"
-            }
-          },
           "0,2": {
             "size": [
               3,
@@ -162,6 +102,208 @@
               "min": -180.0,
               "max": 180.0,
               "blockIncrement": 0.0625
+            }
+          },
+          "4,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/P",
+              "_title": "P"
+            }
+          },
+          "4,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/I",
+              "_title": "I"
+            }
+          },
+          "4,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/D",
+              "_title": "D"
+            }
+          },
+          "1,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/maxPower",
+              "_title": "maxPower"
+            }
+          },
+          "8,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/OurSwitch",
+              "_title": "OurSwitch"
+            }
+          },
+          "8,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Scale",
+              "_title": "Scale"
+            }
+          },
+          "8,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/OppSwitch",
+              "_title": "OppSwitch"
+            }
+          },
+          "9,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Distance",
+              "_title": "Distance"
+            }
+          },
+          "9,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/speed",
+              "_title": "speed"
+            }
+          },
+          "5,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LastRotate",
+              "_title": "LastRotate"
+            }
+          },
+          "5,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/theta",
+              "_title": "theta"
+            }
+          },
+          "5,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Driving",
+              "_title": "Driving",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "2,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Sonar",
+              "_title": "Sonar"
+            }
+          },
+          "4,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/x",
+              "_title": "x"
+            }
+          },
+          "5,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/y",
+              "_title": "y"
+            }
+          },
+          "3,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/startingPosition",
+              "_title": "startingPosition"
+            }
+          },
+          "7,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/encoderL",
+              "_title": "encoderL"
+            }
+          },
+          "1,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Speed Controller",
+              "_source0": "network_table:///SmartDashboard/Elevator",
+              "_title": "Elevator",
+              "controllable": true,
+              "orientation": "HORIZONTAL"
             }
           }
         }
@@ -196,49 +338,155 @@
               ]
             }
           },
+          "0,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[0]/Speed",
+              "_title": "Ungrouped/Encoder[0]/Speed"
+            }
+          },
+          "1,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[0]/Distance",
+              "_title": "Ungrouped/Encoder[0]/Distance"
+            }
+          },
+          "2,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[0]/Distance per Tick",
+              "_title": "Ungrouped/Encoder[0]/Distance per Tick"
+            }
+          },
+          "3,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Ultrasonic[1]/Value",
+              "_title": "Ungrouped/Ultrasonic[1]/Value"
+            }
+          },
+          "5,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Speed Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [25]",
+              "_title": "Ungrouped/Talon SRX [25]",
+              "controllable": true,
+              "orientation": "HORIZONTAL"
+            }
+          },
+          "0,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Speed Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [50]",
+              "_title": "Ungrouped/Talon SRX [50]",
+              "controllable": true,
+              "orientation": "HORIZONTAL"
+            }
+          },
+          "2,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Speed Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [60]",
+              "_title": "Ungrouped/Talon SRX [60]",
+              "controllable": true,
+              "orientation": "HORIZONTAL"
+            }
+          },
+          "4,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Speed Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [20]",
+              "_title": "Ungrouped/Talon SRX [20]",
+              "controllable": true,
+              "orientation": "HORIZONTAL"
+            }
+          },
+          "6,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Speed Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [35]",
+              "_title": "Ungrouped/Talon SRX [35]",
+              "controllable": true,
+              "orientation": "HORIZONTAL"
+            }
+          },
+          "8,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Speed Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [10]",
+              "_title": "Ungrouped/Talon SRX [10]",
+              "controllable": true,
+              "orientation": "HORIZONTAL"
+            }
+          },
           "3,0": {
             "size": [
               2,
-              3
+              1
             ],
             "content": {
-              "_type": "List Layout",
-              "_title": "DriveTrain",
-              "_children": []
+              "_type": "Speed Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [40]",
+              "_title": "Elevator Left",
+              "controllable": true,
+              "orientation": "HORIZONTAL"
             }
           },
           "5,0": {
             "size": [
               2,
-              3
+              1
             ],
             "content": {
-              "_type": "List Layout",
-              "_title": "Ungrouped",
-              "_children": [
-                {
-                  "_type": "Differential Drivebase",
-                  "_source0": "network_table:///LiveWindow/Ungrouped/DifferentialDrive[1]",
-                  "_title": "DifferentialDrive[1]",
-                  "numberOfWheels": 4,
-                  "wheelDiameter": 80.0,
-                  "showVectors": true
-                }
-              ]
+              "_type": "Speed Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [30]",
+              "_title": "Elevator Right",
+              "controllable": true,
+              "orientation": "HORIZONTAL"
             }
           },
           "7,0": {
-            "size": [
-              1,
-              3
-            ],
-            "content": {
-              "_type": "List Layout",
-              "_title": "DriveTrain",
-              "_children": []
-            }
-          },
-          "8,0": {
             "size": [
               2,
               4
@@ -249,12 +497,53 @@
               "_title": "Ungrouped",
               "_children": [
                 {
+                  "_type": "Speed Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [40]",
+                  "_title": "/LiveWindow/Ungrouped/Talon SRX [40]",
+                  "controllable": true,
+                  "orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Speed Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [30]",
+                  "_title": "/LiveWindow/Ungrouped/Talon SRX [30]",
+                  "controllable": true,
+                  "orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DifferentialDrive[1]/Left Motor Speed",
+                  "_title": "DifferentialDrive[1]/Left Motor Speed"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DifferentialDrive[1]/Right Motor Speed",
+                  "_title": "DifferentialDrive[1]/Right Motor Speed"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[0]/Speed",
+                  "_title": "/LiveWindow/Ungrouped/Encoder[0]/Speed"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[0]/Distance",
+                  "_title": "/LiveWindow/Ungrouped/Encoder[0]/Distance"
+                },
+                {
                   "_type": "Differential Drivebase",
                   "_source0": "network_table:///LiveWindow/Ungrouped/DifferentialDrive[1]",
                   "_title": "/LiveWindow/Ungrouped/DifferentialDrive[1]",
                   "numberOfWheels": 4,
                   "wheelDiameter": 80.0,
                   "showVectors": true
+                },
+                {
+                  "_type": "Speed Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/SpeedControllerGroup[3]",
+                  "_title": "SpeedControllerGroup[3]",
+                  "controllable": true,
+                  "orientation": "HORIZONTAL"
                 }
               ]
             }
