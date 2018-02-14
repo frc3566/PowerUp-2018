@@ -25,8 +25,7 @@ public class Robot extends TimedRobot {
 	public static OI oi;
 	public static DriveTrain drivetrain;
 	public static Variables var;
-	public static double maxCurrent;
-	public final static double RAMP=0.4;
+	
 	public static Encoder encoderL, encoderR;
 	UsbCamera cam1;
 	
@@ -41,8 +40,11 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		RobotMap.init();
+		
 		//IMPORTANT THAT VAR IS INSTANTIATED FIRST
 		var = new Variables();
+		
+		
 		drivetrain = new DriveTrain();
 		oi = new OI();
 		startingPosition.addDefault("P1", new POINT(3.75, 1.5));
@@ -60,20 +62,18 @@ public class Robot extends TimedRobot {
 		
 		time = new Timer();
 		
-		//encoder wheel perimeter 227.13mm
+		//encoder wheel perimeter 227.13mm,1171
 		encoderL = new Encoder(0,1,false,Encoder.EncodingType.k4X);
-		encoderL.setDistancePerPulse(-0.63);
+		encoderL.setDistancePerPulse(-1.3725);
 		
 //		encoderR = new Encoder(2,3,false,Encoder.EncodingType.k4X);
 //		encoderR.setDistancePerPulse(2.394);
 		encoderR=encoderL;
 		
 		cam1 = CameraServer.getInstance().startAutomaticCapture(0);
-        cam1.setResolution(1024, 768);
-        cam1.setFPS(30);
+        cam1.setResolution(640, 320);
         
         var.reset();
-        drivetrain.ramp(RAMP);
         SmartDashboard.putNumber("maxPower", 1);
 	}
 
@@ -115,20 +115,14 @@ public class Robot extends TimedRobot {
 		encoderL.reset();
 		encoderR.reset();
 		//var.XYReset(0, 0);
-		maxCurrent=0;
 		var.reset();
 	}
 
-	int cnt=0;
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		oi.updateCommands();
 		var.updateValues();
-		maxCurrent=Math.max(maxCurrent,RobotMap.RL.getOutputCurrent());
-		cnt++;
-		if(cnt%100==0)System.out.printf("max current %.2f\n",maxCurrent);
-		//System.out.printf("L %.0f R%.0f\n",encoderL.getDistance(),encoderR.getDistance());
+//		System.out.printf("L %.0f R%.0f\n",encoderL.getDistance(),encoderR.getDistance());
 	}
 
 	@Override

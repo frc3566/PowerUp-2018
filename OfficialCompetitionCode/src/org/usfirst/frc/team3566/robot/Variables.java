@@ -102,7 +102,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 			SmartDashboard.putNumber("y", y);
 			SmartDashboard.putNumber("theta", getTheta()); 
 			SmartDashboard.putNumber("encoderL", Robot.encoderL.getDistance());
-			SmartDashboard.putBoolean("isCollide", collision.isCollide);
 		}
 		
 		public void setSwitchScaleSides() {
@@ -141,6 +140,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 		public static double x=0,y=0;
 		public static double lastL=0,lastR=0;
 		private static double lastTheta=90;
+		public static boolean isCollide;
 		
 		private static void coordinateReset()
 		{

@@ -46,7 +46,6 @@ public class Rotate extends Command {
 
     	startDegree = Robot.var.getTheta();
     	endDegree = startDegree - deltaDegree;
-    	Robot.drivetrain.ramp(0);
     }
 
     @Override
@@ -71,7 +70,6 @@ public class Rotate extends Command {
     protected void end() {
     	Robot.drivetrain.stopDrive();
     	SmartDashboard.putBoolean("Driving", true);
-    	Robot.drivetrain.ramp(Robot.RAMP);
     }
     
     @Override
@@ -93,3 +91,6 @@ public class Rotate extends Command {
     }
 
 }
+
+
+
