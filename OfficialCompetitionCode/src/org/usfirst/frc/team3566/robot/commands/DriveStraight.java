@@ -82,9 +82,14 @@ public class DriveStraight extends Command {
     @Override
     protected boolean isFinished() {
     	double errAngle=(Robot.var.getTheta()-startAngle+360)%360;
+<<<<<<< HEAD
     	if(errAngle>15 && errAngle<345)return true;
     	if(Robot.oi.joystick1.getRawButton(3))return true;
     	if(Robot.var.collision.isCollide)return true;
+=======
+//    	if(errAngle>15 && errAngle<345)return true;
+    	if(Robot.var.isCollide)return true;
+>>>>>>> cab15b68d187fc0649a199605c7a97ae9b4dd70b
     	if(Math.abs(error)<100&&Robot.encoderL.getRate()<100)return true;//needs consideration
     	if(time> Math.abs(length) / 300 )return true;
     	return false;
