@@ -43,17 +43,6 @@ public class RobotMap {
         //pigeonIMU is connected to the talon with port 2. 
         
        drive = new DifferentialDrive(left, right);
-<<<<<<< HEAD
-=======
-   
-      
-       BPUleft = new WPI_TalonSRX(1); //left grabber
-       
-       BPUright = new WPI_TalonSRX(2); //right grabber
-       BPUright.setInverted(true);
-       
-       
->>>>>>> parent of cab15b6... BPU merged into main project
        /*
        BPU1 = new WPI_TalonSRX(10); 
        BPU2 = new WPI_TalonSRX(20); 
