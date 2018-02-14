@@ -9,10 +9,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 	public class Variables {
 
 		public static final double rotateNonStopSpd = 0.5;
-		
-		public static final double BPU_PICKUP_SPD = 0.35;
-
-		
 
 		public static char ourSwitchPos, ScalePos, oppSwitchPos;
 		public static String gameMessage;

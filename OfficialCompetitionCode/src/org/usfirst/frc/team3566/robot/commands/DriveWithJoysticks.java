@@ -33,7 +33,7 @@ public class DriveWithJoysticks extends Command {
     @Override
     protected void execute() {
     	double maxPower=SmartDashboard.getNumber("maxPower", 1);
-    	RobotMap.drive.tankDrive(Robot.oi.main.getRawAxis(1)*-1*maxPower, Robot.oi.main.getRawAxis(1)*maxPower);
+    	RobotMap.drive.tankDrive(Robot.oi.joystick1.getRawAxis(1)*-1*maxPower, Robot.oi.joystick1.getRawAxis(1)*maxPower);
     	//Robot.drivetrain.runMotor(Robot.oi.joystick1.getRawAxis(1));
     }
 
