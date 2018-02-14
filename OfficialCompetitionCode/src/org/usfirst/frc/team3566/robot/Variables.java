@@ -9,11 +9,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 	public class Variables {
 
 		public static final double rotateNonStopSpd = 0.5;
+		public static final double BPU_PICKUP_SPD=0.35;
 		
-		public static final double BPU_PICKUP_SPD = 0.35;
-
-		
-
 		public static char ourSwitchPos, ScalePos, oppSwitchPos;
 		public static String gameMessage;
 		
@@ -106,6 +103,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 			SmartDashboard.putNumber("y", y);
 			SmartDashboard.putNumber("theta", getTheta()); 
 			SmartDashboard.putNumber("encoderL", Robot.encoderL.getDistance());
+			SmartDashboard.putBoolean("isCollide", collision.isCollide);
 		}
 		
 		public void setSwitchScaleSides() {
@@ -117,9 +115,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 			oppSwitchPos = chars[2];
 		}
 		
-		
-		
-		
 		public void reset()
 		{
 			RobotMap.pigeon.setYaw(0, 0);
@@ -128,12 +123,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 	        
 	        collision.collideReset();
 	        coordinateReset();
-	        
 	        collision.lastTime=0;
+	        
 	        Robot.time.reset();
 	        Robot.time.start();
 		}
-		
 		
 		public double getEncoder()
 		{
@@ -144,7 +138,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 		public static double x=0,y=0;
 		public static double lastL=0,lastR=0;
 		private static double lastTheta=90;
-		public static boolean isCollide;
 		
 		private static void coordinateReset()
 		{
@@ -196,8 +189,4 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 			else if(_x>0 && _y<0)degree+=360;
 			return degree;
 		}
-		
-		//collide detection
-		
-	}
-
+}

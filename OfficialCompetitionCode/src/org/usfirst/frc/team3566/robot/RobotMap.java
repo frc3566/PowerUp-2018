@@ -29,65 +29,39 @@ public class RobotMap {
     
     public static DifferentialDrive drive;
     
-	public static AnalogInput BPUsensor;
+	
 
     public static void init() {
-    	
-        FL = new WPI_TalonSRX(17); //17
+       FL = new WPI_TalonSRX(17); //17
+       RL = new WPI_TalonSRX(15);  //15
+       FR = new WPI_TalonSRX(18);  //18
+       RR = new WPI_TalonSRX(16);    //16
+       FR.setInverted(true);
+       RR.setInverted(true);
         
-        
-        RL = new WPI_TalonSRX(15);  //15
-       // RearLeft.setInverted(true);
-        
-        
-        FR = new WPI_TalonSRX(18);  //18
-        FR.setInverted(true);
-        pigeon = new PigeonIMU(FR);
-        //pigeonIMU is connected to the talon with port 2. 
-        
-        RR = new WPI_TalonSRX(16);    //16
-        RR.setInverted(true);
-        
-        
-        left = new SpeedControllerGroup(FL, RL);
-        right = new SpeedControllerGroup(FR, RR);
-        
+       left = new SpeedControllerGroup(FL, RL);
+       right = new SpeedControllerGroup(FR, RR);
        drive = new DifferentialDrive(left, right);
-   
-      
+       //pigeonIMU is connected to the talon with port 2.
+       pigeon = new PigeonIMU(FR);
+        
        BPUleft = new WPI_TalonSRX(1); //left grabber
-       
        BPUright = new WPI_TalonSRX(2); //right grabber
        BPUright.setInverted(true);
-       
-		BPUsensor = new AnalogInput(0);
-		
-       /*
-       BPU3 = new WPI_TalonSRX(50); 
-       BPU4 = new WPI_TalonSRX(60); 
-              */
-       
-       
+//       BPU3 = new WPI_TalonSRX(50); 
+//       BPU4 = new WPI_TalonSRX(60); 
+              
        ElevRight = new WPI_TalonSRX(30);
        ElevRight.setInverted(true);
-       
        ElevLeft = new WPI_TalonSRX(40); 
-       
        Elev = new SpeedControllerGroup(ElevLeft, ElevRight);
        SmartDashboard.putData("Elevator", Elev);
+//       Climber = new WPI_TalonSRX(25);
+//       Tilter = new WPI_TalonSRX(35);
        
-       /*
-       Climber = new WPI_TalonSRX(25);
-       
-       Tilter = new WPI_TalonSRX(35);
-       
-       */
-       
-        drive.setSafetyEnabled(true);
-        drive.setExpiration(0.1);
-        drive.setMaxOutput(1.0);
-
-
+       drive.setSafetyEnabled(true);
+       drive.setExpiration(0.1);
+       drive.setMaxOutput(1.0);
     }
     
 }

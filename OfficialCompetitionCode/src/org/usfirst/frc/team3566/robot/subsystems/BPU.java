@@ -21,7 +21,7 @@ public class BPU extends Subsystem {
 	private final WPI_TalonSRX t4 = RobotMap.BPU4;
 	*/
 	
-	private final AnalogInput boxIRSensor = RobotMap.BPUsensor; //box infrared sensor
+	private final AnalogInput boxIRSensor =  new AnalogInput(0);//box infrared sensor
 	
 	public static final int IN = 1, OUT = -1;
 	

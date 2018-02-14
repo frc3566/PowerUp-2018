@@ -13,10 +13,9 @@ public class Rotate extends Command {
 	private double spd=0, maxPower=0.5;
 	private double startDegree, endDegree, deltaDegree, error, previous_error;
 	public boolean isAuto;
-	
+
 	private double P=0.02, I=0, D = 0.002;
     double integral, derivative;
-    
     
     public Rotate() {
     	isAuto=true;
@@ -37,7 +36,6 @@ public class Rotate extends Command {
     	SmartDashboard.putNumber("P", P);
         SmartDashboard.putNumber("I", I);
         SmartDashboard.putNumber("D", D);
-
         SmartDashboard.putNumber("maxPower", maxPower); 
     	
     	 P=1/(2.2*Math.abs(deltaDegree)+18)+0.0175;
@@ -46,6 +44,7 @@ public class Rotate extends Command {
 
     	startDegree = Robot.var.getTheta();
     	endDegree = startDegree - deltaDegree;
+    	Robot.drivetrain.ramp(0);
     }
 
     @Override
@@ -70,13 +69,13 @@ public class Rotate extends Command {
     protected void end() {
     	Robot.drivetrain.stopDrive();
     	SmartDashboard.putBoolean("Driving", true);
+    	Robot.drivetrain.ramp(Robot.RAMP);
     }
     
     @Override
     protected void interrupted() {
     	end();
     }
-    
     
     public void PID(){
     	double theta = Robot.var.getTheta();
@@ -89,8 +88,4 @@ public class Rotate extends Command {
         this.spd = P*error + I*this.integral + D*derivative;
         previous_error = error;
     }
-
 }
-
-
-

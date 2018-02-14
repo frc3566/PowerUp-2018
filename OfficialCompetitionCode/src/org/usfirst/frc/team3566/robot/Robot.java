@@ -13,7 +13,6 @@ import org.usfirst.frc.team3566.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3566.robot.subsystems.Elevator;
 
 import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -23,61 +22,65 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-
 public class Robot extends TimedRobot {
-	public static OI oi;
+	//constants
+	public static final double RAMP=0.4;
+	//variables
+	public static Variables var;
+	public static Timer time;
+	public static double maxCurrent;
+	//subsystems
+	public static BPU bpu;
 	public static DriveTrain drivetrain;
 	public static Elevator elevator;
-	public static BPU bpu;
-	public static Variables var;
-	
+	//sensors
 	public static Encoder encoderL, encoderR;
-	
 	UsbCamera cam1;
 	
-	public static Timer time;
+	public static OI oi;
 	
 	Autonomous auto;
 	SendableChooser<POINT> startingPosition = new SendableChooser<>();
-
+	SendableChooser<Double> startingPositionX = new SendableChooser<>();
+	SendableChooser<Double> startingPositionY = new SendableChooser<>();
 
 	@Override
 	public void robotInit() {
 		RobotMap.init();
-		
 		//IMPORTANT THAT VAR IS INSTANTIATED FIRST
 		var = new Variables();
-		
-		
 		drivetrain = new DriveTrain();
-		elevator = new Elevator();
-		bpu = new BPU();
-		
 		oi = new OI();
 		startingPosition.addDefault("P1", new POINT(3.75, 1.5));
 		startingPosition.addObject("P2", new POINT(14.5, 1.5));
 		startingPosition.addObject("P3", new POINT(23.5, 1.5));
 		
+		startingPositionX.addObject("X1", 3.0);
+		startingPositionX.addObject("X2", 13.0);
+		startingPositionX.addObject("X3", 25.0);
+		
+		startingPositionY.addObject("Y1", 1.75);
+		startingPositionY.addObject("Y2", 3.0);
+		
 		SmartDashboard.putData("startingPosition", startingPosition);
 		
 		time = new Timer();
 		
-		//encoder wheel perimeter 227.13mm,1171
+		//encoder wheel perimeter 227.13mm
 		encoderL = new Encoder(0,1,false,Encoder.EncodingType.k4X);
-		encoderL.setDistancePerPulse(-1.3725);
-		
+		encoderL.setDistancePerPulse(-0.63);
+		encoderR=encoderL;
 //		encoderR = new Encoder(2,3,false,Encoder.EncodingType.k4X);
 //		encoderR.setDistancePerPulse(2.394);
-		encoderR=encoderL;
-		
 		
 		cam1 = CameraServer.getInstance().startAutomaticCapture(0);
-        cam1.setResolution(640, 320);
+        cam1.setResolution(1024, 768);
+        cam1.setFPS(30);
         
         var.reset();
+        drivetrain.ramp(RAMP);
         SmartDashboard.putNumber("maxPower", 1);
 	}
-
 
 	@Override
 	public void disabledInit() {
@@ -89,18 +92,13 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 	}
 
-
 	@Override
 	public void autonomousInit() {
-		
 		auto = new Autonomous(new POINT(startingPosition.getSelected().getX(), startingPosition.getSelected().getY()));
-		
 		if (auto != null) {
 			auto.start();
 		}
-		
 	}
-
 
 	@Override
 	public void autonomousPeriodic() {
@@ -109,21 +107,26 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
-
 		if (auto != null) {
 			auto.cancel();
 		}
 		encoderL.reset();
 		encoderR.reset();
 		//var.XYReset(0, 0);
+		maxCurrent=0;
 		var.reset();
 	}
 
+	int cnt=0;
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		oi.updateCommands();
 		var.updateValues();
-
+		maxCurrent=Math.max(maxCurrent,RobotMap.RL.getOutputCurrent());
+		cnt++;
+		if(cnt%100==0)System.out.printf("max current %.2f\n",maxCurrent);
+		//System.out.printf("L %.0f R%.0f\n",encoderL.getDistance(),encoderR.getDistance());
 	}
 
 	@Override
