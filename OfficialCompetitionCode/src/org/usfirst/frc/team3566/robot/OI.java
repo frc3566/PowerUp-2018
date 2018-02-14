@@ -42,7 +42,11 @@ public class OI {
     }
 
     public void updateCommands() {
-    	
+    	goStraight= new JoystickButton(joystick1,1);
+        goStraight.whenPressed(new DriveStraight(10));
+        
+        rotate= new JoystickButton(joystick1,2);
+        rotate.whenPressed(new Rotate(90));
     }
 
 }

@@ -37,7 +37,15 @@ public class DriveTrain extends Subsystem {
 
         setDefaultCommand(new DriveWithJoysticks());
     }
-
+    
+    public void ramp(double rmp)
+    {
+    	FL.configOpenloopRamp(rmp,0);
+        FR.configOpenloopRamp(rmp,0);
+        RL.configOpenloopRamp(rmp,0);
+        RR.configOpenloopRamp(rmp,0);
+    }
+    
     @Override
     public void periodic() {
 

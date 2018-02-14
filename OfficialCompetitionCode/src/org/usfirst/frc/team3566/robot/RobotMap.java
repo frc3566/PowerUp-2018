@@ -29,26 +29,20 @@ public class RobotMap {
 
     public static void init() {
         FL = new WPI_TalonSRX(10); //17
-        
-        
         RL = new WPI_TalonSRX(11);  //15
-       // RearLeft.setInverted(true);
-        
-        
         FR = new WPI_TalonSRX(12);  //18
         FR.setInverted(true);
-        pigeon = new PigeonIMU(FR);
-        //pigeonIMU is connected to the talon with port 2. 
-        
         RR = new WPI_TalonSRX(13);    //16
         RR.setInverted(true);
         
-        
         left = new SpeedControllerGroup(FL, RL);
         right = new SpeedControllerGroup(FR, RR);
+//        FL.configForwardSoftLimitEnable(arg0, arg1)
+        
+        pigeon = new PigeonIMU(FR);
+        //pigeonIMU is connected to the talon with port 2. 
         
        drive = new DifferentialDrive(left, right);
-   
        /*
        BPU1 = new WPI_TalonSRX(10); 
        BPU2 = new WPI_TalonSRX(20); 
@@ -61,14 +55,9 @@ public class RobotMap {
        Climber = new WPI_TalonSRX(25);
        
        Tilter = new WPI_TalonSRX(35);
-       
        */
-       
         drive.setSafetyEnabled(true);
         drive.setExpiration(0.1);
         drive.setMaxOutput(1.0);
-
-
     }
-    
 }
