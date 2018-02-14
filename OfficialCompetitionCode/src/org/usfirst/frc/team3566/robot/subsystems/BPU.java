@@ -29,7 +29,6 @@ public class BPU extends Subsystem {
 	private int pickUpDirection = this.IN;
 	
 	private final WPI_TalonSRX Tilter = RobotMap.Tilter;
-
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
@@ -77,4 +76,3 @@ public class BPU extends Subsystem {
     	
     }
 }
-

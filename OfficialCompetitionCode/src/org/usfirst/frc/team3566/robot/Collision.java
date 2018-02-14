@@ -10,7 +10,6 @@ public class Collision {
 	
 	public static boolean isCollide;
 	
-	
 	public static void collideReset()
 	{
 		isCollide=false;
@@ -22,11 +21,10 @@ public class Collision {
 	public static void updateCollide()
 	{	
 		collideSpan+=timeSpan;
-		if( !(Math.abs(RobotMap.left.get())>0.4&&Math.abs(Robot.encoderL.getRate())<400 ||
-				Math.abs(RobotMap.right.get())>0.4&&
-				Math.abs(Robot.encoderL.getRate())<400) )//Robot.encoderR.getRate())<400) )
+		if( !(Math.abs(RobotMap.left.get())>0.2&&Math.abs(Robot.encoderL.getRate())<300 ||
+				Math.abs(RobotMap.right.get())>0.2&&Math.abs(Robot.encoderR.getRate())<300) )
 			lastStuck=Robot.time.get();
-		else if(Robot.time.get()-lastStuck>0.3)isCollide=true;
+		else if(Robot.time.get()-lastStuck>0.15)isCollide=true;
 		if(collideSpan<0.15)return;
 		double newL=Robot.encoderL.getRate(),newR=Robot.encoderL.getRate();
 		//hard collision

@@ -26,18 +26,16 @@ public class OI {
    // public JoystickButton goStraight,rotate;
     public JoystickButton BPUin, BPUout;
     
-
-
     public OI() {
 
         main = new Joystick(0);
        // secondary = new Joystick(1);
         
-        rotateLeft = new JoystickButton(main, 5);
-        rotateLeft.whileHeld(new RotateNonStop(Robot.var.rotateNonStopSpd*-1));
-        
-        rotateRight = new JoystickButton(main, 6);
-        rotateRight.whileHeld(new RotateNonStop(Robot.var.rotateNonStopSpd));
+//        rotateLeft = new JoystickButton(main, 5);
+//        rotateLeft.whileHeld(new RotateNonStop(Robot.var.rotateNonStopSpd*-1));
+//        
+//        rotateRight = new JoystickButton(main, 6);
+//        rotateRight.whileHeld(new RotateNonStop(Robot.var.rotateNonStopSpd));
         
         /*
         goStraight= new JoystickButton(main,1);
@@ -47,20 +45,16 @@ public class OI {
         rotate.whenPressed(new Rotate(90));
         */
         
-        BPUin = new JoystickButton(main, 1);
-        BPUin.whenPressed(new BPUin());
-        
-        BPUout = new JoystickButton(main, 4);
-        BPUout.whenPressed(new BPUout());
-        
-        
-        
+//        BPUin = new JoystickButton(main, 1);
+//        BPUin.whenPressed(new BPUin());
+//        
+//        BPUout = new JoystickButton(main, 4);
+//        BPUout.whenPressed(new BPUout());
     }
 
     public void updateCommands() {
     	
     }
-
 }
 
 

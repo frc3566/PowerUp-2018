@@ -29,15 +29,13 @@ public class RobotMap {
     
     public static DifferentialDrive drive;
     
-	
-
     public static void init() {
-       FL = new WPI_TalonSRX(17); //17
-       RL = new WPI_TalonSRX(15);  //15
-       FR = new WPI_TalonSRX(18);  //18
-       RR = new WPI_TalonSRX(16);    //16
-       FR.setInverted(true);
-       RR.setInverted(true);
+       FL = new WPI_TalonSRX(10); //17
+       RL = new WPI_TalonSRX(11);  //15
+       FR = new WPI_TalonSRX(12);  //18
+       RR = new WPI_TalonSRX(13);    //16
+//       FR.setInverted(true);
+//       RR.setInverted(true);
         
        left = new SpeedControllerGroup(FL, RL);
        right = new SpeedControllerGroup(FR, RR);
@@ -45,17 +43,17 @@ public class RobotMap {
        //pigeonIMU is connected to the talon with port 2.
        pigeon = new PigeonIMU(FR);
         
-       BPUleft = new WPI_TalonSRX(1); //left grabber
-       BPUright = new WPI_TalonSRX(2); //right grabber
-       BPUright.setInverted(true);
+//       BPUleft = new WPI_TalonSRX(1); //left grabber
+//       BPUright = new WPI_TalonSRX(2); //right grabber
+//       BPUright.setInverted(true);
 //       BPU3 = new WPI_TalonSRX(50); 
 //       BPU4 = new WPI_TalonSRX(60); 
               
-       ElevRight = new WPI_TalonSRX(30);
-       ElevRight.setInverted(true);
-       ElevLeft = new WPI_TalonSRX(40); 
-       Elev = new SpeedControllerGroup(ElevLeft, ElevRight);
-       SmartDashboard.putData("Elevator", Elev);
+//       ElevRight = new WPI_TalonSRX(30);
+//       ElevRight.setInverted(true);
+//       ElevLeft = new WPI_TalonSRX(40); 
+//       Elev = new SpeedControllerGroup(ElevLeft, ElevRight);
+//       SmartDashboard.putData("Elevator", Elev);
 //       Climber = new WPI_TalonSRX(25);
 //       Tilter = new WPI_TalonSRX(35);
        
