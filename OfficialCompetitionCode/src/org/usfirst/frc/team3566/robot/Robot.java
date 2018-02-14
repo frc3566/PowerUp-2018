@@ -8,9 +8,12 @@
 package org.usfirst.frc.team3566.robot;
 
 import org.usfirst.frc.team3566.robot.commands.Autonomous;
+import org.usfirst.frc.team3566.robot.subsystems.BPU;
 import org.usfirst.frc.team3566.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team3566.robot.subsystems.Elevator;
 
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -24,17 +27,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
 	public static OI oi;
 	public static DriveTrain drivetrain;
+	public static Elevator elevator;
+	public static BPU bpu;
 	public static Variables var;
 	
 	public static Encoder encoderL, encoderR;
+	
 	UsbCamera cam1;
 	
 	public static Timer time;
 	
 	Autonomous auto;
 	SendableChooser<POINT> startingPosition = new SendableChooser<>();
-	SendableChooser<Double> startingPositionX = new SendableChooser<>();
-	SendableChooser<Double> startingPositionY = new SendableChooser<>();
 
 
 	@Override
@@ -46,17 +50,13 @@ public class Robot extends TimedRobot {
 		
 		
 		drivetrain = new DriveTrain();
+		elevator = new Elevator();
+		bpu = new BPU();
+		
 		oi = new OI();
 		startingPosition.addDefault("P1", new POINT(3.75, 1.5));
 		startingPosition.addObject("P2", new POINT(14.5, 1.5));
 		startingPosition.addObject("P3", new POINT(23.5, 1.5));
-		
-		startingPositionX.addObject("X1", 3.0);
-		startingPositionX.addObject("X2", 13.0);
-		startingPositionX.addObject("X3", 25.0);
-		
-		startingPositionY.addObject("Y1", 1.75);
-		startingPositionY.addObject("Y2", 3.0);
 		
 		SmartDashboard.putData("startingPosition", startingPosition);
 		
@@ -69,6 +69,7 @@ public class Robot extends TimedRobot {
 //		encoderR = new Encoder(2,3,false,Encoder.EncodingType.k4X);
 //		encoderR.setDistancePerPulse(2.394);
 		encoderR=encoderL;
+		
 		
 		cam1 = CameraServer.getInstance().startAutomaticCapture(0);
         cam1.setResolution(640, 320);
@@ -122,7 +123,7 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		var.updateValues();
-//		System.out.printf("L %.0f R%.0f\n",encoderL.getDistance(),encoderR.getDistance());
+
 	}
 
 	@Override

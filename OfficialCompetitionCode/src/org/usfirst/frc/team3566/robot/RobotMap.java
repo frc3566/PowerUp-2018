@@ -3,8 +3,10 @@ package org.usfirst.frc.team3566.robot;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class RobotMap {
@@ -15,32 +17,35 @@ public class RobotMap {
     public static WPI_TalonSRX RR;
     
     
-    public static WPI_TalonSRX BPU1, BPU2, BPU3, BPU4;
-    public static WPI_TalonSRX Elev1, Elev2;
+    public static WPI_TalonSRX BPUleft, BPUright, BPU3, BPU4;
+    public static WPI_TalonSRX ElevLeft, ElevRight;
     public static WPI_TalonSRX Tilter;
     public static WPI_TalonSRX Climber;
     
     public static PigeonIMU pigeon;
     
-    public static SpeedControllerGroup left;
-    public static SpeedControllerGroup right;
+    public static SpeedControllerGroup left, right;
+    public static SpeedControllerGroup Elev;
     
     public static DifferentialDrive drive;
+    
+	public static AnalogInput BPUsensor;
 
     public static void init() {
-        FL = new WPI_TalonSRX(10); //17
+    	
+        FL = new WPI_TalonSRX(17); //17
         
         
-        RL = new WPI_TalonSRX(11);  //15
+        RL = new WPI_TalonSRX(15);  //15
        // RearLeft.setInverted(true);
         
         
-        FR = new WPI_TalonSRX(12);  //18
+        FR = new WPI_TalonSRX(18);  //18
         FR.setInverted(true);
         pigeon = new PigeonIMU(FR);
         //pigeonIMU is connected to the talon with port 2. 
         
-        RR = new WPI_TalonSRX(13);    //16
+        RR = new WPI_TalonSRX(16);    //16
         RR.setInverted(true);
         
         
@@ -49,15 +54,29 @@ public class RobotMap {
         
        drive = new DifferentialDrive(left, right);
    
+      
+       BPUleft = new WPI_TalonSRX(1); //left grabber
+       
+       BPUright = new WPI_TalonSRX(2); //right grabber
+       BPUright.setInverted(true);
+       
+		BPUsensor = new AnalogInput(0);
+		
        /*
-       BPU1 = new WPI_TalonSRX(10); 
-       BPU2 = new WPI_TalonSRX(20); 
-       BPU3 = new WPI_TalonSRX(30); 
-       BPU4 = new WPI_TalonSRX(40); 
+       BPU3 = new WPI_TalonSRX(50); 
+       BPU4 = new WPI_TalonSRX(60); 
+              */
        
-       Elev1 = new WPI_TalonSRX(50);
-       Elev2 = new WPI_TalonSRX(60);
        
+       ElevRight = new WPI_TalonSRX(30);
+       ElevRight.setInverted(true);
+       
+       ElevLeft = new WPI_TalonSRX(40); 
+       
+       Elev = new SpeedControllerGroup(ElevLeft, ElevRight);
+       SmartDashboard.putData("Elevator", Elev);
+       
+       /*
        Climber = new WPI_TalonSRX(25);
        
        Tilter = new WPI_TalonSRX(35);
