@@ -15,13 +15,10 @@ public class BPU extends Subsystem {
 	
 	private final WPI_TalonSRX leftPickUp = RobotMap.BPUleft;
 	private final WPI_TalonSRX rightPickUp = RobotMap.BPUright;
-	
-	/*
 	private final WPI_TalonSRX t3 = RobotMap.BPU3;
 	private final WPI_TalonSRX t4 = RobotMap.BPU4;
-	*/
 	
-	private final AnalogInput boxIRSensor = RobotMap.BPUsensor; //box infrared sensor
+	private final AnalogInput boxIRSensor = Robot.BPUsensor; //box infrared sensor
 	
 	public static final int IN = 1, OUT = -1;
 	

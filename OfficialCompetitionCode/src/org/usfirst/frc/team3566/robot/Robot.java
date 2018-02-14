@@ -28,6 +28,11 @@ public class Robot extends TimedRobot {
 	public static double maxCurrent;
 	public final static double RAMP=0.4;
 	public static Encoder encoderL, encoderR;
+<<<<<<< HEAD
+=======
+	public static AnalogInput BPUsensor;
+	
+>>>>>>> parent of cab15b6... BPU merged into main project
 	UsbCamera cam1;
 	
 	public static Timer time;
@@ -68,6 +73,11 @@ public class Robot extends TimedRobot {
 //		encoderR.setDistancePerPulse(2.394);
 		encoderR=encoderL;
 		
+<<<<<<< HEAD
+=======
+		BPUsensor = new AnalogInput(0);
+		
+>>>>>>> parent of cab15b6... BPU merged into main project
 		cam1 = CameraServer.getInstance().startAutomaticCapture(0);
         cam1.setResolution(1024, 768);
         cam1.setFPS(30);
