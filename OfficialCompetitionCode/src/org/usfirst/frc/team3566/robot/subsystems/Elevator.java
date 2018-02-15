@@ -5,6 +5,7 @@ import org.usfirst.frc.team3566.robot.commands.RunElevator;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -13,6 +14,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Elevator extends Subsystem {
 	private final WPI_TalonSRX Left = RobotMap.ElevLeft;
 	private final WPI_TalonSRX Right = RobotMap.ElevRight;
+	
+	public static AnalogInput elevatorEncoder;
+	
+	public Elevator() {
+
+		elevatorEncoder=new AnalogInput(1);
+	}
 	
     public void initDefaultCommand() {
     	setDefaultCommand(new RunElevator());

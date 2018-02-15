@@ -14,9 +14,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Autonomous extends Command {
 
 	POINT startingPosition;
+	int targetNum; //0 represents our switch, 1 the scale, 2 the opponent switch
 	
-    public Autonomous(POINT startingPos) {
+    public Autonomous(POINT startingPos, int target) {
     	startingPosition = startingPos;
+    	targetNum = target;
     }
 
     @Override

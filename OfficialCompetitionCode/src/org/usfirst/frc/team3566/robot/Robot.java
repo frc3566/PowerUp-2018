@@ -14,12 +14,10 @@ import org.usfirst.frc.team3566.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3566.robot.subsystems.Elevator;
 
 import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -27,6 +25,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
 	//constants
 	public static final double RAMP=0.4;
+	public static final POINT leftStart = new POINT(3.75, 1.5), 
+			middleStart = new POINT(14.5, 1.5), rightStart = new POINT(23.5, 1.5);
 	//variables
 	public static Variables var;
 	public static Timer time;
@@ -38,21 +38,21 @@ public class Robot extends TimedRobot {
 	public static Climber climber;
 	//sensors
 	public static Encoder encoderL, encoderR;
-	public static AnalogInput encoderX;
+
 	UsbCamera cam1;
 	
 	public static OI oi;
 	
 	Autonomous auto;
+	
 	SendableChooser<POINT> startingPosition = new SendableChooser<>();
-	SendableChooser<Double> startingPositionX = new SendableChooser<>();
-	SendableChooser<Double> startingPositionY = new SendableChooser<>();
+	SendableChooser<Integer> autoTarget = new SendableChooser<>();
 
 	@Override
 	public void robotInit() {
 		RobotMap.init();
 		//IMPORTANT THAT VAR IS INSTANTIATED FIRST
-//		var = new Variables();
+		var = new Variables();
 		
 		drivetrain = new DriveTrain();
 		bpu = new BPU();
@@ -60,26 +60,26 @@ public class Robot extends TimedRobot {
 		climber = new Climber();
 		
 		oi = new OI();
-		startingPosition.addDefault("P1", new POINT(3.75, 1.5));
-		startingPosition.addObject("P2", new POINT(14.5, 1.5));
-		startingPosition.addObject("P3", new POINT(23.5, 1.5));
+		startingPosition.addDefault("P1", leftStart);
+		startingPosition.addObject("P2", middleStart);
+		startingPosition.addObject("P3", rightStart);
+		startingPosition.setName("startingPos");
 		
-		startingPositionX.addObject("X1", 3.0);
-		startingPositionX.addObject("X2", 13.0);
-		startingPositionX.addObject("X3", 25.0);
-		
-		startingPositionY.addObject("Y1", 1.75);
-		startingPositionY.addObject("Y2", 3.0);
+		autoTarget.addDefault("OurSwitch", 0);
+		autoTarget.addObject("Scale", 1);
+		autoTarget.addObject("OppSwitch", 2);
+		autoTarget.setName("autoTarget");
 		
 		SmartDashboard.putData("startingPosition", startingPosition);
+		SmartDashboard.putData("autoTarget", autoTarget);
 		
 		time = new Timer();
 		
 		//encoder wheel perimeter 227.13mm
 		encoderL = new Encoder(0,1,false,Encoder.EncodingType.k4X);
 		encoderL.setDistancePerPulse(-0.63);
+		
 		encoderR=encoderL;
-		encoderX=new AnalogInput(1);
 		
 //		encoderR = new Encoder(2,3,false,Encoder.EncodingType.k4X);
 //		encoderR.setDistancePerPulse(2.394);
@@ -105,7 +105,8 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
-		auto = new Autonomous(new POINT(startingPosition.getSelected().getX(), startingPosition.getSelected().getY()));
+		auto = new Autonomous(new POINT(startingPosition.getSelected().getX(), startingPosition.getSelected().getY()), 
+				autoTarget.getSelected());
 		if (auto != null) {
 			auto.start();
 		}
@@ -123,18 +124,15 @@ public class Robot extends TimedRobot {
 		}
 		encoderL.reset();
 		encoderR.reset();
-		//var.XYReset(0, 0);
 		maxCurrent=0;
-//		var.reset();
 	}
 
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		oi.updateCommands();
-//		var.updateValues();
+		var.updateValues();
 //		maxCurrent=Math.max(maxCurrent,RobotMap.RL.getOutputCurrent());
-		System.out.printf("%d\n",encoderX.getValue());
 		//if(cnt%100==0)System.out.printf("max current %.2f\n",maxCurrent);
 		//System.out.printf("L %.0f R%.0f\n",encoderL.getDistance(),encoderR.getDistance());
 	     SmartDashboard.putNumber("leftElevCurr", RobotMap.ElevLeft.getOutputCurrent());
