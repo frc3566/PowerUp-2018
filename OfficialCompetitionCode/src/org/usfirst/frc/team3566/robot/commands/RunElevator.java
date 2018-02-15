@@ -10,8 +10,6 @@ import edu.wpi.first.wpilibj.command.Command;
 public class RunElevator extends Command {
 
     public RunElevator() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
     	requires(Robot.elevator);
     }
 

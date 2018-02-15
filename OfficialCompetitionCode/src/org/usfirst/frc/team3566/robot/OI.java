@@ -10,7 +10,6 @@ package org.usfirst.frc.team3566.robot;
 import org.usfirst.frc.team3566.*;
 import org.usfirst.frc.team3566.robot.commands.DriveStraight;
 import org.usfirst.frc.team3566.robot.commands.Rotate;
-import org.usfirst.frc.team3566.robot.commands.RotateNonStop;
 import org.usfirst.frc.team3566.robot.commands.BPUout;
 import org.usfirst.frc.team3566.robot.commands.BPUin;
 
@@ -30,13 +29,6 @@ public class OI {
 
         main = new Joystick(0);
        // secondary = new Joystick(1);
-        
-//        rotateLeft = new JoystickButton(main, 5);
-//        rotateLeft.whileHeld(new RotateNonStop(Robot.var.rotateNonStopSpd*-1));
-//        
-//        rotateRight = new JoystickButton(main, 6);
-//        rotateRight.whileHeld(new RotateNonStop(Robot.var.rotateNonStopSpd));
-        
         /*
         goStraight= new JoystickButton(main,1);
         goStraight.whenPressed(new DriveStraight(10));

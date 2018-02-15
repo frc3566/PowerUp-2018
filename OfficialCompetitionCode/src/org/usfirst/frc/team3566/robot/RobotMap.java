@@ -20,7 +20,7 @@ public class RobotMap {
     public static WPI_TalonSRX BPUleft, BPUright, BPU3, BPU4;
     public static WPI_TalonSRX ElevLeft, ElevRight;
     public static WPI_TalonSRX Tilter;
-    public static WPI_TalonSRX Climber;
+    public static WPI_TalonSRX climber;
     
     public static PigeonIMU pigeon;
     
@@ -30,18 +30,18 @@ public class RobotMap {
     public static DifferentialDrive drive;
     
     public static void init() {
-       FL = new WPI_TalonSRX(10); //17
-       RL = new WPI_TalonSRX(11);  //15
-       FR = new WPI_TalonSRX(12);  //18
-       RR = new WPI_TalonSRX(13);    //16
+//       FL = new WPI_TalonSRX(10); //17
+//       RL = new WPI_TalonSRX(11);  //15
+//       FR = new WPI_TalonSRX(12);  //18
+//       RR = new WPI_TalonSRX(13);    //16
 //       FR.setInverted(true);
 //       RR.setInverted(true);
         
-       left = new SpeedControllerGroup(FL, RL);
-       right = new SpeedControllerGroup(FR, RR);
-       drive = new DifferentialDrive(left, right);
-       //pigeonIMU is connected to the talon with port 2.
-       pigeon = new PigeonIMU(FR);
+//       left = new SpeedControllerGroup(FL, RL);
+//       right = new SpeedControllerGroup(FR, RR);
+//       drive = new DifferentialDrive(left, right);
+//       //pigeonIMU is connected to the talon with port 2.
+//       pigeon = new PigeonIMU(FR);
         
 //       BPUleft = new WPI_TalonSRX(1); //left grabber
 //       BPUright = new WPI_TalonSRX(2); //right grabber
@@ -49,17 +49,22 @@ public class RobotMap {
 //       BPU3 = new WPI_TalonSRX(50); 
 //       BPU4 = new WPI_TalonSRX(60); 
               
-//       ElevRight = new WPI_TalonSRX(30);
-//       ElevRight.setInverted(true);
-//       ElevLeft = new WPI_TalonSRX(40); 
-//       Elev = new SpeedControllerGroup(ElevLeft, ElevRight);
-//       SmartDashboard.putData("Elevator", Elev);
-//       Climber = new WPI_TalonSRX(25);
+       ElevRight = new WPI_TalonSRX(1);
+       ElevRight.setInverted(true);
+       SmartDashboard.putData("Right Elevator", ElevRight);
+       
+       ElevLeft = new WPI_TalonSRX(4); 
+       SmartDashboard.putData("Left Elevator", ElevLeft);
+       
+       Elev = new SpeedControllerGroup(ElevLeft, ElevRight);
+       SmartDashboard.putData("Elevator", Elev);
+  
+       climber = new WPI_TalonSRX(5);
 //       Tilter = new WPI_TalonSRX(35);
        
-       drive.setSafetyEnabled(true);
-       drive.setExpiration(0.1);
-       drive.setMaxOutput(1.0);
+//       drive.setSafetyEnabled(true);
+//       drive.setExpiration(0.1);
+//       drive.setMaxOutput(1.0);
     }
     
 }

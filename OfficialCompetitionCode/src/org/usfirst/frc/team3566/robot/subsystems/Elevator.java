@@ -11,11 +11,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class Elevator extends Subsystem {
-
 	private final WPI_TalonSRX Left = RobotMap.ElevLeft;
 	private final WPI_TalonSRX Right = RobotMap.ElevRight;
 	
-
     public void initDefaultCommand() {
     	setDefaultCommand(new RunElevator());
     }
@@ -29,7 +27,5 @@ public class Elevator extends Subsystem {
     	Left.set(0);
     	Right.set(0);
     }
-    
-    
 }
 

@@ -9,10 +9,12 @@ package org.usfirst.frc.team3566.robot;
 
 import org.usfirst.frc.team3566.robot.commands.Autonomous;
 import org.usfirst.frc.team3566.robot.subsystems.BPU;
+import org.usfirst.frc.team3566.robot.subsystems.Climber;
 import org.usfirst.frc.team3566.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3566.robot.subsystems.Elevator;
 
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -33,8 +35,10 @@ public class Robot extends TimedRobot {
 	public static BPU bpu;
 	public static DriveTrain drivetrain;
 	public static Elevator elevator;
+	public static Climber climber;
 	//sensors
 	public static Encoder encoderL, encoderR;
+	public static AnalogInput encoderX;
 	UsbCamera cam1;
 	
 	public static OI oi;
@@ -48,8 +52,13 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		RobotMap.init();
 		//IMPORTANT THAT VAR IS INSTANTIATED FIRST
-		var = new Variables();
+//		var = new Variables();
+		
 		drivetrain = new DriveTrain();
+		bpu = new BPU();
+		elevator = new Elevator();
+		climber = new Climber();
+		
 		oi = new OI();
 		startingPosition.addDefault("P1", new POINT(3.75, 1.5));
 		startingPosition.addObject("P2", new POINT(14.5, 1.5));
@@ -70,6 +79,8 @@ public class Robot extends TimedRobot {
 		encoderL = new Encoder(0,1,false,Encoder.EncodingType.k4X);
 		encoderL.setDistancePerPulse(-0.63);
 		encoderR=encoderL;
+		encoderX=new AnalogInput(1);
+		
 //		encoderR = new Encoder(2,3,false,Encoder.EncodingType.k4X);
 //		encoderR.setDistancePerPulse(2.394);
 		
@@ -77,8 +88,8 @@ public class Robot extends TimedRobot {
         cam1.setResolution(1024, 768);
         cam1.setFPS(30);
         
-        var.reset();
-        drivetrain.ramp(RAMP);
+//        var.reset();
+//        drivetrain.ramp(RAMP);
         SmartDashboard.putNumber("maxPower", 1);
 	}
 
@@ -114,22 +125,26 @@ public class Robot extends TimedRobot {
 		encoderR.reset();
 		//var.XYReset(0, 0);
 		maxCurrent=0;
-		var.reset();
+//		var.reset();
 	}
 
-	int cnt=0;
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		oi.updateCommands();
-		var.updateValues();
-		maxCurrent=Math.max(maxCurrent,RobotMap.RL.getOutputCurrent());
-		cnt++;
-		if(cnt%100==0)System.out.printf("max current %.2f\n",maxCurrent);
+//		var.updateValues();
+//		maxCurrent=Math.max(maxCurrent,RobotMap.RL.getOutputCurrent());
+		System.out.printf("%d\n",encoderX.getValue());
+		//if(cnt%100==0)System.out.printf("max current %.2f\n",maxCurrent);
 		//System.out.printf("L %.0f R%.0f\n",encoderL.getDistance(),encoderR.getDistance());
+	     SmartDashboard.putNumber("leftElevCurr", RobotMap.ElevLeft.getOutputCurrent());
+	       SmartDashboard.putNumber("RightElevCurr", RobotMap.ElevRight.getOutputCurrent());
 	}
 
 	@Override
 	public void testPeriodic() {
+	     SmartDashboard.putNumber("leftElevCurr", RobotMap.ElevLeft.getOutputCurrent());
+	       SmartDashboard.putNumber("RightElevCurr", RobotMap.ElevRight.getOutputCurrent());
+
 	}
 }
