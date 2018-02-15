@@ -31,10 +31,20 @@ public class Autonomous extends Command {
     	SmartDashboard.putString("Scale", Robot.var.ScalePos+"");
     	SmartDashboard.putString("OppSwitch", Robot.var.oppSwitchPos+"");
     	
+
+    	ArrayList<POINT> routeToPerform = Robot.var.route11;  //default, go cross auto line
+    	
     	Robot.var.XYReset(startingPosition.getX(), startingPosition.getY());
     	System.out.println("XY reset: "+ Robot.var.x+" "+Robot.var.y);
     	
-    	ArrayList<POINT> routeToPerform = Robot.var.route11;  //default, go left and cross auto line
+    	switch (targetNum){
+    	case 0: //our switch
+    		if(Robot.var.ourSwitchPos == 'L') {
+    			routeToPerform = Robot.var.route1;
+    		}
+    		
+    	}
+    	
     	
     	if(startingPosition.getX()<10) { //starting Left
     		if(Robot.var.ourSwitchPos == 'L') {
