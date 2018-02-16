@@ -106,7 +106,10 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		auto = new Autonomous(new POINT(startingPosition.getSelected().getX(), startingPosition.getSelected().getY()), 
-				autoTarget.getSelected());
+				autoTarget.getSelected(), (startingPosition.getSelected().equals(leftStart)? 'L' : 
+					(startingPosition.getSelected().equals(middleStart)? 'M':'R')));
+		//auto will receive info on our starting position coordinates, the code char for our starting position, and the target
+		//we're going for
 		if (auto != null) {
 			auto.start();
 		}

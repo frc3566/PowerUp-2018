@@ -17,8 +17,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 		public static ArrayList<POINT> route1, route2, route3, route4, route5, route6,
 		route7, route8, route9, route10, route11, route12, route13, route14, route15, route16, route17,
 		route18, defaultRoute;  
-		//while route 19 is default (crossing auto), each six routes is for one of the three starting positions
-		
+		/*while route 19 is default (crossing auto), each six routes is for one of the three starting positions
+		note that the order is startingPos==left for route1-6 (LRLRLR), right for route7-12 (RLRLRL), 
+		middle for route 13-18 (LRLRLR)
+		*/
 		public static Collision collision = new Collision();
 		
 		public double rotateTheta;
@@ -82,8 +84,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 	    	
 	    	//DONE with starting from the left
 
-	    	
-	    	
 			route7 = new ArrayList<POINT>();	//Starting from right; switch right
 			route7.add(Robot.rightStart);
 			route7.add(new POINT(23.5, 14.0));
@@ -122,8 +122,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 	    	
 	    	//DONE with starting from the right
 	    	
-	    	
-	    	
+	    
 			route13 = new ArrayList<POINT>();	//Starting from middle; switch left
 			route13.add(Robot.middleStart);
 			route13.add(midStartBranchPoint);
