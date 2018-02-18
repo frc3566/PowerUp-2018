@@ -17,7 +17,7 @@ public class RobotMap {
     public static WPI_TalonSRX RR;
     
     
-    public static WPI_TalonSRX BPUleft, BPUright, BPU3, BPU4;
+    public static WPI_TalonSRX BPUleft, BPUright;
     public static WPI_TalonSRX ElevLeft, ElevRight;
     public static WPI_TalonSRX Tilter;
     public static WPI_TalonSRX climber;
@@ -25,42 +25,47 @@ public class RobotMap {
     public static PigeonIMU pigeon;
     
     public static SpeedControllerGroup left, right;
-    public static SpeedControllerGroup Elev;
+    public static SpeedControllerGroup Elev, BPU;
     
     public static DifferentialDrive drive;
     
     public static void init() {
-//       FL = new WPI_TalonSRX(10); //17
-//       RL = new WPI_TalonSRX(11);  //15
-//       FR = new WPI_TalonSRX(12);  //18
-//       RR = new WPI_TalonSRX(13);    //16
-//       FR.setInverted(true);
-//       RR.setInverted(true);
+       FL = new WPI_TalonSRX(60); //60
+       RL = new WPI_TalonSRX(40);  //40
+       FR = new WPI_TalonSRX(10);  //10
+       SmartDashboard.putData("Front Right", FR);
+       RR = new WPI_TalonSRX(50);    //50
+       FR.setInverted(true);
+       RR.setInverted(true);
         
-//       left = new SpeedControllerGroup(FL, RL);
-//       right = new SpeedControllerGroup(FR, RR);
-//       drive = new DifferentialDrive(left, right);
-//       //pigeonIMU is connected to the talon with port 2.
-//       pigeon = new PigeonIMU(FR);
+       left = new SpeedControllerGroup(FL, RL);
+//       SmartDashboard.putData("Left Drive", left);
+       right = new SpeedControllerGroup(FR, RR);
+//       SmartDashboard.putData("Right Drive", right);
+       drive = new DifferentialDrive(left, right);
+       //pigeonIMU is connected to the talon with port 2.
+       pigeon = new PigeonIMU(FR);
         
-//       BPUleft = new WPI_TalonSRX(1); //left grabber
-//       BPUright = new WPI_TalonSRX(2); //right grabber
-//       BPUright.setInverted(true);
-//       BPU3 = new WPI_TalonSRX(50); 
-//       BPU4 = new WPI_TalonSRX(60); 
+       BPUleft = new WPI_TalonSRX(15); //left grabber
+       BPUleft.setInverted(true);
+       SmartDashboard.putData("BPUleft",BPUleft);
+       BPUright = new WPI_TalonSRX(16); //right grabber
+       SmartDashboard.putData("BPUright", BPUright);
+       BPU = new SpeedControllerGroup(BPUleft, BPUright);
+       SmartDashboard.putData("BPU", BPU);
               
-       ElevRight = new WPI_TalonSRX(1);
-       ElevRight.setInverted(true);
+       ElevRight = new WPI_TalonSRX(35);  //35
        SmartDashboard.putData("Right Elevator", ElevRight);
        
-       ElevLeft = new WPI_TalonSRX(4); 
+       ElevLeft = new WPI_TalonSRX(17); //17
        SmartDashboard.putData("Left Elevator", ElevLeft);
+       ElevLeft.setInverted(true);
        
        Elev = new SpeedControllerGroup(ElevLeft, ElevRight);
        SmartDashboard.putData("Elevator", Elev);
   
-       climber = new WPI_TalonSRX(5);
-//       Tilter = new WPI_TalonSRX(35);
+//       climber = new WPI_TalonSRX(25);	//25
+//       Tilter = new WPI_TalonSRX(18);	//18
        
 //       drive.setSafetyEnabled(true);
 //       drive.setExpiration(0.1);

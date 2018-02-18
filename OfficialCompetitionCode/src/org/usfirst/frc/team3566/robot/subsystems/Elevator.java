@@ -15,11 +15,12 @@ public class Elevator extends Subsystem {
 	private final WPI_TalonSRX Left = RobotMap.ElevLeft;
 	private final WPI_TalonSRX Right = RobotMap.ElevRight;
 	
-	public static AnalogInput elevatorEncoder;
+	public static AnalogInput elevatorEncoder; //bottom: 3684; top (without a box): 1184
 	
 	public Elevator() {
 
-		elevatorEncoder=new AnalogInput(1);
+		elevatorEncoder=new AnalogInput(2);
+		elevatorEncoder.setAccumulatorInitialValue(-197);
 	}
 	
     public void initDefaultCommand() {

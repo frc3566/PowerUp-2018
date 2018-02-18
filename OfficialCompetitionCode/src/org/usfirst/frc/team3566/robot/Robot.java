@@ -16,6 +16,7 @@ import org.usfirst.frc.team3566.robot.subsystems.Elevator;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -38,6 +39,7 @@ public class Robot extends TimedRobot {
 	public static Climber climber;
 	//sensors
 	public static Encoder encoderL, encoderR;
+	public static Spark light;
 
 	UsbCamera cam1;
 	
@@ -57,7 +59,7 @@ public class Robot extends TimedRobot {
 		drivetrain = new DriveTrain();
 		bpu = new BPU();
 		elevator = new Elevator();
-		climber = new Climber();
+	//	climber = new Climber();
 		
 		oi = new OI();
 		startingPosition.addDefault("P1", leftStart);
@@ -84,13 +86,18 @@ public class Robot extends TimedRobot {
 //		encoderR = new Encoder(2,3,false,Encoder.EncodingType.k4X);
 //		encoderR.setDistancePerPulse(2.394);
 		
+		/*
 		cam1 = CameraServer.getInstance().startAutomaticCapture(0);
         cam1.setResolution(1024, 768);
         cam1.setFPS(30);
+        */
         
 //        var.reset();
 //        drivetrain.ramp(RAMP);
         SmartDashboard.putNumber("maxPower", 1);
+        
+        light = new Spark(0);
+        SmartDashboard.putNumber("LightPattern", 0);
 	}
 
 	@Override
@@ -144,8 +151,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void testPeriodic() {
-	     SmartDashboard.putNumber("leftElevCurr", RobotMap.ElevLeft.getOutputCurrent());
-	       SmartDashboard.putNumber("RightElevCurr", RobotMap.ElevRight.getOutputCurrent());
-
+		System.out.println(elevator.elevatorEncoder.getValue());
+		light.set(SmartDashboard.getNumber("LightPattern", 0));
 	}
 }
