@@ -1,0 +1,64 @@
+START from right; 
+
+X: 23.5 Y: 1.5
+X: 23.5 Y: 14.0
+X: 20.75 Y: 14.0
+
+right switch
+DONE
+
+
+START
+
+X: 23.5 Y: 1.5
+X: 23.5 Y: 19.5
+X: 9.0 Y: 19.5
+X: 9.0 Y: 17.25
+left
+
+DONE
+
+
+START
+
+X: 23.5 Y: 1.5
+X: 23.5 Y: 27.0
+X: 22.25 Y: 27.0
+right scale
+
+DONE
+
+
+START
+
+X: 23.5 Y: 1.5
+X: 23.5 Y: 20.75
+X: 3.0 Y: 20.75
+X: 3.0 Y: 27.0
+X: 4.75 Y: 27.0
+
+
+DONE
+
+
+START
+
+X: 23.5 Y: 1.5
+X: 23.5 Y: 40.0
+X: 20.75 Y: 40.0
+right opponent switch
+
+DONE
+
+
+START
+
+X: 23.5 Y: 1.5
+X: 23.5 Y: 33.75
+X: 8.75 Y: 33.75
+X: 8.75 Y: 36.75
+
+
+DONE
+
+
