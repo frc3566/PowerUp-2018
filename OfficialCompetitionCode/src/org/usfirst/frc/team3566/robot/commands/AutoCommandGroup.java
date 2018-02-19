@@ -3,6 +3,7 @@ package org.usfirst.frc.team3566.robot.commands;
 import java.util.ArrayList;
 
 import org.usfirst.frc.team3566.robot.POINT;
+import org.usfirst.frc.team3566.robot.subsystems.BPU;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -11,26 +12,14 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class AutoCommandGroup extends CommandGroup {
 
-    public AutoCommandGroup(ArrayList<POINT> theRoute) {
-        // Add Commands here:
-        // e.g. addSequential(new Command1());
-        //      addSequential(new Command2());
-        // these will run in order.
-
-        // To run multiple commands at the same time,
-        // use addParallel()
-        // e.g. addParallel(new Command1());
-        //      addSequential(new Command2());
-        // Command1 and Command2 will run in parallel.
-
-        // A command group will require all of the subsystems that each member
-        // would require.
-        // e.g. if Command1 requires chassis, and Command2 requires arm,
-        // a CommandGroup containing them would require both the chassis and the
-        // arm.
+    public AutoCommandGroup(ArrayList<POINT> theRoute, int targetNumber) {
     	
-    	addSequential(new CompleteRoute(theRoute));
-    	//addSequential(new DeliverBox());
-    	
+    	addParallel(new ElevatorToPosition((targetNumber == 0 || targetNumber == 2)? 1:2));
+    	addParallel(new CompleteRoute(theRoute));
+    	//if going for our switch or the opponent switch, raise elevator to position one (middle)
+    	//if going for the scale, raise elevator to position two (top)
+    	//this is done while the elevator is driving and completing the route
+    	addSequential(new BPUforSeconds(BPU.OUT, 3));
+    	//spitting out the box when the route is complete, elevator raised, and ready to deliver.
     }
 }

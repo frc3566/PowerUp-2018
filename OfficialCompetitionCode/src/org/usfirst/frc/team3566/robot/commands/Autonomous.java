@@ -90,7 +90,7 @@ public class Autonomous extends Command {
     		
     	}
     	
-    	theAuto = new AutoCommandGroup(routeToPerform);
+    	theAuto = new AutoCommandGroup(routeToPerform, targetNum);
     	theAuto.start();
     	
     }

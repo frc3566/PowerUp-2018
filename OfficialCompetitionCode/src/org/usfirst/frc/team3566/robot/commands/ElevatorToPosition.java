@@ -25,8 +25,10 @@ public class ElevatorToPosition extends Command {
     	int dir = Robot.elevator.checkDirectionToGo(position);
     	double spd  = Robot.elevator.findAppropriateSPD(Robot.elevator.checkDirectionToGo(position), position);
     	Robot.elevator.runElevator(spd);	
+    	/*
     	System.out.println("tryin to get to "+Robot.elevator.elevatorTargetValues[position]+", now at "+
     	Robot.elevator.elevatorEncoder.getValue()+" spd is "+ spd + " dir "+dir);
+    	*/
     }
 
     protected boolean isFinished() {
