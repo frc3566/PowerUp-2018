@@ -16,6 +16,7 @@ public class Rotate extends Command {
 
 	private double P=0.02, I=0, D = 0.002;
     double integral, derivative;
+    double prev_light;
     
     public Rotate() {
     	isAuto=true;
@@ -45,6 +46,8 @@ public class Rotate extends Command {
     	startDegree = Robot.var.getTheta();
     	endDegree = startDegree - deltaDegree;
     	Robot.drivetrain.ramp(0);
+    	
+    	prev_light = Robot.light.get();
     	Robot.light.set(Robot.var.purple);
     }
 
@@ -71,6 +74,8 @@ public class Rotate extends Command {
     	Robot.drivetrain.stopDrive();
     	SmartDashboard.putBoolean("Driving", true);
     	Robot.drivetrain.ramp(Robot.RAMP);
+    	
+    	Robot.light.set(prev_light);
     }
     
     @Override

@@ -19,6 +19,8 @@ public class DriveStraight extends Command {
     double startAngle;
     boolean isAuto;
     
+    double prev_light;
+    
     //input in feet
     public DriveStraight(double distanceInFt) {
     	setPoint= distanceInFt*304.8;
@@ -43,6 +45,9 @@ public class DriveStraight extends Command {
     	error = setPoint - Robot.var.getEncoder();
     	startTime=Robot.time.get();
     	Robot.drivetrain.ramp(0);
+    	
+    	prev_light = Robot.light.get();
+    	Robot.light.set(Robot.var.white);
     }
     
     void ramp()
@@ -55,10 +60,10 @@ public class DriveStraight extends Command {
 //    		power=Math.min(1.6-1.4*Robot.encoderL.getRate()/maxSpeed, power);
 //    	else if(Robot.encoderL.getRate()<maxSpeed*-0.5)
 //    		power=Math.max(-1.6-1.4*Robot.encoderL.getRate()/maxSpeed, power);
-    	double sign=power>0? 1:-1;
-    	double vError=(Math.abs(Robot.encoderL.getRate()-0.7*maxSpeed))/maxSpeed;
-    	double max=1-vError*0.2;
-    	power=Math.min(Math.abs(power), max)*sign;
+    	double sign = (power>0) ? 1:-1;
+    	double vError = (Math.abs(Robot.encoderL.getRate()- 0.7*maxSpeed)) / maxSpeed;
+    	double max = 1 - vError*0.2;
+    	power = Math.min(Math.abs(power), max)*sign;
     }
     
     void PID() {
@@ -81,24 +86,26 @@ public class DriveStraight extends Command {
 
     @Override
     protected boolean isFinished() {
-    	double errAngle=(Robot.var.getTheta()-startAngle+360)%360;
-    	if(errAngle>15 && errAngle<345)return true;
-    	if(Robot.var.collision.isCollide)return true;
-    	if(Math.abs(error)<100&&Robot.encoderL.getRate()<100)return true;//needs consideration
-    	if(time> Math.abs(length) / 300 )return true;
+    	double errAngle = (Robot.var.getTheta()-startAngle+360) % 360;
+    	if (errAngle>15 && errAngle<345) return true;
+    	if (Robot.var.collision.isCollide) return true;
+    	if (Math.abs(error)<100&&Robot.encoderL.getRate()<100) return true;//needs consideration
+    	if (time> Math.abs(length) / 300 ) return true;
     	return false;
     }
 
     @Override
     protected void end(){
-    	if(Robot.var.collision.isCollide)
+    	if (Robot.var.collision.isCollide)
     		System.out.println("drive straight stopped due to collision");
-    	double errAngle=(Robot.var.getTheta()-startAngle+360)%360;
-    	if(errAngle>15 && errAngle<345)
+    	double errAngle = (Robot.var.getTheta()-startAngle+360) % 360;
+    	if (errAngle>15 && errAngle<345)
     		System.out.println("drive straight stopped due to bad direction");
     	System.out.printf("straight stop in %.1f second\n",time);
     	Robot.drivetrain.stopDrive();
     	Robot.drivetrain.ramp(Robot.RAMP);
+    	
+    	Robot.light.set(prev_light);
     }
 
     @Override
