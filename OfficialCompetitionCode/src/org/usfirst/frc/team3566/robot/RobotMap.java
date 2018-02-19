@@ -31,9 +31,13 @@ public class RobotMap {
     
     public static void init() {
        FL = new WPI_TalonSRX(60); //60
+//       SmartDashboard.putData(FL);
        RL = new WPI_TalonSRX(40);  //40
+//       SmartDashboard.putData(RL);
        FR = new WPI_TalonSRX(10);  //10
+//       SmartDashboard.putData(FR);
        RR = new WPI_TalonSRX(50);    //50
+//       SmartDashboard.putData(RR);
         
        left = new SpeedControllerGroup(FL, RL);
 //       SmartDashboard.putData("Left Drive", left);

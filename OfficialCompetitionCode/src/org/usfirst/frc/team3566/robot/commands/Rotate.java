@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class Rotate extends Command {
+	//positive power: rotate to the right.
 	private double spd=0, maxPower=0.5;
 	private double startDegree, endDegree, deltaDegree, error, previous_error;
 	public boolean isAuto;
@@ -31,21 +32,21 @@ public class Rotate extends Command {
 
     @Override
     protected void initialize() {
-    	this.setTimeout(5);
+    	this.setTimeout(3);
     	if(isAuto)deltaDegree = Robot.var.rotateTheta;
-    	
-    	SmartDashboard.putNumber("P", P);
-        SmartDashboard.putNumber("I", I);
-        SmartDashboard.putNumber("D", D);
-        SmartDashboard.putNumber("maxPower", maxPower); 
     	
     	 P=1/(2.2*Math.abs(deltaDegree)+18)+0.0175;
     	 I=0;
     	 D=0.002;
+    	 
+     	SmartDashboard.putNumber("P", P);
+        SmartDashboard.putNumber("I", I);
+        SmartDashboard.putNumber("D", D);
+        SmartDashboard.putNumber("maxPower", maxPower); 
 
     	startDegree = Robot.var.getTheta();
     	endDegree = startDegree - deltaDegree;
-    	Robot.drivetrain.ramp(0);
+    	//Robot.drivetrain.ramp(0);
     	
     	prev_light = Robot.light.get();
     	Robot.light.set(Robot.var.purple);
@@ -57,7 +58,8 @@ public class Rotate extends Command {
     	PID();
     	
     	spd*=maxPower;
-    	RobotMap.drive.tankDrive(spd, spd);
+    //	Robot.drivetrain.rotate(spd);
+    	Robot.drivetrain.rotate(0.3);
     }
 
     @Override
@@ -73,7 +75,7 @@ public class Rotate extends Command {
     protected void end() {
     	Robot.drivetrain.stopDrive();
     	SmartDashboard.putBoolean("Driving", true);
-    	Robot.drivetrain.ramp(Robot.RAMP);
+    //	Robot.drivetrain.ramp(Robot.RAMP);
     	
     	Robot.light.set(prev_light);
     }

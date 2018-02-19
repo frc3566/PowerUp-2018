@@ -62,7 +62,7 @@ public class DriveTrain extends Subsystem {
 	  RR.stopMotor();
    }
 
-   public void goForward(double spd) {
+   public void rotate(double spd) {
 	   FL.set(spd);
 	   RL.set(spd);
 	   FR.set(spd);
@@ -76,7 +76,7 @@ public class DriveTrain extends Subsystem {
 	   RR.set(spd*(dir? -1:1));
    }
    
-   public void rotate(double spd) {
+   public void goForward(double spd) {
 	   FL.set(spd);
 	   FR.set(spd*-1);
 	   RL.set(spd);

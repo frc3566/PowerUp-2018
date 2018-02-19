@@ -45,6 +45,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 		
 		public Variables() {
 			setUpRoutePoints();
+			
 		}
 		
 		public void setUpRoutePoints() {
@@ -186,6 +187,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 			SmartDashboard.putNumber("theta", getTheta()); 
 			SmartDashboard.putNumber("encoderL", Robot.encoderL.getDistance());
 			SmartDashboard.putBoolean("isCollide", collision.isCollide);
+			SmartDashboard.putNumber("elev", Robot.elevator.elevatorEncoder.getValue());
 		}
 		
 		public void setSwitchScaleSides() {

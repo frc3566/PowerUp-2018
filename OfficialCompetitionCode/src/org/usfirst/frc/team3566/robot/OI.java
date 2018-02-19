@@ -9,8 +9,10 @@ package org.usfirst.frc.team3566.robot;
 
 import org.usfirst.frc.team3566.*;
 import org.usfirst.frc.team3566.robot.commands.DriveStraight;
+import org.usfirst.frc.team3566.robot.commands.ElevatorToPosition;
 import org.usfirst.frc.team3566.robot.commands.Rotate;
 import org.usfirst.frc.team3566.robot.commands.BPUout;
+import org.usfirst.frc.team3566.robot.commands.DriveForSeconds;
 import org.usfirst.frc.team3566.robot.commands.BPUin;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -20,32 +22,42 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class OI {
 	
 	//current plan: main for driving and BPU, secondary for elevator function
-    public Joystick main; //, secondary;
+    public Joystick main, secondary;
     public JoystickButton rotateLeft, rotateRight;
    // public JoystickButton goStraight,rotate;
     public JoystickButton BPUin, BPUout;
+    public JoystickButton elevGround, elevMid, elevTop;
     
     public OI() {
 
         main = new Joystick(0);
-       // secondary = new Joystick(1);
-        /*
-        goStraight= new JoystickButton(main,1);
-        goStraight.whenPressed(new DriveStraight(10));
-        
-        rotate= new JoystickButton(main,2);
-        rotate.whenPressed(new Rotate(90));
-        */
+        secondary = new Joystick(1);
         
         BPUin = new JoystickButton(main, 1);
         BPUin.whenPressed(new BPUin());
         
         BPUout = new JoystickButton(main, 4);
         BPUout.whenPressed(new BPUout());
+        
+        elevTop = new JoystickButton(secondary, 4);
+        elevTop.whenPressed(new ElevatorToPosition(2));
+        
+        elevMid = new JoystickButton(secondary, 2);
+        elevMid.whenPressed(new ElevatorToPosition(1));
+        
+        elevGround = new JoystickButton(secondary, 1);
+        elevGround.whenPressed(new ElevatorToPosition(0));
+        
+		SmartDashboard.putNumber("rotateAngle", 90);
+		SmartDashboard.putNumber("DriveTime", 3);
+		SmartDashboard.putBoolean("DriveDirection", true);
     }
 
     public void updateCommands() {
-    	
+    	SmartDashboard.putData("RotateForAngle", new Rotate(SmartDashboard.getNumber("rotateAngle", 0)));
+    	SmartDashboard.putData("DriveForSeconds", 
+    			new DriveForSeconds(false, SmartDashboard.getNumber("DriveTime", 0), 
+    					SmartDashboard.getBoolean("DriveDirection", true)));
     }
 }
 

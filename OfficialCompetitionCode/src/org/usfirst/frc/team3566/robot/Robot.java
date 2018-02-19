@@ -48,7 +48,7 @@ public class Robot extends TimedRobot {
 	 * 
 	 */
 
-	UsbCamera cam1;
+	UsbCamera camMain, cam1;	//cam one looks out from BPU
 	
 	public static OI oi;
 	
@@ -85,7 +85,7 @@ public class Robot extends TimedRobot {
 		time = new Timer();
 		
 		//encoder wheel perimeter 227.13mm
-		encoderL = new Encoder(0,1,false,Encoder.EncodingType.k4X);
+		encoderL = new Encoder(1,2,false,Encoder.EncodingType.k4X);
 		encoderL.setDistancePerPulse(-0.63);
 		
 		encoderR=encoderL;
@@ -93,15 +93,17 @@ public class Robot extends TimedRobot {
 //		encoderR = new Encoder(2,3,false,Encoder.EncodingType.k4X);
 //		encoderR.setDistancePerPulse(2.394);
 		
+		camMain = CameraServer.getInstance().startAutomaticCapture(1);
+		camMain.setResolution(1024,  768);
+		camMain.setFPS(30);
 		
 		cam1 = CameraServer.getInstance().startAutomaticCapture(0);
         cam1.setResolution(1024, 768);
         cam1.setFPS(30);
         
-        
-//        var.reset();
-//        drivetrain.ramp(RAMP);
         SmartDashboard.putNumber("maxPower", 1);
+        
+		var.reset();
         
         light = new Spark(0);
         SmartDashboard.putNumber("LightPattern", -0.41);
@@ -156,16 +158,13 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 		oi.updateCommands();
 		var.updateValues();
-//		maxCurrent=Math.max(maxCurrent,RobotMap.RL.getOutputCurrent());
-		//if(cnt%100==0)System.out.printf("max current %.2f\n",maxCurrent);
-		//System.out.printf("L %.0f R%.0f\n",encoderL.getDistance(),encoderR.getDistance());
-	     SmartDashboard.putNumber("leftElevCurr", RobotMap.ElevLeft.getOutputCurrent());
-	       SmartDashboard.putNumber("RightElevCurr", RobotMap.ElevRight.getOutputCurrent());
+		
 	}
 
 	@Override
 	public void testPeriodic() {
 		SmartDashboard.putNumber("elev", Robot.elevator.elevatorEncoder.getValue());
+		SmartDashboard.putNumber("theta", Robot.var.getTheta());
 		light.set(SmartDashboard.getNumber("LightPattern", 0));
 	}
 }

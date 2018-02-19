@@ -21,7 +21,7 @@ public class BPU extends Subsystem {
 	
 	public static final int IN = 1, OUT = -1;
 	
-	private boolean pickUpOnOff = true;
+	private boolean pickUpOnOff = false;
 	private int pickUpDirection = this.IN;
 	
 	private final WPI_TalonSRX Tilter = RobotMap.Tilter;
