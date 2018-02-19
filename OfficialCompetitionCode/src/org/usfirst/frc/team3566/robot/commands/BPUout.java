@@ -12,11 +12,13 @@ public class BPUout extends InstantCommand {
 
     public BPUout() {
         super();
+        requires(Robot.bpu);
     }
 
     protected void initialize() {
     	Robot.bpu.togglePickUpStatus();
     	Robot.bpu.setPickUpMotorDirection(BPU.OUT);
+    	System.out.println("BPU direction: OUT!");
     }
 
 }

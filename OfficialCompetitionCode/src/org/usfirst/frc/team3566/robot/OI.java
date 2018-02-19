@@ -37,11 +37,11 @@ public class OI {
         rotate.whenPressed(new Rotate(90));
         */
         
-//        BPUin = new JoystickButton(main, 1);
-//        BPUin.whenPressed(new BPUin());
-//        
-//        BPUout = new JoystickButton(main, 4);
-//        BPUout.whenPressed(new BPUout());
+        BPUin = new JoystickButton(main, 1);
+        BPUin.whenPressed(new BPUin());
+        
+        BPUout = new JoystickButton(main, 4);
+        BPUout.whenPressed(new BPUout());
     }
 
     public void updateCommands() {

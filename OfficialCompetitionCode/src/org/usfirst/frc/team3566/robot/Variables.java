@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 	public class Variables {
 
 		public static final double rotateNonStopSpd = 0.5;
-		public static final double BPU_PICKUP_SPD=0.35;
+		public static final double BPU_PICKUP_SPD=0.5;
 		
 		public static char ourSwitchPos, ScalePos, oppSwitchPos;
 		public static String gameMessage;
@@ -22,6 +22,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 		middle for route 13-18 (LRLRLR)
 		*/
 		public static Collision collision = new Collision();
+		/*
+		 * light values: SOLID COLORS: 0.61 red, 0.64 yellow, 0.77 green, 0.87 blue, 0.91 purple, 0.93 white
+		 * -0.99 rainbow; -0.41 ocean; 
+		 * 
+		 */
+		public static final double red = 0.61, yellow = 0.64, green = 0.77, blue = 0.87, purple = 0.91, white = 0.93,
+				rainbow = -0.99, ocean = -0.41;
 		
 		public double rotateTheta;
 		public double distance;

@@ -45,6 +45,7 @@ public class Rotate extends Command {
     	startDegree = Robot.var.getTheta();
     	endDegree = startDegree - deltaDegree;
     	Robot.drivetrain.ramp(0);
+    	Robot.light.set(Robot.var.purple);
     }
 
     @Override

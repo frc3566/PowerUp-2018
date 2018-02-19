@@ -33,10 +33,7 @@ public class RobotMap {
        FL = new WPI_TalonSRX(60); //60
        RL = new WPI_TalonSRX(40);  //40
        FR = new WPI_TalonSRX(10);  //10
-       SmartDashboard.putData("Front Right", FR);
        RR = new WPI_TalonSRX(50);    //50
-       FR.setInverted(true);
-       RR.setInverted(true);
         
        left = new SpeedControllerGroup(FL, RL);
 //       SmartDashboard.putData("Left Drive", left);
@@ -47,29 +44,28 @@ public class RobotMap {
        pigeon = new PigeonIMU(FR);
         
        BPUleft = new WPI_TalonSRX(15); //left grabber
-       BPUleft.setInverted(true);
-       SmartDashboard.putData("BPUleft",BPUleft);
+       BPUleft.setInverted(false);
        BPUright = new WPI_TalonSRX(16); //right grabber
-       SmartDashboard.putData("BPUright", BPUright);
+       BPUright.setInverted(true);
        BPU = new SpeedControllerGroup(BPUleft, BPUright);
        SmartDashboard.putData("BPU", BPU);
               
        ElevRight = new WPI_TalonSRX(35);  //35
-       SmartDashboard.putData("Right Elevator", ElevRight);
+       ElevRight.setInverted(true);
        
        ElevLeft = new WPI_TalonSRX(17); //17
-       SmartDashboard.putData("Left Elevator", ElevLeft);
-       ElevLeft.setInverted(true);
+       ElevLeft.setInverted(false);
        
+       //elevator: pos power goes down, corresponding to the elevator encoder.
        Elev = new SpeedControllerGroup(ElevLeft, ElevRight);
        SmartDashboard.putData("Elevator", Elev);
   
 //       climber = new WPI_TalonSRX(25);	//25
 //       Tilter = new WPI_TalonSRX(18);	//18
        
-//       drive.setSafetyEnabled(true);
-//       drive.setExpiration(0.1);
-//       drive.setMaxOutput(1.0);
+       drive.setSafetyEnabled(true);
+       drive.setExpiration(0.1);
+       drive.setMaxOutput(1.0);
     }
     
 }

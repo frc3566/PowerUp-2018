@@ -27,17 +27,16 @@ public class DriveWithJoysticks extends Command {
 
     @Override
     protected void initialize() {
-//    	System.out.println("joystick starts");
     }
 
     @Override
     protected void execute() {
-//    	double maxPower=SmartDashboard.getNumber("maxPower", 1);
-//    	if(Robot.oi.main.getRawAxis(2)>0)
-//    		RobotMap.drive.arcadeDrive(Robot.oi.main.getRawAxis(1)*-1*maxPower, Robot.oi.main.getRawAxis(2)*-1*maxPower);
-//    	else if(Robot.oi.main.getRawAxis(3)>0)
-//    		RobotMap.drive.arcadeDrive(Robot.oi.main.getRawAxis(1)*-1*maxPower, Robot.oi.main.getRawAxis(3)*maxPower);
-//    	else RobotMap.drive.arcadeDrive(Robot.oi.main.getRawAxis(1)*-1*maxPower, 0);
+    	double maxPower=SmartDashboard.getNumber("maxPower", 1);
+    	if(Robot.oi.main.getRawAxis(2)>0)
+    		RobotMap.drive.arcadeDrive(Robot.oi.main.getRawAxis(1)*-1*maxPower, Robot.oi.main.getRawAxis(2)*-1*maxPower);
+    	else if(Robot.oi.main.getRawAxis(3)>0)
+    		RobotMap.drive.arcadeDrive(Robot.oi.main.getRawAxis(1)*-1*maxPower, Robot.oi.main.getRawAxis(3)*maxPower);
+    	else RobotMap.drive.arcadeDrive(Robot.oi.main.getRawAxis(1)*-1*maxPower, 0);
     	//Robot.drivetrain.runMotor(Robot.oi.joystick1.getRawAxis(1));
     }
 
@@ -48,11 +47,9 @@ public class DriveWithJoysticks extends Command {
 
     @Override
     protected void end() {
-//    	System.out.println("joystick ends");
     }
 
     @Override
     protected void interrupted() {
-//    	System.out.println("joystick interrupts");
     }
 }
