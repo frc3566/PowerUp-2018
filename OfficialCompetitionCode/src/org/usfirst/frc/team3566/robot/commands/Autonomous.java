@@ -14,9 +14,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Autonomous extends Command {
 
 	POINT startingPosition;
+	int targetNum; //0 represents our switch, 1 the scale, 2 the opponent switch
+	char startingPosChar; //'L', 'M', 'R'
 	
-    public Autonomous(POINT startingPos) {
+	AutoCommandGroup theAuto;
+	
+    public Autonomous(POINT startingPos, int target, char startingPosC) {
     	startingPosition = startingPos;
+    	targetNum = target;
+    	startingPosChar = startingPosC;
     }
 
     @Override
@@ -29,41 +35,62 @@ public class Autonomous extends Command {
     	SmartDashboard.putString("Scale", Robot.var.ScalePos+"");
     	SmartDashboard.putString("OppSwitch", Robot.var.oppSwitchPos+"");
     	
+
+    	ArrayList<POINT> routeToPerform = Robot.var.defaultRoute;  //default, go cross auto line
+    	
     	Robot.var.XYReset(startingPosition.getX(), startingPosition.getY());
-    	System.out.println("XY reset: "+ Robot.var.x+" "+Robot.var.y);
     	
-    	ArrayList<POINT> routeToPerform = Robot.var.route11;  //default, go left and cross auto line
-    	
-    	if(startingPosition.getX()<10) { //starting Left
+    	switch (targetNum){
+    	case 0: //our switch
     		if(Robot.var.ourSwitchPos == 'L') {
-    			System.out.println("left "+startingPosition.getX());
-    			routeToPerform = Robot.var.route1;
-    		}else if(Robot.var.ScalePos == 'L') {
-    			routeToPerform = Robot.var.route2;
-    		}else { //both not on our side. 
-    			routeToPerform = Robot.var.route3;
+    			switch (startingPosChar) {
+    			case 'L': routeToPerform = Robot.var.route1; break;
+    			case 'M': routeToPerform = Robot.var.route13; break;
+    			case 'R':routeToPerform = Robot.var.route8; break;
+    			}
+    		}else if(Robot.var.ourSwitchPos == 'R') {
+    			switch (startingPosChar) {
+    			case 'L': routeToPerform = Robot.var.route2; break;
+    			case 'M': routeToPerform = Robot.var.route14; break;
+    			case 'R': routeToPerform = Robot.var.route7; break;
+    			}
     		}
-    	}else if(startingPosition.getX()>20) { //starting right
-    		if(Robot.var.ourSwitchPos == 'R') {
-    			routeToPerform = Robot.var.route4;
+    		break; //break for the bigger switch statement
+    	case 1: //scale
+    		if(Robot.var.ScalePos == 'L') {
+    			switch (startingPosChar) {
+    			case 'L': routeToPerform = Robot.var.route3; break;
+    			case 'M': routeToPerform = Robot.var.route15; break;
+    			case 'R': routeToPerform = Robot.var.route10; break;
+    			}
     		}else if(Robot.var.ScalePos == 'R') {
-    			routeToPerform = Robot.var.route5;
-    		}else { //both not on our side. 
-    			routeToPerform = Robot.var.route6;
+    			switch (startingPosChar) {
+    			case 'L': routeToPerform = Robot.var.route4; break;
+    			case 'M': routeToPerform = Robot.var.route16; break;
+    			case 'R': routeToPerform = Robot.var.route9; break;
+    			}
     		}
-    	}else {//in the middle
-    		if(Robot.var.ScalePos == 'R') {
-    			routeToPerform = Robot.var.route7;
-    		}else if(Robot.var.ScalePos == 'L') {
-    			routeToPerform = Robot.var.route8;
-    		}else if(Robot.var.ourSwitchPos == 'R'){ //both not on our side. 
-    			routeToPerform = Robot.var.route9;
-    		}else if(Robot.var.ourSwitchPos == 'L') {
-    			routeToPerform = Robot.var.route10;
+    		break;
+    	case 2: //opp switch
+    		if(Robot.var.oppSwitchPos == 'L') {
+    			switch (startingPosChar) {
+    			case 'L': routeToPerform = Robot.var.route5; break;
+    			case 'M': routeToPerform = Robot.var.route17; break;
+    			case 'R': routeToPerform = Robot.var.route12; break;
+    			}
+    		}else if(Robot.var.oppSwitchPos == 'R') {
+    			switch (startingPosChar) {
+    			case 'L': routeToPerform = Robot.var.route6; break;
+    			case 'M': routeToPerform = Robot.var.route18; break;
+    			case 'R': routeToPerform = Robot.var.route11; break;
+    			}
     		}
+    		break;
+    		
     	}
     	
-    	new CompleteRoute(routeToPerform).start(); //start AUTO command group
+    	theAuto = new AutoCommandGroup(routeToPerform, targetNum);
+    	theAuto.start();
     	
     }
 
@@ -79,6 +106,7 @@ public class Autonomous extends Command {
 
     @Override
     protected void end() {
+    	theAuto.cancel();
     }
 
     @Override

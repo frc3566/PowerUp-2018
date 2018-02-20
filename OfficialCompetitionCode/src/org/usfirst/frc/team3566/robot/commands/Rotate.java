@@ -10,13 +10,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class Rotate extends Command {
+	//positive power: rotate to the right.
 	private double spd=0, maxPower=0.5;
 	private double startDegree, endDegree, deltaDegree, error, previous_error;
 	public boolean isAuto;
-	
-	private double P=0.02, I=0, D = 0.002;
+
+	private double P=0.025, I=0.015, D = 0.006;
     double integral, derivative;
-    
+    double prev_light;
     
     public Rotate() {
     	isAuto=true;
@@ -31,21 +32,23 @@ public class Rotate extends Command {
 
     @Override
     protected void initialize() {
-    	this.setTimeout(5);
     	if(isAuto)deltaDegree = Robot.var.rotateTheta;
-    	
-    	SmartDashboard.putNumber("P", P);
+    	this.setTimeout(3);
+//    	P=SmartDashboard.getNumber("PP", 0);
+//    	I=SmartDashboard.getNumber("I", 0);
+//    	D=SmartDashboard.getNumber("DD", 0);
+    	 
+     	SmartDashboard.putNumber("P", P);
         SmartDashboard.putNumber("I", I);
         SmartDashboard.putNumber("D", D);
-
         SmartDashboard.putNumber("maxPower", maxPower); 
-    	
-    	 P=1/(2.2*Math.abs(deltaDegree)+18)+0.0175;
-    	 I=0;
-    	 D=0.002;
 
     	startDegree = Robot.var.getTheta();
     	endDegree = startDegree - deltaDegree;
+    	//Robot.drivetrain.ramp(0);
+    	
+    	prev_light = Robot.light.get();
+    	Robot.light.set(Robot.var.purple);
     }
 
     @Override
@@ -54,14 +57,15 @@ public class Rotate extends Command {
     	PID();
     	
     	spd*=maxPower;
-    	RobotMap.drive.tankDrive(spd, spd);
+    	//Robot.drivetrain.rotate(spd);
+    	//Robot.drivetrain.rotate(0.3);
+    	RobotMap.drive.tankDrive(spd, -spd);
     }
 
     @Override
     protected boolean isFinished() {
-    	
-    	if( Math.abs(error)<2 && Robot.encoderL.getRate()<500)return true;
     	if(this.isTimedOut())return true;
+    	if( Math.abs(error)<2 && Robot.encoderL.getRate()<500)return true;
     	return false;
     	
     }
@@ -70,13 +74,15 @@ public class Rotate extends Command {
     protected void end() {
     	Robot.drivetrain.stopDrive();
     	SmartDashboard.putBoolean("Driving", true);
+    //	Robot.drivetrain.ramp(Robot.RAMP);
+    	
+    	Robot.light.set(prev_light);
     }
     
     @Override
     protected void interrupted() {
     	end();
     }
-    
     
     public void PID(){
     	double theta = Robot.var.getTheta();
@@ -89,8 +95,4 @@ public class Rotate extends Command {
         this.spd = P*error + I*this.integral + D*derivative;
         previous_error = error;
     }
-
 }
-
-
-
