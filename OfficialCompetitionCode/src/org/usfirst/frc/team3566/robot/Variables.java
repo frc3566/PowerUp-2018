@@ -233,6 +233,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 		
 		public static void XYReset(double X, double Y)
 		{
+			System.out.printf("this is xyReset x:%.1f y:%.1f\n",x,y);
 			coordinateReset();
 			x=X;
 	        y=Y;

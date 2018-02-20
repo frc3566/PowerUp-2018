@@ -24,19 +24,18 @@ public class ElevatorToPosition extends Command {
     }
 
     protected void execute() {
-//    	int dir = Robot.elevator.checkDirectionToGo(position);
-//    	double spd  = Robot.elevator.findAppropriateSPD(Robot.elevator.checkDirectionToGo(position), position);
-//    	Robot.elevator.runElevator(spd);	
-    	/*
+    	int dir = Robot.elevator.checkDirectionToGo(position);
+    	double spd  = Robot.elevator.findAppropriateSPD(Robot.elevator.checkDirectionToGo(position), position);
+    	Robot.elevator.runElevator(spd);	
+    	
     	System.out.println("tryin to get to "+Robot.elevator.elevatorTargetValues[position]+", now at "+
     	Robot.elevator.elevatorEncoder.getValue()+" spd is "+ spd + " dir "+dir);
-    	*/
+    	
     }
 
     protected boolean isFinished() {
-//    	if(Robot.state!=RobotState.ELEVATER)return true;
-//        return Robot.elevator.reachedPosition(position);
-    	return false;
+    	if(Robot.state!=RobotState.ELEVATER)return true;
+        return Robot.elevator.reachedPosition(position);
     }
 
     protected void end() {

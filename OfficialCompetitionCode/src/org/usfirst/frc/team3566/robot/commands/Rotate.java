@@ -15,7 +15,7 @@ public class Rotate extends Command {
 	private double startDegree, endDegree, deltaDegree, error, previous_error;
 	public boolean isAuto;
 
-	private double P=0.02, I=0, D = 0.002;
+	private double P=0.025, I=0.015, D = 0.006;
     double integral, derivative;
     double prev_light;
     
@@ -33,11 +33,10 @@ public class Rotate extends Command {
     @Override
     protected void initialize() {
     	if(isAuto)deltaDegree = Robot.var.rotateTheta;
-    	
-    	 P=1/(2.2*Math.abs(deltaDegree)+18)+0.0175;
-    	 I=0;
-    	 D=0.002;
-    	 D=0;
+    	this.setTimeout(3);
+//    	P=SmartDashboard.getNumber("PP", 0);
+//    	I=SmartDashboard.getNumber("I", 0);
+//    	D=SmartDashboard.getNumber("DD", 0);
     	 
      	SmartDashboard.putNumber("P", P);
         SmartDashboard.putNumber("I", I);
@@ -65,7 +64,7 @@ public class Rotate extends Command {
 
     @Override
     protected boolean isFinished() {
-    	
+    	if(this.isTimedOut())return true;
     	if( Math.abs(error)<2 && Robot.encoderL.getRate()<500)return true;
     	return false;
     	

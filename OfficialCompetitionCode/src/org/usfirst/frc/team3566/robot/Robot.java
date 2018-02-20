@@ -95,12 +95,12 @@ public class Robot extends TimedRobot {
 //		encoderR.setDistancePerPulse(2.394);
 		
 		camMain = CameraServer.getInstance().startAutomaticCapture(1);
-		camMain.setResolution(1024,  768);
-		camMain.setFPS(30);
+		camMain.setResolution(640,  480);
+		camMain.setFPS(20);
 		
 		cam1 = CameraServer.getInstance().startAutomaticCapture(0);
-        cam1.setResolution(1024, 768);
-        cam1.setFPS(30);
+        cam1.setResolution(640, 480);
+        cam1.setFPS(20);
         
         SmartDashboard.putNumber("maxPower", 1);
         
@@ -132,6 +132,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
+//		var.XYReset  (startingPosition.getSelected().getX(), startingPosition.getSelected().getY());
 		auto = new Autonomous(new POINT(startingPosition.getSelected().getX(), startingPosition.getSelected().getY()), 
 				autoTarget.getSelected(), (startingPosition.getSelected().equals(leftStart)? 'L' : 
 					(startingPosition.getSelected().equals(middleStart)? 'M':'R')));
@@ -154,6 +155,7 @@ public class Robot extends TimedRobot {
 		}
 		encoderL.reset();
 		encoderR.reset();
+		var.reset();
 		maxCurrent=0;
 	}
 
@@ -163,12 +165,12 @@ public class Robot extends TimedRobot {
 		oi.updateCommands();
 		var.updateValues();
 //		System.out.println(state);
-		System.out.println(Robot.elevator.topSwitch.get()+" "+Robot.elevator.bottomSwitch.get());
+//		System.out.println(Robot.elevator.topSwitch.get()+" "+Robot.elevator.bottomSwitch.get());
 	}
 
 	@Override
 	public void testPeriodic() {
-//		SmartDashboard.putNumber("elev", Robot.elevator.elevatorEncoder.getIndex());
+		SmartDashboard.putNumber("elev", Robot.elevator.elevatorEncoder.getValue());
 		SmartDashboard.putNumber("theta", Robot.var.getTheta());
 		light.set(SmartDashboard.getNumber("LightPattern", 0));
 	}

@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class OI {
 	
 	//current plan: main for driving and BPU, secondary for elevator function
-    public Joystick main, secondary;
+    public Joystick main; //, secondary;
     public JoystickButton rotateLeft, rotateRight;
    // public JoystickButton goStraight,rotate;
     public JoystickButton BPUin, BPUout;
@@ -31,14 +31,15 @@ public class OI {
     public OI() {
 
         main = new Joystick(0);
-        secondary = new Joystick(1);
+    //    secondary = new Joystick(1);
         
         BPUin = new JoystickButton(main, 1);
         BPUin.whenPressed(new BPUin());
         
         BPUout = new JoystickButton(main, 4);
         BPUout.whenPressed(new BPUout());
-        
+   
+        /*
         elevTop = new JoystickButton(secondary, 4);
         elevTop.whenPressed(new ElevatorToPosition(2));
         
@@ -47,6 +48,7 @@ public class OI {
         
         elevGround = new JoystickButton(secondary, 1);
         elevGround.whenPressed(new ElevatorToPosition(0));
+        */
         
 		SmartDashboard.putNumber("rotateAngle", 90);
 		SmartDashboard.putNumber("DriveFT", 10);

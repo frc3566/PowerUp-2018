@@ -22,7 +22,8 @@ public class Elevator extends Subsystem {
 	public static AnalogInput elevatorEncoder; //bottom: 3200; top (without a box): 1184
 	public static DigitalInput topSwitch;
 	public static DigitalInput bottomSwitch;
-	public static final int[] elevatorTargetValues = {2840, 1510, 500}; //bottom, middle and top encoder values
+	public static final int[] elevatorTargetValues = {2700, 1440, 430}; //bottom, middle and top encoder values
+	//2770 
 	//slightly above the ground 3028
 	public static final int allowedError = 10;
 	public static final int totTravel=2340;
@@ -49,29 +50,29 @@ public class Elevator extends Subsystem {
     	elevator.set(0);
     }
     
-//    public int checkDirectionToGo(int posNum) {
-//    	int curr = elevatorEncoder.getValue();
-//    	
-//    		return (elevatorTargetValues[posNum]- curr > 0? 1:-1); //-1 is up, 1 is down
-//    }
+    public int checkDirectionToGo(int posNum) {
+    	int curr = elevatorEncoder.getValue();
+    	
+    		return (elevatorTargetValues[posNum]- curr > 0? 1:-1); //-1 is up, 1 is down
+    }
     
-//    public double findAppropriateSPD(int direction, int positionNum) {
-//    	if(Math.abs(elevatorEncoder.getValue() - elevatorTargetValues[positionNum]) < 30) {
-//    		return (direction == -1 ? elevUpSPD* direction * elevCloseFactor : elevDownSPD * direction * elevCloseFactor);
-//    	}else {
-//    		return (direction == -1 ? elevUpSPD* direction : elevDownSPD * direction);
-//    	}
-//    }
+    public double findAppropriateSPD(int direction, int positionNum) {
+    	if(Math.abs(elevatorEncoder.getValue() - elevatorTargetValues[positionNum]) < 30) {
+    		return (direction == -1 ? elevUpSPD* direction * elevCloseFactor : elevDownSPD * direction * elevCloseFactor);
+    	}else {
+    		return (direction == -1 ? elevUpSPD* direction : elevDownSPD * direction);
+    	}
+    }
     
-//    public boolean reachedPosition(int posNum) {
-//    	int curr = elevatorEncoder.getValue();
-//    	if(curr < (elevatorTargetValues[posNum] +allowedError) &&
-//    			(curr > (elevatorTargetValues[posNum] - allowedError))) {
-//    		return true;
-//    	}else {
-//    		return false;
-//    	}
-//    }
+    public boolean reachedPosition(int posNum) {
+    	int curr = elevatorEncoder.getValue();
+    	if(curr < (elevatorTargetValues[posNum] +allowedError) &&
+    			(curr > (elevatorTargetValues[posNum] - allowedError))) {
+    		return true;
+    	}else {
+    		return false;
+    	}
+    }
     
 }
 

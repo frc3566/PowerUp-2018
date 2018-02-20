@@ -39,7 +39,6 @@ public class Autonomous extends Command {
     	ArrayList<POINT> routeToPerform = Robot.var.defaultRoute;  //default, go cross auto line
     	
     	Robot.var.XYReset(startingPosition.getX(), startingPosition.getY());
-    	System.out.println("XY reset: "+ Robot.var.x+" "+Robot.var.y);
     	
     	switch (targetNum){
     	case 0: //our switch

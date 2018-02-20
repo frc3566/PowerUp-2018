@@ -10,9 +10,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class DriveStraight extends Command {
-	static final double maxSpeed=2500;
-	double  P=0.0008, I=0.00035, D=0.00018;
-//    double P=0.0006,I=0.0002,D=0.0001;
+	static final double maxSpeed=600; //mm * s^-1
+	double  P=0.0008, I=0.0002, D=0.00025;
 	double integral, previousError, derivative, setPoint = 2000;
     double power=0,error=0;
     double maxPower=1;
@@ -38,9 +37,9 @@ public class DriveStraight extends Command {
     protected void initialize() {
     	//Robot.var.distance's unit is ft, while DriveStraight needs to use Encoder in cm. 
     	//we're converting units here in the beginning to get rid of the problem
-    	P=SmartDashboard.getNumber("PP", 0);
-    	I=SmartDashboard.getNumber("I", 0);
-    	D=SmartDashboard.getNumber("DD", 0);
+//    	P=SmartDashboard.getNumber("PP", 0);
+//    	I=SmartDashboard.getNumber("I", 0);
+//    	D=SmartDashboard.getNumber("DD", 0);
     	if(isAuto)setPoint=Robot.var.distance * 304.8;   //1 ft = 304.8 mm. Distance (ft) converted to mm for encoder drive
     	length=setPoint;
     	Robot.var.collision.collideReset();
@@ -85,7 +84,8 @@ public class DriveStraight extends Command {
     	time=Robot.time.get()-startTime;
         PID();
         ramp();
-    	RobotMap.drive.tankDrive(power,power);
+//        System.out.println("Drivin Straight: power is "+power);
+    	RobotMap.drive.tankDrive(power,power * 0.98);
     }
 
     @Override
@@ -94,7 +94,7 @@ public class DriveStraight extends Command {
     	if (errAngle>15 && errAngle<345) return true;
     	if (Robot.var.collision.isCollide) return true;
     	if (Math.abs(error)<100&&Robot.encoderL.getRate()<100) return true;//needs consideration
-    	if (time> Math.abs(length) / 300 ) return true;
+    	//if (time> Math.abs(length) / 300 ) return true;
     	return false;
     }
 

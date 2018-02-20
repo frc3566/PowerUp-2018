@@ -39,7 +39,7 @@ public class DriveWithJoysticks extends Command {
     			Robot.state=RobotState.STANDSTILL;
     		else 
     		{
-    			RobotMap.drive.arcadeDrive(Robot.oi.main.getRawAxis(1)*-1*maxPower, Robot.oi.main.getRawAxis(4)*Math.max(0.45, maxPower));
+    			RobotMap.drive.arcadeDrive(Robot.oi.main.getRawAxis(1)*-1*maxPower, Robot.oi.main.getRawAxis(4)*Math.max(0.45, maxPower)+0.1);
     			Robot.state=RobotState.DRIVE;
     		}
     	//Robot.drivetrain.runMotor(Robot.oi.joystick1.getRawAxis(1));

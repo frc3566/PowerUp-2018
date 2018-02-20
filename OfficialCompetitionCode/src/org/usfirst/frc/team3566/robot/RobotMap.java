@@ -68,8 +68,8 @@ public class RobotMap {
 //       climber = new WPI_TalonSRX(25);	//25
 //       Tilter = new WPI_TalonSRX(18);	//18
        
-       drive.setSafetyEnabled(true);
-       drive.setExpiration(0.1);
+       drive.setSafetyEnabled(false);
+//       drive.setExpiration(0.1);
        drive.setMaxOutput(1.0);
     }
     
