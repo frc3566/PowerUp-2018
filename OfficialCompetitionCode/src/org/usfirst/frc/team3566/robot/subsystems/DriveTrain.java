@@ -40,8 +40,14 @@ public class DriveTrain extends Subsystem {
 
     @Override
     public void periodic() {
-
-
+    }
+    
+    public void ramp(double rmp)
+    {
+    	FL.configOpenloopRamp(rmp,0);
+        FR.configOpenloopRamp(rmp,0);
+        RL.configOpenloopRamp(rmp,0);
+        RR.configOpenloopRamp(rmp,0);
     }
     
     public void runMotor(double spd)
@@ -56,7 +62,7 @@ public class DriveTrain extends Subsystem {
 	  RR.stopMotor();
    }
 
-   public void goForward(double spd) {
+   public void rotate(double spd) {
 	   FL.set(spd);
 	   RL.set(spd);
 	   FR.set(spd);
@@ -70,7 +76,7 @@ public class DriveTrain extends Subsystem {
 	   RR.set(spd*(dir? -1:1));
    }
    
-   public void rotate(double spd) {
+   public void goForward(double spd) {
 	   FL.set(spd);
 	   FR.set(spd*-1);
 	   RL.set(spd);
