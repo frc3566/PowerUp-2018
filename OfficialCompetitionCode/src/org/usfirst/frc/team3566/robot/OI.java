@@ -9,11 +9,8 @@ package org.usfirst.frc.team3566.robot;
 
 import org.usfirst.frc.team3566.*;
 import org.usfirst.frc.team3566.robot.commands.DriveStraight;
-import org.usfirst.frc.team3566.robot.commands.ElevatorToPosition;
 import org.usfirst.frc.team3566.robot.commands.Rotate;
-import org.usfirst.frc.team3566.robot.commands.BPUout;
-import org.usfirst.frc.team3566.robot.commands.DriveForSeconds;
-import org.usfirst.frc.team3566.robot.commands.BPUin;
+import org.usfirst.frc.team3566.robot.commands.RotateNonStop;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -21,48 +18,33 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class OI {
 	
-	//current plan: main for driving and BPU, secondary for elevator function
-    public Joystick main; //, secondary;
+    public Joystick joystick1;
     public JoystickButton rotateLeft, rotateRight;
-   // public JoystickButton goStraight,rotate;
-    public JoystickButton BPUin, BPUout;
-    public JoystickButton elevGround, elevMid, elevTop;
+    public JoystickButton goStraight,rotate;
     
+
+
     public OI() {
 
-        main = new Joystick(0);
-    //    secondary = new Joystick(1);
+        joystick1 = new Joystick(0);
         
-        BPUin = new JoystickButton(main, 1);
-        BPUin.whenPressed(new BPUin());
+        rotateLeft = new JoystickButton(joystick1, 5);
+        rotateLeft.whileHeld(new RotateNonStop(Robot.var.rotateNonStopSpd*-1));
         
-        BPUout = new JoystickButton(main, 4);
-        BPUout.whenPressed(new BPUout());
-   
-        /*
-        elevTop = new JoystickButton(secondary, 4);
-        elevTop.whenPressed(new ElevatorToPosition(2));
+        rotateRight = new JoystickButton(joystick1, 6);
+        rotateRight.whileHeld(new RotateNonStop(Robot.var.rotateNonStopSpd));
         
-        elevMid = new JoystickButton(secondary, 2);
-        elevMid.whenPressed(new ElevatorToPosition(1));
+        goStraight= new JoystickButton(joystick1,1);
+        goStraight.whenPressed(new DriveStraight(10));
         
-        elevGround = new JoystickButton(secondary, 1);
-        elevGround.whenPressed(new ElevatorToPosition(0));
-        */
-        
-		SmartDashboard.putNumber("rotateAngle", 90);
-		SmartDashboard.putNumber("DriveFT", 10);
-		SmartDashboard.putNumber("DriveTime", 3);
-		SmartDashboard.putBoolean("DriveDirection", true);
+        rotate= new JoystickButton(joystick1,2);
+        rotate.whenPressed(new Rotate(90));
     }
 
     public void updateCommands() {
-    	SmartDashboard.putData("RotateForAngle", new Rotate(SmartDashboard.getNumber("rotateAngle", 0)));
-    	SmartDashboard.putData("DriveForFeet", new DriveStraight(SmartDashboard.getNumber("DriveFT", 0)));
-    	SmartDashboard.putData("DriveForSeconds", 
-    			new DriveForSeconds(false, SmartDashboard.getNumber("DriveTime", 0), 
-    					SmartDashboard.getBoolean("DriveDirection", true)));
+    	
     }
+
 }
 
 
