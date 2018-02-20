@@ -32,12 +32,12 @@ public class Rotate extends Command {
 
     @Override
     protected void initialize() {
-    	this.setTimeout(3);
     	if(isAuto)deltaDegree = Robot.var.rotateTheta;
     	
     	 P=1/(2.2*Math.abs(deltaDegree)+18)+0.0175;
     	 I=0;
     	 D=0.002;
+    	 D=0;
     	 
      	SmartDashboard.putNumber("P", P);
         SmartDashboard.putNumber("I", I);
@@ -58,15 +58,15 @@ public class Rotate extends Command {
     	PID();
     	
     	spd*=maxPower;
-    //	Robot.drivetrain.rotate(spd);
-    	Robot.drivetrain.rotate(0.3);
+    	//Robot.drivetrain.rotate(spd);
+    	//Robot.drivetrain.rotate(0.3);
+    	RobotMap.drive.tankDrive(spd, -spd);
     }
 
     @Override
     protected boolean isFinished() {
     	
     	if( Math.abs(error)<2 && Robot.encoderL.getRate()<500)return true;
-    	if(this.isTimedOut())return true;
     	return false;
     	
     }

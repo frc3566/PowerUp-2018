@@ -86,7 +86,7 @@ public class Robot extends TimedRobot {
 		
 		//encoder wheel perimeter 227.13mm
 		encoderL = new Encoder(1,2,false,Encoder.EncodingType.k4X);
-		encoderL.setDistancePerPulse(-0.63);
+		encoderL.setDistancePerPulse(0.63);
 		
 		encoderR=encoderL;
 		
@@ -113,7 +113,10 @@ public class Robot extends TimedRobot {
         SmartDashboard.putData("elevToBottom", new ElevatorToPosition(0));
         SmartDashboard.putData("elevToMiddle", new ElevatorToPosition(1));
         SmartDashboard.putData("elevToTop", new ElevatorToPosition(2));
-        
+
+		SmartDashboard.putNumber("P", 0);
+		SmartDashboard.putNumber("I", 0);
+		SmartDashboard.putNumber("DD", 0);
 	}
 
 	@Override

@@ -4,12 +4,13 @@ import org.usfirst.frc.team3566.robot.Robot;
 import org.usfirst.frc.team3566.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
 public class DriveStraight extends Command {
-	static final double maxSpeed=500;
+	static final double maxSpeed=2500;
 	double  P=0.0008, I=0.00035, D=0.00018;
 //    double P=0.0006,I=0.0002,D=0.0001;
 	double integral, previousError, derivative, setPoint = 2000;
@@ -37,6 +38,9 @@ public class DriveStraight extends Command {
     protected void initialize() {
     	//Robot.var.distance's unit is ft, while DriveStraight needs to use Encoder in cm. 
     	//we're converting units here in the beginning to get rid of the problem
+    	P=SmartDashboard.getNumber("P", 0);
+    	I=SmartDashboard.getNumber("I", 0);
+    	D=SmartDashboard.getNumber("DD", 0);
     	if(isAuto)setPoint=Robot.var.distance * 304.8;   //1 ft = 304.8 mm. Distance (ft) converted to mm for encoder drive
     	length=setPoint;
     	Robot.var.collision.collideReset();
@@ -45,9 +49,9 @@ public class DriveStraight extends Command {
     	error = setPoint - Robot.var.getEncoder();
     	startTime=Robot.time.get();
     	Robot.drivetrain.ramp(0);
-    	
     	prev_light = Robot.light.get();
     	Robot.light.set(Robot.var.white);
+    	System.out.printf("drive for %.0f\n", setPoint);
     }
     
     void ramp()
@@ -81,7 +85,7 @@ public class DriveStraight extends Command {
     	time=Robot.time.get()-startTime;
         PID();
         ramp();
-    	RobotMap.drive.tankDrive(power,-power);
+    	RobotMap.drive.tankDrive(power,power);
     }
 
     @Override

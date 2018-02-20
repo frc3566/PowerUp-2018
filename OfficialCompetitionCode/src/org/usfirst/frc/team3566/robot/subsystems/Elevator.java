@@ -17,9 +17,10 @@ public class Elevator extends Subsystem {
 	
 	public static AnalogInput elevatorEncoder; //bottom: 3200; top (without a box): 1184
 	
-	public static final int[] elevatorTargetValues = {3240, 1810, 750}; //bottom, middle and top encoder values
+	public static final int[] elevatorTargetValues = {2840, 1510, 500}; //bottom, middle and top encoder values
+	//slightly above the ground 3028
 	public static final int allowedError = 10;
-	public static final double elevUpSPD = 1, elevDownSPD = 0.7, elevCloseFactor = 0.7;
+	public static final double elevUpSPD = 1, elevDownSPD = 0.6, elevCloseFactor = 0.7;
 	
 	public Elevator() {
 
