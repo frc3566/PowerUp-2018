@@ -56,9 +56,10 @@ public class RobotMap {
               
        ElevRight = new WPI_TalonSRX(35);  //35
        ElevRight.setInverted(true);
-       
+       ElevRight.configOpenloopRamp(0.5, 0);
        ElevLeft = new WPI_TalonSRX(17); //17
        ElevLeft.setInverted(false);
+       ElevLeft.configOpenloopRamp(0.5, 0);
        
        //elevator: pos power goes down, corresponding to the elevator encoder.
        Elev = new SpeedControllerGroup(ElevLeft, ElevRight);

@@ -38,7 +38,7 @@ public class DriveStraight extends Command {
     protected void initialize() {
     	//Robot.var.distance's unit is ft, while DriveStraight needs to use Encoder in cm. 
     	//we're converting units here in the beginning to get rid of the problem
-    	P=SmartDashboard.getNumber("P", 0);
+    	P=SmartDashboard.getNumber("PP", 0);
     	I=SmartDashboard.getNumber("I", 0);
     	D=SmartDashboard.getNumber("DD", 0);
     	if(isAuto)setPoint=Robot.var.distance * 304.8;   //1 ft = 304.8 mm. Distance (ft) converted to mm for encoder drive

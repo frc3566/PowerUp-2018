@@ -30,6 +30,7 @@ public class Robot extends TimedRobot {
 	public static final POINT leftStart = new POINT(3.75, 1.5), 
 			middleStart = new POINT(14.5, 1.5), rightStart = new POINT(23.5, 1.5);
 	//variables
+	public static RobotState state=RobotState.STANDSTILL;
 	public static Variables var;
 	public static Timer time;
 	public static double maxCurrent;
@@ -114,7 +115,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putData("elevToMiddle", new ElevatorToPosition(1));
         SmartDashboard.putData("elevToTop", new ElevatorToPosition(2));
 
-		SmartDashboard.putNumber("P", 0);
+		SmartDashboard.putNumber("PP", 0);
 		SmartDashboard.putNumber("I", 0);
 		SmartDashboard.putNumber("DD", 0);
 	}
@@ -161,12 +162,13 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 		oi.updateCommands();
 		var.updateValues();
-		
+//		System.out.println(state);
+		System.out.println(Robot.elevator.topSwitch.get()+" "+Robot.elevator.bottomSwitch.get());
 	}
 
 	@Override
 	public void testPeriodic() {
-		SmartDashboard.putNumber("elev", Robot.elevator.elevatorEncoder.getValue());
+//		SmartDashboard.putNumber("elev", Robot.elevator.elevatorEncoder.getIndex());
 		SmartDashboard.putNumber("theta", Robot.var.getTheta());
 		light.set(SmartDashboard.getNumber("LightPattern", 0));
 	}

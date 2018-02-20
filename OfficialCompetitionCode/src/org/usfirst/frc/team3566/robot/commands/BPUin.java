@@ -20,5 +20,4 @@ public class BPUin extends InstantCommand {
     	Robot.bpu.setPickUpMotorDirection(BPU.IN);
     	System.out.println("BPU direction: IN!");
     }
-
 }

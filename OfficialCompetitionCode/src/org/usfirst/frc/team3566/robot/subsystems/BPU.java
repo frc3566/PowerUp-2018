@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3566.robot.subsystems;
 
 import org.usfirst.frc.team3566.robot.*;
+import org.usfirst.frc.team3566.robot.commands.ManualBPU;
 import org.usfirst.frc.team3566.robot.commands.RunBPU;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -21,19 +22,17 @@ public class BPU extends Subsystem {
 	
 	public static final int IN = 1, OUT = -1;
 	
-	private boolean pickUpOnOff = false;
+	public boolean pickUpOnOff = false;
 	private int pickUpDirection = this.IN;
 	
 	private final WPI_TalonSRX Tilter = RobotMap.Tilter;
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
 
     public void initDefaultCommand() {
-    	setDefaultCommand(new RunBPU());
+    	setDefaultCommand(new ManualBPU());
     }
     
     public void pickUp() {
-    	if(pickUpOnOff) {
+     	if(pickUpOnOff) {
     		if(pickUpDirection == this.IN && !boxLimitSwitch.get()) { //box is in confirmed
     			leftPickUp.set(0);
     			rightPickUp.set(0);
@@ -43,11 +42,9 @@ public class BPU extends Subsystem {
        			leftPickUp.set(Robot.var.BPU_PICKUP_SPD * pickUpDirection);
        			rightPickUp.set(Robot.var.BPU_PICKUP_SPD * pickUpDirection);
        		}
-    		
     	}else {
     		stopPickUp();
     	}
-    	
     }
     
     public void stopPickUp() {
@@ -65,9 +62,5 @@ public class BPU extends Subsystem {
     
     public void setPickUpMotorDirection(int InOrOut) {
     	pickUpDirection = InOrOut;
-    }
-    
-    public void runTilter() {
-    	
     }
 }
