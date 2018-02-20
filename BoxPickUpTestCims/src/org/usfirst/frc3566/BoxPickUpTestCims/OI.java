@@ -69,10 +69,13 @@ public class OI {
         
         button1ToggleShooterMotors = new JoystickButton(logitech, 1);
         button1ToggleShooterMotors.whenPressed(new ToggleShooterMotorsOnOff());
+        
         button3TogglePickUpDirection = new JoystickButton(logitech, 3);
         button3TogglePickUpDirection.whenPressed(new TogglePickUpMotorDirection());
+        
         button5ToggleLeftSidePickUp = new JoystickButton(logitech, 7 );
         button5ToggleLeftSidePickUp.whenPressed(new ToggleLeftSideOnOff());
+        
         button6ToggleRightSidePickUp = new JoystickButton(logitech, 6);
         button6ToggleRightSidePickUp.whenPressed(new ToggleRighSideOnOff());
 
