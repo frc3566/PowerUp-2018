@@ -14,6 +14,7 @@ public class AutoCommandGroup extends CommandGroup {
 
     public AutoCommandGroup(ArrayList<POINT> theRoute, int targetNumber) {
     	
+    	addParallel(new ElevatorToPosition(0));
     	addSequential(new CompleteRoute(theRoute));
     	//if going for our switch or the opponent switch, raise elevator to position one (middle)
     	//if going for the scale, raise elevator to position two (top)

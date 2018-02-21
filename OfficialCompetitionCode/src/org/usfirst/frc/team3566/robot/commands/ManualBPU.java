@@ -17,23 +17,23 @@ public class ManualBPU extends Command {
     }
 
     protected void execute() {
-    	if(Robot.oi.main.getRawAxis(3)>0.1)
-    	{
-    		Robot.bpu.pickUpOnOff=true;
-    		Robot.bpu.setPickUpMotorDirection(1);
-    		Robot.bpu.pickUp();
+    	if(!Robot.isAuto) {
+	    	if(Robot.oi.main.getRawAxis(3)>0.1)
+	    	{
+	    		Robot.bpu.pickUpOnOff=true;
+	    		Robot.bpu.setPickUpMotorDirection(1);
+	    	}
+	    	else if(Robot.oi.main.getRawAxis(2)>0.1)
+	    	{
+	    		Robot.bpu.pickUpOnOff=true;
+	    		Robot.bpu.setPickUpMotorDirection(-1);
+	    	}else {
+	    		Robot.bpu.pickUpOnOff = false;
+	    	}
     	}
-    	else if(Robot.oi.main.getRawAxis(2)>0.1)
-    	{
-    		Robot.bpu.pickUpOnOff=true;
-    		Robot.bpu.setPickUpMotorDirection(-1);
-    		Robot.bpu.pickUp();
-    	}
-    	else 
-    	{
-    		Robot.bpu.pickUpOnOff=false;
-    		Robot.bpu.stopPickUp();
-    	}
+    	
+		Robot.bpu.pickUp();
+		
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -22,7 +22,7 @@ public class RunElevator extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.elevator.runElevator(Robot.oi.joystick1.getRawAxis(5));
+    	Robot.elevator.runElevator(Robot.oi.main.getRawAxis(5));
     	
     }
 

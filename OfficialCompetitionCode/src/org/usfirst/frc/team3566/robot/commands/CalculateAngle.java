@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 	    protected void initialize() {
 	    	
 	    	Robot.var.distance = Math.sqrt(Math.pow((p.getX()-Robot.var.x), 2)+Math.pow((p.getY()-Robot.var.y), 2));
-			if(Robot.var.distance<0.5) 
+			if(Robot.var.distance<0.3) 
 			{
 				Robot.var.rotateTheta=0;
 				Robot.var.distance=0;

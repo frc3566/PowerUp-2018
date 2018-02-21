@@ -59,7 +59,7 @@ public class Autonomous extends Command {
     	case 1: //scale
     		if(Robot.var.ScalePos == 'L') {
     			switch (startingPosChar) {
-    			case 'L': routeToPerform = Robot.var.route3; break;
+    			case 'L': routeToPerform = Robot.var.route3; System.out.println("left scale left!!!!");break;
     			case 'M': routeToPerform = Robot.var.route15; break;
     			case 'R': routeToPerform = Robot.var.route10; break;
     			}

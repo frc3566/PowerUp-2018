@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class DriveStraight extends Command {
-	static final double maxSpeed=600; //mm * s^-1
-	double  P=0.0008, I=0.0002, D=0.00025;
+	static final double maxSpeed=1500; //mm * s^-1
+	double  P=0.001, I=0.0008, D=0.00016;
 	double integral, previousError, derivative, setPoint = 2000;
     double power=0,error=0;
     double maxPower=1;
@@ -41,7 +41,6 @@ public class DriveStraight extends Command {
 //    	I=SmartDashboard.getNumber("I", 0);
 //    	D=SmartDashboard.getNumber("DD", 0);
     	if(isAuto)setPoint=Robot.var.distance * 304.8;   //1 ft = 304.8 mm. Distance (ft) converted to mm for encoder drive
-    	length=setPoint;
     	Robot.var.collision.collideReset();
     	startAngle=Robot.var.getTheta();
     	setPoint+=Robot.var.getEncoder();
@@ -51,6 +50,7 @@ public class DriveStraight extends Command {
     	prev_light = Robot.light.get();
     	Robot.light.set(Robot.var.white);
     	System.out.printf("drive for %.0f\n", setPoint);
+    	length=Math.abs(setPoint);
     }
     
     void ramp()
@@ -74,7 +74,7 @@ public class DriveStraight extends Command {
         this.integral += (error*.02);
         derivative = (error - previousError) / .02;
         previousError=error;
-        if(power>=0.99||power<=-0.99)integral=0;
+        if(power>=0.99||power<=-0.99||Math.abs(Robot.encoderL.getRate())>maxSpeed)integral=0;
         power = P*error + I*this.integral + D*derivative;
     }
     
@@ -93,8 +93,8 @@ public class DriveStraight extends Command {
     	double errAngle = (Robot.var.getTheta()-startAngle+360) % 360;
     	if (errAngle>15 && errAngle<345) return true;
     	if (Robot.var.collision.isCollide) return true;
-    	if (Math.abs(error)<100&&Robot.encoderL.getRate()<100) return true;//needs consideration
-    	//if (time> Math.abs(length) / 300 ) return true;
+    	if (Math.abs(error)<150&&Robot.encoderL.getRate()<300) return true;//needs consideration
+    	if (time> Math.abs(length) / 300 ) return true;
     	return false;
     }
 
@@ -105,7 +105,7 @@ public class DriveStraight extends Command {
     	double errAngle = (Robot.var.getTheta()-startAngle+360) % 360;
     	if (errAngle>15 && errAngle<345)
     		System.out.println("drive straight stopped due to bad direction");
-    	System.out.printf("straight stop in %.1f second\n",time);
+    	System.out.printf("straight stop in %.1f second error %.1f\n",time,error);
     	Robot.drivetrain.stopDrive();
     	Robot.drivetrain.ramp(Robot.RAMP);
     	

@@ -15,7 +15,8 @@ public class Rotate extends Command {
 	private double startDegree, endDegree, deltaDegree, error, previous_error;
 	public boolean isAuto;
 
-	private double P=0.025, I=0.015, D = 0.006;
+	//private double P=0.028, I=0.015, D = 0.006;
+	private double P=0.02, I=0.025, D=0.008;
     double integral, derivative;
     double prev_light;
     
@@ -37,16 +38,10 @@ public class Rotate extends Command {
 //    	P=SmartDashboard.getNumber("PP", 0);
 //    	I=SmartDashboard.getNumber("I", 0);
 //    	D=SmartDashboard.getNumber("DD", 0);
-    	 
-     	SmartDashboard.putNumber("P", P);
-        SmartDashboard.putNumber("I", I);
-        SmartDashboard.putNumber("D", D);
-        SmartDashboard.putNumber("maxPower", maxPower); 
 
     	startDegree = Robot.var.getTheta();
     	endDegree = startDegree - deltaDegree;
-    	//Robot.drivetrain.ramp(0);
-    	
+//    	Robot.drivetrain.ramp(0);
     	prev_light = Robot.light.get();
     	Robot.light.set(Robot.var.purple);
     }
@@ -65,9 +60,8 @@ public class Rotate extends Command {
     @Override
     protected boolean isFinished() {
     	if(this.isTimedOut())return true;
-    	if( Math.abs(error)<2 && Robot.encoderL.getRate()<500)return true;
+    	if(Math.abs(error)<3 && Math.abs(Robot.encoderL.getRate())<500)return true;
     	return false;
-    	
     }
 
     @Override
@@ -75,7 +69,7 @@ public class Rotate extends Command {
     	Robot.drivetrain.stopDrive();
     	SmartDashboard.putBoolean("Driving", true);
     //	Robot.drivetrain.ramp(Robot.RAMP);
-    	
+    	System.out.printf("program stops after %.1f seconds, error is %.1f\n", this.timeSinceInitialized(),error);
     	Robot.light.set(prev_light);
     }
     
@@ -88,7 +82,6 @@ public class Rotate extends Command {
     	double theta = Robot.var.getTheta();
         error = ((theta-endDegree)+360)%360;
         if(error>180)error-=360;
-        
         this.integral += (error*.02);
         derivative = (error - this.previous_error) / .02;
         if(Math.abs(spd)>0.8)integral=0;

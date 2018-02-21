@@ -57,8 +57,8 @@ public class OI {
     }
 
     public void updateCommands() {
-    	SmartDashboard.putData("RotateForAngle", new Rotate(SmartDashboard.getNumber("rotateAngle", 0)));
-    	SmartDashboard.putData("DriveForFeet", new DriveStraight(SmartDashboard.getNumber("DriveFT", 0)));
+    	SmartDashboard.putData("RotateForAngle2", new Rotate(SmartDashboard.getNumber("rotateAngle", 0)));
+    	SmartDashboard.putData("DriveForFeet2", new DriveStraight(SmartDashboard.getNumber("DriveFT", 0)));
     	SmartDashboard.putData("DriveForSeconds", 
     			new DriveForSeconds(false, SmartDashboard.getNumber("DriveTime", 0), 
     					SmartDashboard.getBoolean("DriveDirection", true)));

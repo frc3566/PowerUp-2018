@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 	public class Variables {
 
 		public static final double rotateNonStopSpd = 0.5;
-		public static final double BPU_PICKUP_SPD=0.3;
+		public static final double BPU_PICKUP_SPD=0.4;
 		
 		public static char ourSwitchPos, ScalePos, oppSwitchPos;
 		public static String gameMessage;
@@ -70,7 +70,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 			
 			route3 = new ArrayList<POINT>();
 	    	route3.add(Robot.leftStart);	//left scale left
-	    	route3.add(new POINT(3.75, 27.0));
+	    	route3.add(new POINT(3.75, 20)); //added point
+	    	route3.add(new POINT(3, 27.0));
 	    	route3.add(scaleLeftSide);
 
 	    	route4 = new ArrayList<POINT>();

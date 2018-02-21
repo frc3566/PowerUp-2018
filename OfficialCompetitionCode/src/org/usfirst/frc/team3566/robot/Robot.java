@@ -42,6 +42,7 @@ public class Robot extends TimedRobot {
 	//sensors
 	public static Encoder encoderL, encoderR;
 	public static Spark light;
+	public static boolean isAuto = false;
 	
 	/*
 	 * light values: SOLID COLORS: 0.61 red, 0.64 yellow, 0.77 green, 0.87 blue, 0.91 purple, 0.93 white
@@ -95,13 +96,13 @@ public class Robot extends TimedRobot {
 //		encoderR.setDistancePerPulse(2.394);
 		
 		camMain = CameraServer.getInstance().startAutomaticCapture(1);
-		camMain.setResolution(640,  480);
+		camMain.setResolution(480,  360);
 		camMain.setFPS(20);
 		
 		cam1 = CameraServer.getInstance().startAutomaticCapture(0);
-        cam1.setResolution(640, 480);
+        cam1.setResolution(480, 360);
         cam1.setFPS(20);
-        
+//        
         SmartDashboard.putNumber("maxPower", 1);
         
 		var.reset();
@@ -132,10 +133,21 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
+		var.reset();
+		
+		isAuto = true;
+		System.out.println("autoTarget value: "+ autoTarget.getSelected());
 //		var.XYReset  (startingPosition.getSelected().getX(), startingPosition.getSelected().getY());
+		
+		/*
 		auto = new Autonomous(new POINT(startingPosition.getSelected().getX(), startingPosition.getSelected().getY()), 
 				autoTarget.getSelected(), (startingPosition.getSelected().equals(leftStart)? 'L' : 
 					(startingPosition.getSelected().equals(middleStart)? 'M':'R')));
+		*/
+		
+		auto = new Autonomous(leftStart, 1, 'L');
+		
+		
 		//auto will receive info on our starting position coordinates, the code char for our starting position, and the target
 		//we're going for
 		if (auto != null) {
@@ -150,6 +162,8 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
+		isAuto = false;
+		Robot.drivetrain.ramp(RAMP);
 		if (auto != null) {
 			auto.cancel();
 		}
