@@ -62,7 +62,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 			
 			route2 = new ArrayList<POINT>();	//left switch right
 			route2.add(Robot.leftStart);
-			route2.add(new POINT(3.75, 20));
+			route2.add(new POINT(3.75, 20.0));
 			//turn right
 			route2.add(new POINT(18.0, 20.0));
 			//turn right
@@ -82,11 +82,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 	    	
 	    	route5 = new ArrayList<POINT>();
 	    	route5.add(Robot.leftStart);	//left OppSwitch left
-	    	route5.add(new POINT(3.75, 40.0));
+	    	route5.add(new POINT(3.75, 20));//added
+	    	route5.add(new POINT(3, 40.0));
 	    	route5.add(oppSwitchLeftSide);
 
 	    	route6 = new ArrayList<POINT>();
 	    	route6.add(Robot.leftStart);	//left OppSwitch right
+	    	route6.add(new POINT(3.75, 20));//added
 	    	route6.add(new POINT(3.75, 33.0));
 	    	route6.add(new POINT(17.75, 33.0));
 	    	route6.add(oppSwitchRightFront);
@@ -109,6 +111,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 			
 			route9 = new ArrayList<POINT>();
 	    	route9.add(Robot.rightStart);	//right scale right
+	    	route9.add(new POINT(23.5, 20));//added
 	    	route9.add(new POINT(23.5, 27.0));
 	    	route9.add(scaleRightSide);
 
@@ -120,11 +123,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 	    	
 	    	route11 = new ArrayList<POINT>();
 	    	route11.add(Robot.rightStart);	//right OppSwitch right
+	    	route11.add(new POINT(23.5, 20));
 	    	route11.add(new POINT(23.5, 40.0));
 	    	route11.add(oppSwitchRightSide);
 
 	    	route12 = new ArrayList<POINT>();
 	    	route12.add(Robot.rightStart);	//right OppSwitch left
+	    	route12.add(new POINT(23.5, 20));
 	    	route12.add(new POINT(23.5, 33.75));
 	    	route12.add(new POINT(8.75, 33.75));
 	    	route12.add(oppSwitchLeftFront);
@@ -165,6 +170,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 	    	route17.add(Robot.middleStart);	//middle OppSwitch left
 	    	route17.add(midStartBranchPoint);
 	    	route17.add(new POINT(2.75, 6.25));
+	    	route17.add(new POINT(2.75, 20));
 	    	route17.add(new POINT(2.75, 40));
 	    	route17.add(oppSwitchLeftSide);
 
@@ -172,6 +178,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 	    	route18.add(Robot.middleStart);	//middle OppSwitch right
 	    	route18.add(midStartBranchPoint);
 	    	route18.add(new POINT(23.75, 6.25));
+	    	route18.add(new POINT(23.75, 20));
 	    	route18.add(new POINT(23.75, 40));
 	    	route18.add(oppSwitchRightSide);
 	    	
