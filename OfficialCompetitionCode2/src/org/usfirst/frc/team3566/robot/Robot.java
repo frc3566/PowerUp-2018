@@ -26,11 +26,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot {
 	//constants
-	public static final double RAMP=0.4;
+	public static final double RAMP=0.3;
 	public static final POINT leftStart = new POINT(3.75, 1.5), 
 			middleStart = new POINT(14.5, 1.5), rightStart = new POINT(23.5, 1.5);
 	//variables
 	public static RobotState state=RobotState.STANDSTILL;
+	public static EncoderState encoderState=EncoderState.Left;
 	public static Variables var;
 	public static Timer time;
 	public static double maxCurrent;
@@ -66,9 +67,9 @@ public class Robot extends TimedRobot {
 		var = new Variables();
 		
 		drivetrain = new DriveTrain();
-//		bpu = new BPU();
-//		elevator = new Elevator();
-	//	climber = new Climber();
+		bpu = new BPU();
+		elevator = new Elevator();
+		climber = new Climber();
 		
 		oi = new OI();
 		startingPosition.addDefault("P1", leftStart);
@@ -87,18 +88,14 @@ public class Robot extends TimedRobot {
 		time = new Timer();
 		
 		//encoder wheel perimeter 227.13mm
-		//this is the real encoder
-//		encoderL = new Encoder(1,2,false,Encoder.EncodingType.k4X);
-//		encoderL.setDistancePerPulse(0.63);
-		
-		encoderL = new Encoder(1,2,false,Encoder.EncodingType.k4X);
-		encoderL.setDistancePerPulse(-0.90);
-		//this is the backup
-		
-		encoderR=encoderL;
-		
-//		encoderR = new Encoder(2,3,false,Encoder.EncodingType.k4X);
-//		encoderR.setDistancePerPulse(2.394);
+		encoderL = new Encoder(1,2,false,Encoder.EncodingType.k4X);//this is main encoder
+		encoderL.setDistancePerPulse(0.63);
+//		encoderL = new Encoder(1,2,false,Encoder.EncodingType.k4X);//this is second encoder
+//		encoderL.setDistancePerPulse(-0.979);//-0.9
+		//encoderL = new Encoder(3,4,false,Encoder.EncodingType.k4X);//this is third encoder
+		//encoderL.setDistancePerPulse(-0.907);
+		encoderR=encoderL;//if we use only one encoder, otherwise init the right encoder
+		encoderState=EncoderState.Left;
 		
 //		camMain = CameraServer.getInstance().startAutomaticCapture(1);
 //		camMain.setResolution(480,  360);
@@ -111,24 +108,19 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("maxPower", 1);
         
 		var.reset();
-        
         light = new Spark(0);
         SmartDashboard.putNumber("LightPattern", -0.41);
-        
-        
         //BELOW IS CODE FOR TESTING.
 //        SmartDashboard.putData("elevToBottom", new ElevatorToPosition(0));
 //        SmartDashboard.putData("elevToMiddle", new ElevatorToPosition(1));
 //        SmartDashboard.putData("elevToTop", new ElevatorToPosition(2));
-
-		SmartDashboard.putNumber("PP", 0);
-		SmartDashboard.putNumber("I", 0);
-		SmartDashboard.putNumber("DD", 0);
+//		SmartDashboard.putNumber("PP", 0);
+//		SmartDashboard.putNumber("I", 0);
+//		SmartDashboard.putNumber("DD", 0);
 	}
 
 	@Override
 	public void disabledInit() {
-
 	}
 
 	@Override
@@ -139,7 +131,6 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		var.reset();
-		
 		isAuto = true;
 		System.out.println("autoTarget value: "+ autoTarget.getSelected());
 //		var.XYReset  (startingPosition.getSelected().getX(), startingPosition.getSelected().getY());
@@ -149,10 +140,7 @@ public class Robot extends TimedRobot {
 				autoTarget.getSelected(), (startingPosition.getSelected().equals(leftStart)? 'L' : 
 					(startingPosition.getSelected().equals(middleStart)? 'M':'R')));
 		*/
-		
 		auto = new Autonomous(leftStart, 1, 'L');
-		
-		
 		//auto will receive info on our starting position coordinates, the code char for our starting position, and the target
 		//we're going for
 		if (auto != null) {
@@ -183,7 +171,6 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 		oi.updateCommands();
 		var.updateValues();
-//		System.out.println(state);
 //		System.out.println(Robot.elevator.topSwitch.get()+" "+Robot.elevator.bottomSwitch.get());
 	}
 

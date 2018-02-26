@@ -27,15 +27,11 @@ public class Autonomous extends Command {
 
     @Override
     protected void initialize() {
-    	
-    	
     	Robot.var.gameMessage = DriverStation.getInstance().getGameSpecificMessage();
     	Robot.var.setSwitchScaleSides(); //splits gameMessage into individual message
     	SmartDashboard.putString("OurSwitch", Robot.var.ourSwitchPos+"");
     	SmartDashboard.putString("Scale", Robot.var.ScalePos+"");
     	SmartDashboard.putString("OppSwitch", Robot.var.oppSwitchPos+"");
-    	
-
     	ArrayList<POINT> routeToPerform = Robot.var.defaultRoute;  //default, go cross auto line
     	
     	Robot.var.XYReset(startingPosition.getX(), startingPosition.getY());
@@ -47,7 +43,7 @@ public class Autonomous extends Command {
     			case 'L': routeToPerform = Robot.var.route1; break;
     			case 'M': routeToPerform = Robot.var.route13; break;
     			case 'R':routeToPerform = Robot.var.route8; break;
-    			}
+    		}
     		}else if(Robot.var.ourSwitchPos == 'R') {
     			switch (startingPosChar) {
     			case 'L': routeToPerform = Robot.var.route2; break;
