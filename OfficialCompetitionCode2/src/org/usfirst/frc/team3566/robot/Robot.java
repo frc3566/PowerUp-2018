@@ -89,22 +89,22 @@ public class Robot extends TimedRobot {
 		
 		//encoder wheel perimeter 227.13mm
 		encoderL = new Encoder(1,2,false,Encoder.EncodingType.k4X);//this is main encoder
-		encoderL.setDistancePerPulse(0.63);
+		encoderL.setDistancePerPulse(0.9);
 //		encoderL = new Encoder(1,2,false,Encoder.EncodingType.k4X);//this is second encoder
 //		encoderL.setDistancePerPulse(-0.979);//-0.9
 		//encoderL = new Encoder(3,4,false,Encoder.EncodingType.k4X);//this is third encoder
 		//encoderL.setDistancePerPulse(-0.907);
 		encoderR=encoderL;//if we use only one encoder, otherwise init the right encoder
-		encoderState=EncoderState.Left;
+		encoderState=EncoderState.Right;
 		
-//		camMain = CameraServer.getInstance().startAutomaticCapture(1);
-//		camMain.setResolution(480,  360);
-//		camMain.setFPS(20);
-//		
-//		cam1 = CameraServer.getInstance().startAutomaticCapture(0);
-//        cam1.setResolution(480, 360);
-//        cam1.setFPS(20);
-//        
+		camMain = CameraServer.getInstance().startAutomaticCapture(1);
+		camMain.setResolution(480,  360);
+		camMain.setFPS(20);
+		
+		cam1 = CameraServer.getInstance().startAutomaticCapture(0);
+        cam1.setResolution(480, 360);
+        cam1.setFPS(20);
+        
         SmartDashboard.putNumber("maxPower", 1);
         
 		var.reset();
@@ -140,7 +140,7 @@ public class Robot extends TimedRobot {
 				autoTarget.getSelected(), (startingPosition.getSelected().equals(leftStart)? 'L' : 
 					(startingPosition.getSelected().equals(middleStart)? 'M':'R')));
 		*/
-		auto = new Autonomous(leftStart, 1, 'L');
+		auto = new Autonomous(leftStart,1, 'L');
 		//auto will receive info on our starting position coordinates, the code char for our starting position, and the target
 		//we're going for
 		if (auto != null) {
@@ -179,5 +179,6 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("elev", Robot.elevator.elevatorEncoder.getValue());
 		SmartDashboard.putNumber("theta", Robot.var.getTheta());
 		light.set(SmartDashboard.getNumber("LightPattern", 0));
+		System.out.println(Robot.elevator.bottomSwitch.get());
 	}
 }

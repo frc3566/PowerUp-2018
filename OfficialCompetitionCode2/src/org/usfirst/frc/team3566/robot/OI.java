@@ -39,16 +39,16 @@ public class OI {
 //        BPUout = new JoystickButton(main, 4);
 //        BPUout.whenPressed(new BPUout());
    
-        /*
-        elevTop = new JoystickButton(secondary, 4);
+        
+        elevTop = new JoystickButton(main, 4);
         elevTop.whenPressed(new ElevatorToPosition(2));
         
-        elevMid = new JoystickButton(secondary, 2);
+        elevMid = new JoystickButton(main, 2);
         elevMid.whenPressed(new ElevatorToPosition(1));
         
-        elevGround = new JoystickButton(secondary, 1);
+        elevGround = new JoystickButton(main, 1);
         elevGround.whenPressed(new ElevatorToPosition(0));
-        */
+        
         
 		SmartDashboard.putNumber("rotateAngle", 90);
 		SmartDashboard.putNumber("DriveFT", 10);

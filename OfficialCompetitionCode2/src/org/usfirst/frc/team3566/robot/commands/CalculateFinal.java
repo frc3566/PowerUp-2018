@@ -22,5 +22,4 @@ public class CalculateFinal extends InstantCommand {
     		Robot.var.rotateTheta=0;
     	else Robot.var.rotateTheta=(curTheta-p.getTheta()+360)%360;
     }
-
 }
