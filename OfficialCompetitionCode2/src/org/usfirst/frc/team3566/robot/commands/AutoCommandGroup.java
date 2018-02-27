@@ -14,7 +14,7 @@ public class AutoCommandGroup extends CommandGroup {
 
     public AutoCommandGroup(ArrayList<POINT> theRoute, int targetNumber) {
     	
-    	/*
+    	
     	addParallel(new ElevatorToPosition(0));
     	addSequential(new CompleteRoute(theRoute));
     	//if going for our switch or the opponent switch, raise elevator to position one (middle)
@@ -23,8 +23,7 @@ public class AutoCommandGroup extends CommandGroup {
     	addSequential(new ElevatorToPosition((targetNumber == 0 || targetNumber == 2)? 1:2));
     	addSequential(new BPUforSeconds(BPU.OUT, 3));
     	//spitting out the box when the route is complete, elevator raised, and ready to deliver.
-    	 */
+    	 
     	
-    	addSequential(new CompleteRoute(theRoute));
     }
 }

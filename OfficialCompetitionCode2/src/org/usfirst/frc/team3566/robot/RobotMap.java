@@ -69,7 +69,7 @@ public class RobotMap {
   
        climber = new WPI_TalonSRX(25);	//25
        SmartDashboard.putData("climber", climber);
-//       Tilter = new WPI_TalonSRX(18);	//18
+//       Tilter = new WPI_TalonSRX(18);	//18+
        drive.setSafetyEnabled(true);
        drive.setExpiration(0.5);
        drive.setMaxOutput(1.0);
