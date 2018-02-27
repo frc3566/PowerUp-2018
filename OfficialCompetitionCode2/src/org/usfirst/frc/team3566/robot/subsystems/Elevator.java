@@ -22,7 +22,7 @@ public class Elevator extends Subsystem {
 	public static AnalogInput elevatorEncoder; //bottom: 3200; top (without a box): 1184
 	public static DigitalInput topSwitch;
 	public static DigitalInput bottomSwitch;
-	public static final int[] elevatorTargetValues = {3640, 3640-1260, 3640-2270}; //bottom, middle and top encoder values
+	public static int[] elevatorTargetValues = {3640, 3640-1260, 3640-2270}; //bottom, middle and top encoder values
 	//2770 
 	//slightly above the ground 3028
 	public static final int allowedError = 10;
@@ -31,10 +31,13 @@ public class Elevator extends Subsystem {
 	public static final double elevUpSPD = 1, elevDownSPD = 0.4, elevCloseFactor = 0.7;
 	
 	public Elevator() {
-//		elevatorEncoder= new AnalogInput(1);
+		elevatorEncoder= new AnalogInput(1);
 		topSwitch=new DigitalInput(9);
 		bottomSwitch=new DigitalInput(8);
-		//startPos=elevatorEncoder.getValue();
+		startPos=elevatorEncoder.getValue();
+//		elevatorTargetValues[0]=startPos;
+//		elevatorTargetValues[0]=startPos-1260;
+//		elevatorTargetValues[0]=startPos-2270;
 	}
 	
     public void initDefaultCommand() {

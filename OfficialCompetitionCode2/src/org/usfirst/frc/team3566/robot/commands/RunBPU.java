@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.command.Command;
 public class RunBPU extends Command {
 
     public RunBPU() {
-        // Use requires() here to declare subsystem dependencies
         requires(Robot.bpu);
     }
 

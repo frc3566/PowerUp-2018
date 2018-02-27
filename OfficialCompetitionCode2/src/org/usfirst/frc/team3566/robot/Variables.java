@@ -193,12 +193,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 			updateXY();
 			collision.updateCollide();
 			
-			SmartDashboard.putNumber("x", x);
-			SmartDashboard.putNumber("y", y);
+			SmartDashboard.putNumber("x", getX());
+			SmartDashboard.putNumber("y", getY());
 			SmartDashboard.putNumber("theta", getTheta()); 
 			SmartDashboard.putNumber("encoderL", Robot.encoderL.getDistance());
 			SmartDashboard.putBoolean("isCollide", collision.isCollide);
-//			SmartDashboard.putNumber("elev", Robot.elevator.elevatorEncoder.getValue());
+			SmartDashboard.putNumber("elev", Robot.elevator.elevatorEncoder.getValue());
 		}
 		
 		public void setSwitchScaleSides() {
@@ -230,26 +230,24 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 		}
 		
 		//coordinate system
-		public static double x=0,y=0;
-		public static double lastL=0,lastR=0;
+		private static double x=0,y=0;
+		private static double lastL=0,lastR=0;
 		private static double lastTheta=90;
 		
 		private static void coordinateReset()
 		{
-			x=0;
-	        y=0;
+			setX(0);
+			setY(0);
 	        lastL=lastR=collision.lastLSpeed=collision.lastRSpeed=0;
 	        lastTheta=90;
 		}
-		
 		public static void XYReset(double X, double Y)
 		{
 			System.out.printf("this is xyReset x:%.1f y:%.1f\n",x,y);
 			coordinateReset();
-			x=X;
-	        y=Y;
+			setX(X);
+			setY(Y);
 		}
-		
 		/* return the degree in the polar system, range [0,360), add 90 degrees to make polar
 		 */
 		public static double getTheta() {
@@ -257,7 +255,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 	    	RobotMap.pigeon.getYawPitchRoll(ypr);
 	    	return ((ypr[0]%360)+360+90)%360;
 	    }
-		
 		/* update the x,y value according to theta angle and lastEncoderDis
 		 * please change lastEncoderDis when first call this method
 		 */
@@ -272,7 +269,42 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 			lastL=curL;
 			lastR=curR;
 		}
-		
+		public static void setX(double _x)
+		{
+			switch(Robot.encoderState)
+			{
+				case Both: x=_x; break;
+				case Left: x=_x-1*Math.sin(Math.toRadians(getTheta())); break;
+				default: x=_x+1*Math.sin(Math.toRadians(getTheta())); break;
+			}
+		}
+		public static void setY(double _y)
+		{
+			switch(Robot.encoderState)
+			{
+				case Both: y=_y;
+				case Left: y=_y+1*Math.cos(Math.toRadians(getTheta()));
+				default: y=_y-1*Math.cos(Math.toRadians(getTheta()));
+			}
+		}
+		public static double getX()
+		{
+			switch(Robot.encoderState)
+			{
+				case Both: return x;
+				case Left: return x+1*Math.sin(Math.toRadians(getTheta()));
+				default: return x-1*Math.sin(Math.toRadians(getTheta()));
+			}
+		}
+		public static double getY()
+		{
+			switch(Robot.encoderState)
+			{
+				case Both: return y;
+				case Left: return y-1*Math.cos(Math.toRadians(getTheta()));
+				default: return y+1*Math.cos(Math.toRadians(getTheta()));
+			}
+		}
 		/* return the theta angle in degree of the vector (_x,_y) in the polar system, range[0,360)
 		 * try not to call if x==0 && y==0, that may cause problematic rotation
 		 */
