@@ -106,13 +106,13 @@ public class Robot extends TimedRobot {
 		encoderState=Robot.encoderState.Both;
 		
 		
-//		camMain = CameraServer.getInstance().startAutomaticCapture(1);
-//		camMain.setResolution(480,  360);
-//		camMain.setFPS(20);
-//		
-//		cam1 = CameraServer.getInstance().startAutomaticCapture(0);
-//        cam1.setResolution(480, 360);
-//        cam1.setFPS(20);
+		camMain = CameraServer.getInstance().startAutomaticCapture(1);
+		camMain.setResolution(480,  360);
+		camMain.setFPS(20);
+		
+		cam1 = CameraServer.getInstance().startAutomaticCapture(0);
+        cam1.setResolution(480, 360);
+        cam1.setFPS(20);
 //        
         SmartDashboard.putNumber("maxPower", 1);
         

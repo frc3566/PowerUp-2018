@@ -24,12 +24,12 @@ public class CameraServo extends Subsystem {
     public synchronized void moveServo(double stickValue)
     {
     	System.out.println("The stick value is: " + stickValue);
-    	if(stickValue == 0.0) {
+    	if(Math.abs(stickValue-180) <1e-6) {
     		
     		currentPos -= 1;
     		if( currentPos < 0) currentPos = 0;
     		
-    	} else if(stickValue == 180.0) {
+    	} else  if(Math.abs(stickValue)<1e-6){
     		currentPos += 1;
     		if( currentPos > 180) currentPos = 180;
     	}
