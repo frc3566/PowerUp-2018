@@ -197,6 +197,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 			SmartDashboard.putNumber("y", getY());
 			SmartDashboard.putNumber("theta", getTheta()); 
 			SmartDashboard.putNumber("encoderL", Robot.encoderL.getDistance());
+			SmartDashboard.putNumber("encoderR", Robot.encoderR.getDistance());
 			SmartDashboard.putBoolean("isCollide", collision.isCollide);
 			SmartDashboard.putNumber("elev", Robot.elevator.elevatorEncoder.getValue());
 		}

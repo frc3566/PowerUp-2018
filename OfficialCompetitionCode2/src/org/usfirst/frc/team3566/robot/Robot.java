@@ -92,18 +92,18 @@ public class Robot extends TimedRobot {
 		time = new Timer();
 		
 		//encoder wheel perimeter 227.13mm
-		encoderL = new Encoder(1,2,false,Encoder.EncodingType.k4X);//this is main encoder
-		encoderL.setDistancePerPulse(0.63);
+//		encoderL = new Encoder(1,2,false,Encoder.EncodingType.k4X);//this is main encoder
+//		encoderL.setDistancePerPulse(0.63);
 //		encoderL = new Encoder(1,2,false,Encoder.EncodingType.k4X);//this is second encoder
 //		encoderL.setDistancePerPulse(-0.979);//-0.9
 		//encoderL = new Encoder(3,4,false,Encoder.EncodingType.k4X);//this is third encoder
 		//encoderL.setDistancePerPulse(-0.907);
-		encoderR=encoderL;//if we use only one encoder, otherwise init the right encoder
-		encoderState=EncoderState.Left;
+//		encoderR=encoderL;//if we use only one encoder, otherwise init the right encoder
+//		encoderState=EncoderState.Left;
 		
-		encoderMotorL = new Encoder(4,5);
-		encoderMotorR = new Encoder(6,7);
-		
+		encoderL=encoderMotorL = new Encoder(4,5,false,Encoder.EncodingType.k4X);
+		encoderR=encoderMotorR = new Encoder(6,7,false,Encoder.EncodingType.k4X);
+		encoderState=Robot.encoderState.Both;
 		
 		
 //		camMain = CameraServer.getInstance().startAutomaticCapture(1);
@@ -181,7 +181,7 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 		oi.updateCommands();
 		var.updateValues();
-		System.out.println("motorL encoder: "+motorL.get()+" motorR encoder: "+motorR.get());
+		//System.out.println("motorL encoder: "+motorL.get()+" motorR encoder: "+motorR.get());
 	}
 
 	@Override
