@@ -44,7 +44,7 @@ public class Robot extends TimedRobot {
 	public static CameraServo camServo;
 	//sensors
 	public static Encoder encoderL, encoderR;
-	public static Encoder motorL, motorR;
+	public static Encoder encoderMotorL, encoderMotorR;
 	public static Spark light;
 	public static boolean isAuto = false;
 	
@@ -100,6 +100,11 @@ public class Robot extends TimedRobot {
 		//encoderL.setDistancePerPulse(-0.907);
 		encoderR=encoderL;//if we use only one encoder, otherwise init the right encoder
 		encoderState=EncoderState.Left;
+		
+		encoderMotorL = new Encoder(4,5);
+		encoderMotorR = new Encoder(6,7);
+		
+		
 		
 //		camMain = CameraServer.getInstance().startAutomaticCapture(1);
 //		camMain.setResolution(480,  360);
@@ -176,7 +181,7 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 		oi.updateCommands();
 		var.updateValues();
-//		System.out.println(Robot.elevator.topSwitch.get()+" "+Robot.elevator.bottomSwitch.get());
+		System.out.println("motorL encoder: "+motorL.get()+" motorR encoder: "+motorR.get());
 	}
 
 	@Override
