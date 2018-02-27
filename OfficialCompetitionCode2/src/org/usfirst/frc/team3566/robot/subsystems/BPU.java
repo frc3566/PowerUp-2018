@@ -18,7 +18,7 @@ public class BPU extends Subsystem {
 	private final WPI_TalonSRX leftPickUp = RobotMap.BPUleft;
 	private final WPI_TalonSRX rightPickUp = RobotMap.BPUright;
 	
-	private final DigitalInput boxLimitSwitch =  new DigitalInput(4);//box limit switch
+	private final DigitalInput boxLimitSwitch =  new DigitalInput(3);//box limit switch
 	
 	public static final int IN = 1, OUT = -1;
 	

@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -27,7 +28,8 @@ public class RobotMap {
     public static SpeedControllerGroup left, right;
     public static SpeedControllerGroup Elev, BPU;
     
-    public static DifferentialDrive drive;
+    public static DifferentialDrive drive;    
+    public static Servo cameraServo;
     
     public static void init() {
        FL = new WPI_TalonSRX(60); //60
@@ -71,6 +73,9 @@ public class RobotMap {
        drive.setSafetyEnabled(true);
        drive.setExpiration(0.5);
        drive.setMaxOutput(1.0);
+       
+       cameraServo = new Servo(0);  //servo attached to PWM channel
+       
     }
     
 }

@@ -63,6 +63,11 @@ public class OI {
     			new DriveForSeconds(false, SmartDashboard.getNumber("DriveTime", 0), 
     					SmartDashboard.getBoolean("DriveDirection", true)));
     }
+    
+    
+    public double getMainPOV() {
+    return main.getPOV(0);
+    }
 }
 
 
