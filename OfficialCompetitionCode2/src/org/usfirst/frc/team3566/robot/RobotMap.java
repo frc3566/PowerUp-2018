@@ -74,7 +74,7 @@ public class RobotMap {
        drive.setExpiration(0.5);
        drive.setMaxOutput(1.0);
        
-       cameraServo = new Servo(0);  //servo attached to PWM channel
+       cameraServo = new Servo(1);  //servo attached to PWM channel
        
     }
     
