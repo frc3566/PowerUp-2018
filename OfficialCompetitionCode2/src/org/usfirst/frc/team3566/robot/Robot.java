@@ -10,6 +10,7 @@ package org.usfirst.frc.team3566.robot;
 import org.usfirst.frc.team3566.robot.commands.Autonomous;
 import org.usfirst.frc.team3566.robot.commands.ElevatorToPosition;
 import org.usfirst.frc.team3566.robot.subsystems.BPU;
+import org.usfirst.frc.team3566.robot.subsystems.CameraServo;
 import org.usfirst.frc.team3566.robot.subsystems.Climber;
 import org.usfirst.frc.team3566.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3566.robot.subsystems.Elevator;
@@ -40,8 +41,10 @@ public class Robot extends TimedRobot {
 	public static DriveTrain drivetrain;
 	public static Elevator elevator;
 	public static Climber climber;
+	public static CameraServo camServo;
 	//sensors
 	public static Encoder encoderL, encoderR;
+	public static Encoder motorL, motorR;
 	public static Spark light;
 	public static boolean isAuto = false;
 	
@@ -70,6 +73,7 @@ public class Robot extends TimedRobot {
 		bpu = new BPU();
 		elevator = new Elevator();
 		climber = new Climber();
+		camServo = new CameraServo();
 		
 		oi = new OI();
 		startingPosition.addDefault("P1", leftStart);
@@ -110,6 +114,7 @@ public class Robot extends TimedRobot {
 		var.reset();
         light = new Spark(0);
         SmartDashboard.putNumber("LightPattern", -0.41);
+        
         //BELOW IS CODE FOR TESTING.
 //        SmartDashboard.putData("elevToBottom", new ElevatorToPosition(0));
 //        SmartDashboard.putData("elevToMiddle", new ElevatorToPosition(1));
