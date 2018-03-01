@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 			else {
 				Robot.var.rotateTheta=Robot.var.getTheta()-
 						Robot.var.getVectorDegree(p.getX()-Robot.var.getX(), p.getY()-Robot.var.getY());
+				if(Robot.var.rotateTheta<10)Robot.var.rotateTheta=0;
 				if(p.getTheta()<-0.5)Robot.var.allowedDriveError=50;
 				else Robot.var.allowedDriveError=150;
 			}

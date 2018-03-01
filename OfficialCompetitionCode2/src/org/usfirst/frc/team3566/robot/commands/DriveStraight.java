@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class DriveStraight extends Command {
-	static final double maxSpeed=1800; //mm * s^-1
+	static final double maxSpeed=2400; //mm * s^-1
 	double  P=0.001, I=0.0008, D=0.00016;
 	double integral, previousError, derivative, setPoint = 2000;
     double power=0,error=0;
@@ -58,14 +58,13 @@ public class DriveStraight extends Command {
     	if(time<1 && error>0)
     		power=Math.min(time, power);
     	else if(time<1 && error<0) power=Math.max(time*-1, power);
-    	
 //    	if(Robot.encoderL.getRate()>maxSpeed*0.5)
 //    		power=Math.min(1.6-1.4*Robot.encoderL.getRate()/maxSpeed, power);
 //    	else if(Robot.encoderL.getRate()<maxSpeed*-0.5)
 //    		power=Math.max(-1.6-1.4*Robot.encoderL.getRate()/maxSpeed, power);
     	double sign = (power>0) ? 1:-1;
     	double vError = (Math.abs(Robot.encoderL.getRate()- 0.7*maxSpeed)) / maxSpeed;
-    	double max = 1 - vError*0.2;
+    	double max = 1 - vError;
     	power = Math.min(Math.abs(power), max)*sign;
     }
     

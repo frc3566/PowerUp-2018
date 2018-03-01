@@ -19,7 +19,7 @@ public class ElevatorToPosition extends Command {
     }
 
     protected void initialize() {
-    	this.setTimeout(3);
+    	this.setTimeout(5);
     	Robot.light.set(Robot.var.yellow);
     	if(Robot.state==RobotState.STANDSTILL)Robot.state=RobotState.ELEVATER;
     }

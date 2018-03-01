@@ -32,7 +32,7 @@ public class DriveWithJoysticks extends Command {
     @Override
     protected void execute() {
     	double maxPower=SmartDashboard.getNumber("maxPower", 1);
-    	maxPower=Math.min(maxPower, (Robot.elevator.elevatorEncoder.getValue()-Robot.elevator.elevatorTargetValues[2]+1000)*0.00015+0.25);
+    	maxPower=Math.min(maxPower, (Robot.elevator.elevatorEncoder.getValue()-Robot.elevator.elevatorTargetValues[2]+1000)*0.00014+0.35);
     	if(Robot.elevator.elevatorEncoder.getValue()<1500)maxPower=Math.min(maxPower, 0.6);
     	/*if(Robot.state==RobotState.STANDSTILL||Robot.state==RobotState.DRIVE)
     		if(Math.abs(Robot.oi.main.getRawAxis(1))<0.1&&Math.abs(Robot.oi.main.getRawAxis(4))<0.1)
@@ -41,8 +41,7 @@ public class DriveWithJoysticks extends Command {
     		{*/
     			RobotMap.drive.arcadeDrive(Robot.oi.main.getRawAxis(1)*-1*maxPower, Robot.oi.main.getRawAxis(4)*Math.max(0.55, Math.min(0.8, maxPower))+0.02);
     			//Robot.state=RobotState.DRIVE;
-    	System.out.println(maxPower);
-    		
+    	if (Robot.time.get()%2<0.03)System.out.printf("maxPower %f\n",maxPower);
     }
 
     @Override

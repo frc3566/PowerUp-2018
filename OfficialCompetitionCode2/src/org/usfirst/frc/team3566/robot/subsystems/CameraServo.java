@@ -23,7 +23,6 @@ public class CameraServo extends Subsystem {
     
     public synchronized void moveServo(double stickValue)
     {
-    	System.out.println("The stick value is: " + stickValue);
     	if(Math.abs(stickValue-180) <1e-6) {
     		
     		currentPos -= 1;
@@ -34,7 +33,6 @@ public class CameraServo extends Subsystem {
     		if( currentPos > 180) currentPos = 180;
     	}
     	
-    	System.out.println("The current angle is " + currentPos);
     	servo.setAngle(currentPos);
     	
     	

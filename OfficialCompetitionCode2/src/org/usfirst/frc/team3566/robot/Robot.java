@@ -36,6 +36,7 @@ public class Robot extends TimedRobot {
 	public static Variables var;
 	public static Timer time;
 	public static double maxCurrent;
+	public static boolean isAuto = false;
 	//subsystems
 	public static BPU bpu;
 	public static DriveTrain drivetrain;
@@ -46,7 +47,7 @@ public class Robot extends TimedRobot {
 	public static Encoder encoderL, encoderR;
 	public static Encoder encoderMotorL, encoderMotorR;
 	public static Spark light;
-	public static boolean isAuto = false;
+	
 	
 	/*
 	 * light values: SOLID COLORS: 0.61 red, 0.64 yellow, 0.77 green, 0.87 blue, 0.91 purple, 0.93 white
@@ -102,8 +103,9 @@ public class Robot extends TimedRobot {
 //		encoderState=EncoderState.Left;
 		
 		encoderL=encoderMotorL = new Encoder(4,5,false,Encoder.EncodingType.k4X);
-		encoderR=encoderMotorR = new Encoder(6,7,false,Encoder.EncodingType.k4X);
-		encoderState=Robot.encoderState.Both;
+		encoderL.setDistancePerPulse(1.925);
+		encoderR=encoderMotorR = encoderL;//new Encoder(6,7,false,Encoder.EncodingType.k4X);
+		encoderState=Robot.encoderState.Left;
 		
 		
 		camMain = CameraServer.getInstance().startAutomaticCapture(1);
@@ -150,9 +152,15 @@ public class Robot extends TimedRobot {
 				autoTarget.getSelected(), (startingPosition.getSelected().equals(leftStart)? 'L' : 
 					(startingPosition.getSelected().equals(middleStart)? 'M':'R')));
 		*/
-		auto = new Autonomous(leftStart, 1, 'L');
+		
+		//SELECT FROM ONE BELOW AND COMMENT OUT THE OTHERS
+//		auto = new Autonomous(leftStart, 0, 'L'); //our switch
+		auto = new Autonomous(leftStart, 1, 'L'); //scale
+//		auto = new Autonomous(rightStart, 0, 'R'); //our switch
+//		auto = new Autonomous(rightStart, 1, 'R'); //scale
+		
+		
 		//auto will receive info on our starting position coordinates, the code char for our starting position, and the target
-		//we're going for
 		if (auto != null) {
 			auto.start();
 		}
@@ -181,7 +189,8 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 		oi.updateCommands();
 		var.updateValues();
-		//System.out.println("motorL encoder: "+motorL.get()+" motorR encoder: "+motorR.get());
+		SmartDashboard.putNumber("elev", Robot.elevator.elevatorEncoder.getValue());
+		//System.out.println("motorL encoder: "+encoderMotorL.get()+" motorR encoder: "+encoderMotorR.get());
 	}
 
 	@Override
