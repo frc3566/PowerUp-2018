@@ -17,6 +17,7 @@ public class BPUout extends InstantCommand {
 
     protected void initialize() {
     	Robot.bpu.togglePickUpStatus();
+    	Robot.var.BPU_PICKUP_SPD=1;
     	Robot.bpu.setPickUpMotorDirection(BPU.OUT);
     	System.out.println("BPU direction: OUT!");
     }

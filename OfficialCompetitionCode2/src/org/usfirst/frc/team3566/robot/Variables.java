@@ -7,7 +7,7 @@ import org.usfirst.frc.team3566.robot.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 	public class Variables {
-
+		public static boolean isFinalTurn=true,isFinalTurnFinish=false;
 		public static final double rotateNonStopSpd = 0.5;
 		public static double BPU_PICKUP_SPD=0.4;
 		

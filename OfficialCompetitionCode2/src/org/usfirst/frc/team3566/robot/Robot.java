@@ -95,12 +95,6 @@ public class Robot extends TimedRobot {
 		//encoder wheel perimeter 227.13mm
 //		encoderL = new Encoder(1,2,false,Encoder.EncodingType.k4X);//this is main encoder
 //		encoderL.setDistancePerPulse(0.63);
-//		encoderL = new Encoder(1,2,false,Encoder.EncodingType.k4X);//this is second encoder
-//		encoderL.setDistancePerPulse(-0.979);//-0.9
-		//encoderL = new Encoder(3,4,false,Encoder.EncodingType.k4X);//this is third encoder
-		//encoderL.setDistancePerPulse(-0.907);
-//		encoderR=encoderL;//if we use only one encoder, otherwise init the right encoder
-//		encoderState=EncoderState.Left;
 		
 		encoderL=encoderMotorL = new Encoder(4,5,false,Encoder.EncodingType.k4X);
 		encoderL.setDistancePerPulse(1.925);
@@ -146,7 +140,6 @@ public class Robot extends TimedRobot {
 		isAuto = true;
 		System.out.println("autoTarget value: "+ autoTarget.getSelected());
 //		var.XYReset  (startingPosition.getSelected().getX(), startingPosition.getSelected().getY());
-		
 		/*
 		auto = new Autonomous(new POINT(startingPosition.getSelected().getX(), startingPosition.getSelected().getY()), 
 				autoTarget.getSelected(), (startingPosition.getSelected().equals(leftStart)? 'L' : 
@@ -158,8 +151,7 @@ public class Robot extends TimedRobot {
 		auto = new Autonomous(leftStart, 1, 'L'); //scale
 //		auto = new Autonomous(rightStart, 0, 'R'); //our switch
 //		auto = new Autonomous(rightStart, 1, 'R'); //scale
-		
-		
+
 		//auto will receive info on our starting position coordinates, the code char for our starting position, and the target
 		if (auto != null) {
 			auto.start();

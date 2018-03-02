@@ -22,7 +22,7 @@ public class DeliverBox extends CommandGroup {
     	//in order to save time.
     	//addSequential();     BPU spitting out box with timeOut in seconds
     	addSequential(new ElevatorToPosition(whichTarget+1));
-    	addSequential(new BPUforSeconds(BPU.OUT, 2));
+    	addSequential(new BPUforSeconds(BPU.OUT, 1));
     	addSequential(new ElevatorToPosition(1)); //back to middle position when box is gotten rid of
     }
     

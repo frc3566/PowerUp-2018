@@ -71,10 +71,10 @@ public class Rotate extends Command {
 
     @Override
     protected void end() {
+    	if(Robot.var.isFinalTurn==true)Robot.var.isFinalTurnFinish=true;
     	Robot.drivetrain.stopDrive();
-    	SmartDashboard.putBoolean("Driving", true);
     //	Robot.drivetrain.ramp(Robot.RAMP);
-    	System.out.printf("program stops after %.1f seconds, error is %.1f\n", this.timeSinceInitialized(),error);
+    	System.out.printf("rotate program stops after %.1f seconds, error is %.1f\n", this.timeSinceInitialized(),error);
     	Robot.light.set(prev_light);
     }
     
@@ -88,7 +88,6 @@ public class Rotate extends Command {
         error = ((theta-endDegree)+360)%360;
         if(error>180)error-=360;
         this.integral += (error*.02);
-//        System.out.printf("integral %.5f %.5f\n", integral, spd);
         derivative = (error - this.previous_error) / .02;
         if(Math.abs(spd)>0.8&&!close)integral=0;
         this.spd = P*error + I*this.integral + D*derivative;

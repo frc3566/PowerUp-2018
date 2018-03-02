@@ -34,5 +34,4 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 					Robot.var.getX(), Robot.var.getY(), Robot.var.getTheta(), p.getX(),p.getY(),p.getTheta(),
 					Robot.var.rotateTheta, Robot.var.distance);
 	    }
-	    
 	}

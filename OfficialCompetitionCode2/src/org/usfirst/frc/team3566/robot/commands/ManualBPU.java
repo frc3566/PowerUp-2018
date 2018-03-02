@@ -18,13 +18,13 @@ public class ManualBPU extends Command {
 
     protected void execute() {
     	if(!Robot.isAuto) {
-	    	if(Robot.oi.main.getRawAxis(3)>0.1)
+	    	if(Robot.oi.main.getRawAxis(2)>0.1)
 	    	{
 	    		Robot.bpu.pickUpOnOff=true;
-	    		Robot.var.BPU_PICKUP_SPD=0.4;
+	    		Robot.var.BPU_PICKUP_SPD=0.6;
 	    		Robot.bpu.setPickUpMotorDirection(1);
 	    	}
-	    	else if(Robot.oi.main.getRawAxis(2)>0.1)
+	    	else if(Robot.oi.main.getRawAxis(3)>0.1)
 	    	{
 	    		Robot.bpu.pickUpOnOff=true;
 	    		Robot.var.BPU_PICKUP_SPD=1;

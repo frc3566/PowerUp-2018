@@ -47,9 +47,11 @@ public class DriveStraight extends Command {
     	error = setPoint - Robot.var.getEncoder();
     	startTime=Robot.time.get();
     	Robot.drivetrain.ramp(0);
+    	
     	prev_light = Robot.light.get();
     	Robot.light.set(Robot.var.white);
-    	System.out.printf("drive for %.0f\n", setPoint);
+    	
+    	System.out.printf("driveStraight for %.0f\n", setPoint);
     	length=Math.abs(setPoint);
     }
     
