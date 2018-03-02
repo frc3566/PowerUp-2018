@@ -46,7 +46,6 @@ public class Robot extends TimedRobot {
 	public static OI oi;
 	//sensors
 	public static Encoder encoderL, encoderR;
-	public static Encoder encoderMotorL, encoderMotorR;
 	UsbCamera camMain, cam1;	//cam one looks out from BPU
 	/*
 	 * light values: SOLID COLORS: 0.61 red, 0.64 yellow, 0.77 green, 0.87 blue, 0.91 purple, 0.93 white
@@ -86,9 +85,9 @@ public class Robot extends TimedRobot {
 //		encoderL = new Encoder(1,2,false,Encoder.EncodingType.k4X);//this is main encoder
 //		encoderL.setDistancePerPulse(0.63);
 		
-		encoderL=encoderMotorL = new Encoder(4,5,false,Encoder.EncodingType.k4X);
+		encoderL=new Encoder(4,5,false,Encoder.EncodingType.k4X);
 		encoderL.setDistancePerPulse(1.925);
-		encoderR=encoderMotorR = encoderL;//new Encoder(6,7,false,Encoder.EncodingType.k4X);
+		encoderR=encoderL;//new Encoder(6,7,false,Encoder.EncodingType.k4X);
 		encoderState=Robot.encoderState.Left;
 		
 		camMain = CameraServer.getInstance().startAutomaticCapture(1);
@@ -99,16 +98,11 @@ public class Robot extends TimedRobot {
         cam1.setFPS(20);
         
 		var.reset();
+		
         light = new Spark(0);
         //SmartDashboard.putNumber("LightPattern", -0.41);
-        SmartDashboard.putNumber("maxPower", 1);
+        SmartDashboard.putNumber("maxPower", 2);
         //BELOW IS CODE FOR TESTING.
-//        SmartDashboard.putData("elevToBottom", new ElevatorToPosition(0));
-//        SmartDashboard.putData("elevToMiddle", new ElevatorToPosition(1));
-//        SmartDashboard.putData("elevToTop", new ElevatorToPosition(2));
-//		SmartDashboard.putNumber("PP", 0);
-//		SmartDashboard.putNumber("I", 0);
-//		SmartDashboard.putNumber("DD", 0);
 	}
 
 	@Override
@@ -164,7 +158,6 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 		oi.updateCommands();
 		var.updateValues();
-		SmartDashboard.putNumber("elev", Robot.elevator.elevatorEncoder.getValue());
 		//System.out.println("motorL encoder: "+encoderMotorL.get()+" motorR encoder: "+encoderMotorR.get());
 	}
 

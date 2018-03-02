@@ -50,15 +50,15 @@ public class OI {
         elevGround.whenPressed(new ElevatorToPosition(0));
         
         
-		SmartDashboard.putNumber("rotateAngle", 90);
-		SmartDashboard.putNumber("DriveFT", 10);
+//		SmartDashboard.putNumber("rotateAngle", 90);
+//		SmartDashboard.putNumber("DriveFT", 10);
 //		SmartDashboard.putNumber("DriveTime", 3);
 //		SmartDashboard.putBoolean("DriveDirection", true);
     }
 
     public void updateCommands() {
-    	SmartDashboard.putData("RotateForAngle2", new Rotate(SmartDashboard.getNumber("rotateAngle", 0)));
-    	SmartDashboard.putData("DriveForFeet2", new DriveStraight(SmartDashboard.getNumber("DriveFT", 0)));
+//    	SmartDashboard.putData("RotateForAngle2", new Rotate(SmartDashboard.getNumber("rotateAngle", 0)));
+//    	SmartDashboard.putData("DriveForFeet2", new DriveStraight(SmartDashboard.getNumber("DriveFT", 0)));
 //    	SmartDashboard.putData("DriveForSeconds", 
 //    			new DriveForSeconds(false, SmartDashboard.getNumber("DriveTime", 0), 
 //    					SmartDashboard.getBoolean("DriveDirection", true)));

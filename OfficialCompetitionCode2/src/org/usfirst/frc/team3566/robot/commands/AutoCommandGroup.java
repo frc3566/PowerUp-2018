@@ -22,8 +22,6 @@ public class AutoCommandGroup extends CommandGroup {
     	addSequential(new ElevatorToPosition((targetNumber == 0 || targetNumber == 2)? 1:2));
     	addSequential(new BPUforSeconds(BPU.OUT, 1));
     	
-    	addSequential(new ElevatorToPosition(1));
-    	addSequential(new DriveForSeconds(false,1,false));
     	//spitting out the box when the route is complete, elevator raised, and ready to deliver.
     }
 }
