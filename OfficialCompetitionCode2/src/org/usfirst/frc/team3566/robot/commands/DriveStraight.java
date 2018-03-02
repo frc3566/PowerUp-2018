@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class DriveStraight extends Command {
-	static final double maxSpeed=2400; //mm * s^-1
+	static final double maxSpeed=2500; //mm * s^-1
 	double  P=0.001, I=0.0008, D=0.00016;
 	double integral, previousError, derivative, setPoint = 2000;
     double power=0,error=0;

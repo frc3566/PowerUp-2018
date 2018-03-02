@@ -28,6 +28,16 @@ public class DriveForSeconds extends Command {
     	spd = 0.4;
     	dir = direction;
     }
+    
+    public DriveForSeconds(boolean DriveForDistance, double timeoutORdistance, double SPD, boolean direction) {
+    	if(DriveForDistance) {
+    		timeoutORdistance = (Math.abs(timeoutORdistance)/0.82); //convert from distance in ft to timeout needed
+    		//even if driving in distance, should never be negative, but should use direction
+    	}
+    	this.setTimeout(timeoutORdistance);
+    	spd = SPD;
+    	dir = direction;
+    }
 
     @Override
     protected void initialize() {
