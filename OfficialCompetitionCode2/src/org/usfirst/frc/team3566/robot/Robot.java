@@ -31,7 +31,6 @@ public class Robot extends TimedRobot {
 	public static final POINT leftStart = new POINT(3.75, 1.5), 
 			middleStart = new POINT(14.5, 1.5), rightStart = new POINT(23.5, 1.5);
 	//variables
-	public static RobotState state=RobotState.STANDSTILL;
 	public static EncoderState encoderState=EncoderState.Left;
 	public static Variables var;
 	public static Timer time;
@@ -43,27 +42,21 @@ public class Robot extends TimedRobot {
 	public static Elevator elevator;
 	public static Climber climber;
 	public static CameraServo camServo;
+	public static Spark light;
+	public static OI oi;
 	//sensors
 	public static Encoder encoderL, encoderR;
 	public static Encoder encoderMotorL, encoderMotorR;
-	public static Spark light;
-	
-	
+	UsbCamera camMain, cam1;	//cam one looks out from BPU
 	/*
 	 * light values: SOLID COLORS: 0.61 red, 0.64 yellow, 0.77 green, 0.87 blue, 0.91 purple, 0.93 white
 	 * -0.99 rainbow; -0.41 ocean; 
-	 * 
 	 */
 
-	UsbCamera camMain, cam1;	//cam one looks out from BPU
-	
-	public static OI oi;
-	
 	Autonomous auto;
 	
-	SendableChooser<POINT> startingPosition = new SendableChooser<>();
-	SendableChooser<Integer> autoTarget = new SendableChooser<>();
-
+	//SendableChooser<POINT> startingPosition = new SendableChooser<>();
+	//SendableChooser<Integer> autoTarget = new SendableChooser<>();
 	@Override
 	public void robotInit() {
 		RobotMap.init();
@@ -77,22 +70,19 @@ public class Robot extends TimedRobot {
 		camServo = new CameraServo();
 		
 		oi = new OI();
-		startingPosition.addDefault("P1", leftStart);
-		startingPosition.addObject("P2", middleStart);
-		startingPosition.addObject("P3", rightStart);
-		startingPosition.setName("startingPos");
-		
-		autoTarget.addDefault("OurSwitch", 0);
-		autoTarget.addObject("Scale", 1);
-		autoTarget.addObject("OppSwitch", 2);
-		autoTarget.setName("autoTarget");
-		
-		SmartDashboard.putData("startingPosition", startingPosition);
-		SmartDashboard.putData("autoTarget", autoTarget);
-		
 		time = new Timer();
+//		startingPosition.addDefault("P1", leftStart);
+//		startingPosition.addObject("P2", middleStart);
+//		startingPosition.addObject("P3", rightStart);
+//		startingPosition.setName("startingPos");
+//		autoTarget.addDefault("OurSwitch", 0);
+//		autoTarget.addObject("Scale", 1);
+//		autoTarget.addObject("OppSwitch", 2);
+//		autoTarget.setName("autoTarget");
+//		SmartDashboard.putData("startingPosition", startingPosition);
+//		SmartDashboard.putData("autoTarget", autoTarget);
 		
-		//encoder wheel perimeter 227.13mm
+//		encoder wheel perimeter 227.13mm
 //		encoderL = new Encoder(1,2,false,Encoder.EncodingType.k4X);//this is main encoder
 //		encoderL.setDistancePerPulse(0.63);
 		
@@ -101,21 +91,17 @@ public class Robot extends TimedRobot {
 		encoderR=encoderMotorR = encoderL;//new Encoder(6,7,false,Encoder.EncodingType.k4X);
 		encoderState=Robot.encoderState.Left;
 		
-		
 		camMain = CameraServer.getInstance().startAutomaticCapture(1);
 		camMain.setResolution(480,  360);
 		camMain.setFPS(20);
-		
 		cam1 = CameraServer.getInstance().startAutomaticCapture(0);
         cam1.setResolution(480, 360);
         cam1.setFPS(20);
-//        
-        SmartDashboard.putNumber("maxPower", 1);
         
 		var.reset();
         light = new Spark(0);
-        SmartDashboard.putNumber("LightPattern", -0.41);
-        
+        //SmartDashboard.putNumber("LightPattern", -0.41);
+        SmartDashboard.putNumber("maxPower", 1);
         //BELOW IS CODE FOR TESTING.
 //        SmartDashboard.putData("elevToBottom", new ElevatorToPosition(0));
 //        SmartDashboard.putData("elevToMiddle", new ElevatorToPosition(1));
@@ -136,10 +122,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
-		var.reset();
 		isAuto = true;
-		System.out.println("autoTarget value: "+ autoTarget.getSelected());
-//		var.XYReset  (startingPosition.getSelected().getX(), startingPosition.getSelected().getY());
 		/*
 		auto = new Autonomous(new POINT(startingPosition.getSelected().getX(), startingPosition.getSelected().getY()), 
 				autoTarget.getSelected(), (startingPosition.getSelected().equals(leftStart)? 'L' : 

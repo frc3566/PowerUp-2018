@@ -29,7 +29,6 @@ public class DriveForSeconds extends Command {
     	dir = direction;
     }
 
-
     @Override
     protected void initialize() {
     }

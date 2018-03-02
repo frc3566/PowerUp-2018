@@ -7,7 +7,8 @@ import org.usfirst.frc.team3566.robot.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 	public class Variables {
-		public static boolean isFinalTurn=true,isFinalTurnFinish=false;
+		public static boolean isFinalTurn=false,isFinalTurnFinish=false;
+		public static int eleToPosCnt=0;
 		public static final double rotateNonStopSpd = 0.5;
 		public static double BPU_PICKUP_SPD=0.4;
 		
@@ -114,7 +115,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 			
 			route9 = new ArrayList<POINT>();
 	    	route9.add(Robot.rightStart);	//right scale right
-	    	route9.add(new POINT(23.5, 20));//added
+//	    	route9.add(new POINT(23.5, 20));//added
 	    	route9.add(new POINT(23.5, 27.0));
 	    	route9.add(scaleRightSide);
 
@@ -203,7 +204,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 		}
 		
 		public void setSwitchScaleSides() {
-			System.out.println("GameMessage!:"+gameMessage+gameMessage.indexOf('L'));
+			System.out.println("GameMessage!:"+gameMessage);
 			char[] chars = gameMessage.toCharArray();
 			
 			ourSwitchPos = chars[0];
@@ -227,20 +228,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 		
 		public double getEncoder()
 		{
-			return (Robot.encoderL.getDistance()+Robot.encoderR.getDistance())/2;//Robot.encoderR.getDistance())/2;
+			return (Robot.encoderL.getDistance()+Robot.encoderR.getDistance())/2;
 		}
 		
 		//coordinate system
 		private static double x=0,y=0;
 		private static double lastL=0,lastR=0;
-		private static double lastTheta=90;
-		
 		private static void coordinateReset()
 		{
 			setX(0);
 			setY(0);
 	        lastL=lastR=collision.lastLSpeed=collision.lastRSpeed=0;
-	        lastTheta=90;
 		}
 		public static void XYReset(double X, double Y)
 		{

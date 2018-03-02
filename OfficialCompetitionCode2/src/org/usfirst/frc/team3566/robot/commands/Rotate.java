@@ -50,13 +50,9 @@ public class Rotate extends Command {
     }
 
     @Override
-    protected void execute() {
-    	
+    protected void execute() {  	
     	PID();
-    	
     	spd*=maxPower;
-    	//Robot.drivetrain.rotate(spd);
-    	//Robot.drivetrain.rotate(0.3);
     	RobotMap.drive.tankDrive(spd, -spd);
     }
 
@@ -64,8 +60,7 @@ public class Rotate extends Command {
     protected boolean isFinished() {
     	if(this.isTimedOut())return true;
     	if(isAuto&&Math.abs(Robot.var.rotateTheta)<10)return true;
-    	if(Math.abs(error)<3 && Math.abs(Robot.encoderL.getRate())<200)return true;
-    	if(Math.abs(error)<1)return true;
+    	if(Math.abs(error)<3)return true;
     	return false;
     }
 
@@ -73,7 +68,6 @@ public class Rotate extends Command {
     protected void end() {
     	if(Robot.var.isFinalTurn==true)Robot.var.isFinalTurnFinish=true;
     	Robot.drivetrain.stopDrive();
-    //	Robot.drivetrain.ramp(Robot.RAMP);
     	System.out.printf("rotate program stops after %.1f seconds, error is %.1f\n", this.timeSinceInitialized(),error);
     	Robot.light.set(prev_light);
     }

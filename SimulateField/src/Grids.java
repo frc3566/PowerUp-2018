@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
+//import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 /**
  * Program to draw grids.
@@ -346,9 +346,9 @@ public class Grids extends Frame implements KeyListener{
     d.requestFocus();
     
     
-    NetworkTable.setClientMode();
-    NetworkTable.setIPAddress("10.35.66.2");
-    NetworkTable table = NetworkTable.getTable("datatable");
+    //NetworkTable.setClientMode();
+    //NetworkTable.setIPAddress("10.35.66.2");
+    //NetworkTable table = NetworkTable.getTable("datatable");
     
     
     /*

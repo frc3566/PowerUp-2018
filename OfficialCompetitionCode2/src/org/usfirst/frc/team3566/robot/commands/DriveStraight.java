@@ -65,7 +65,7 @@ public class DriveStraight extends Command {
 //    	else if(Robot.encoderL.getRate()<maxSpeed*-0.5)
 //    		power=Math.max(-1.6-1.4*Robot.encoderL.getRate()/maxSpeed, power);
     	double sign = (power>0) ? 1:-1;
-    	double vError = (Math.abs(Robot.encoderL.getRate()- 0.7*maxSpeed)) / maxSpeed;
+    	double vError = ( Math.abs(Robot.encoderL.getRate())-0.7*maxSpeed) / maxSpeed;
     	double max = 1 - vError;
     	power = Math.min(Math.abs(power), max)*sign;
     }
@@ -81,11 +81,9 @@ public class DriveStraight extends Command {
     
     @Override
     protected void execute() {
-    	//Robot.var.updateXY();
     	time=Robot.time.get()-startTime;
         PID();
         ramp();
-//        System.out.println("Drivin Straight: power is "+power);
     	RobotMap.drive.tankDrive(power,power * 0.98);
     }
 
@@ -94,8 +92,7 @@ public class DriveStraight extends Command {
     	double errAngle = (Robot.var.getTheta()-startAngle+360) % 360;
     	if (errAngle>15 && errAngle<345) return true;
 //    	if (Robot.var.collision.isCollide) return true;
-    	if (Math.abs(error)<50&&Robot.encoderL.getRate()<300) return true;//needs consideration
-    	else if(Math.abs(error)<Robot.var.allowedDriveError)return true;
+    	if(Math.abs(error)<Robot.var.allowedDriveError)return true;
     	if (time> Math.abs(length) / 300 ) return true;
     	return false;
     }
@@ -110,7 +107,6 @@ public class DriveStraight extends Command {
     	System.out.printf("straight stop in %.1f second error %.1f\n",time,error);
     	Robot.drivetrain.stopDrive();
     	Robot.drivetrain.ramp(Robot.RAMP);
-    	
     	Robot.light.set(prev_light);
     }
 
