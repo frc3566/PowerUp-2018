@@ -125,21 +125,25 @@ public class Robot extends TimedRobot {
 		
 		isAuto = true;
 		
+		POINT start = ((SendableChooser<POINT>)SmartDashboard.getData("startingPos")).getSelected();
+		auto = new Autonomous(start, 
+				((SendableChooser<Integer>)SmartDashboard.getData("autoTarg")).getSelected(), 
+				start.equals(leftStart)? 'L' : 
+					(start.equals(middleStart)? 'M':'R'));
 		
-		auto = new Autonomous(new POINT(startingPosition.getSelected().getX(), startingPosition.getSelected().getY()), 
-				autoTarget.getSelected(), (startingPosition.getSelected().equals(leftStart)? 'L' : 
-					(startingPosition.getSelected().equals(middleStart)? 'M':'R')));
-		
-		char code = (startingPosition.getSelected().equals(leftStart)? 'L' : 
-			(startingPosition.getSelected().equals(middleStart)? 'M':'R'));
-		System.out.println("Auto Chooser: startingPos "+startingPosition.getSelected().getX()+ " "+
-					startingPosition.getSelected().getY()+" code: "+code+" autoTargetNum: "+autoTarget.getSelected());
+		char code = (start.equals(leftStart)? 'L' : 
+			(start.equals(middleStart)? 'M':'R'));
+		System.out.println("Auto Chooser: startingPos "+start.getX()+ " "+
+					start.getY()+" code: "+code+" autoTargetNum: "+
+				((SendableChooser<Integer>)SmartDashboard.getData("autoTarg")).getSelected());
 		
 		//SELECT FROM ONE BELOW AND COMMENT OUT THE OTHERS
 		auto = new Autonomous(leftStart, 0, 'L'); //our switch
 //		auto = new Autonomous(leftStart, 1, 'L'); //scale
 //		auto = new Autonomous(rightStart, 0, 'R'); //our switch
 //		auto = new Autonomous(rightStart, 1, 'R'); //scale
+//		auto = new Autonomous(middleStart, 0, 'M'); //our switch
+//		auto = new Autonomous(middleStart, 1, 'M'); //scale
 
 		//auto will receive info on our starting position coordinates, the code char for our starting position, and the target
 		if (auto != null) {
