@@ -136,8 +136,8 @@ public class Robot extends TimedRobot {
 					startingPosition.getSelected().getY()+" code: "+code+" autoTargetNum: "+autoTarget.getSelected());
 		
 		//SELECT FROM ONE BELOW AND COMMENT OUT THE OTHERS
-//		auto = new Autonomous(leftStart, 0, 'L'); //our switch
-		auto = new Autonomous(leftStart, 1, 'L'); //scale
+		auto = new Autonomous(leftStart, 0, 'L'); //our switch
+//		auto = new Autonomous(leftStart, 1, 'L'); //scale
 //		auto = new Autonomous(rightStart, 0, 'R'); //our switch
 //		auto = new Autonomous(rightStart, 1, 'R'); //scale
 
