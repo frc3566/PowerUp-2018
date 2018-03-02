@@ -29,9 +29,6 @@ public class Autonomous extends Command {
     protected void initialize() {
     	Robot.var.gameMessage = DriverStation.getInstance().getGameSpecificMessage();
     	Robot.var.setSwitchScaleSides(); //splits gameMessage into individual message
-    	//SmartDashboard.putString("OurSwitch", Robot.var.ourSwitchPos+"");
-    	//SmartDashboard.putString("Scale", Robot.var.ScalePos+"");
-    	//SmartDashboard.putString("OppSwitch", Robot.var.oppSwitchPos+"");
     	ArrayList<POINT> routeToPerform = Robot.var.defaultRoute;  //default, go cross auto line
     	Robot.var.XYReset(startingPosition.getX(), startingPosition.getY());
     	

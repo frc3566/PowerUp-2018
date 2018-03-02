@@ -1,5 +1,5 @@
 {
-  "dividerPosition": 0.2643378519290928,
+  "dividerPosition": 0.26631578947368423,
   "tabPane": [
     {
       "title": "SmartDashboard",
@@ -10,17 +10,6 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
-          "5,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/DriveForSeconds",
-              "_title": "DriveForSeconds"
-            }
-          },
           "0,2": {
             "size": [
               2,
@@ -46,29 +35,7 @@
               "_title": "maxPower"
             }
           },
-          "7,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Distance",
-              "_title": "Distance"
-            }
-          },
-          "6,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/speed",
-              "_title": "speed"
-            }
-          },
-          "4,1": {
+          "0,3": {
             "size": [
               1,
               1
@@ -79,7 +46,7 @@
               "_title": "theta"
             }
           },
-          "3,0": {
+          "6,4": {
             "size": [
               1,
               1
@@ -90,7 +57,7 @@
               "_title": "autoTarget"
             }
           },
-          "6,0": {
+          "6,5": {
             "size": [
               1,
               1
@@ -101,20 +68,7 @@
               "_title": "startingPosition"
             }
           },
-          "7,1": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Speed Controller",
-              "_source0": "network_table:///SmartDashboard/Elevator",
-              "_title": "Elevator",
-              "controllable": true,
-              "orientation": "HORIZONTAL"
-            }
-          },
-          "3,2": {
+          "0,4": {
             "size": [
               1,
               1
@@ -125,7 +79,7 @@
               "_title": "x"
             }
           },
-          "4,2": {
+          "1,4": {
             "size": [
               1,
               1
@@ -136,7 +90,7 @@
               "_title": "y"
             }
           },
-          "7,2": {
+          "8,5": {
             "size": [
               1,
               1
@@ -158,65 +112,6 @@
               "_title": "LightPattern"
             }
           },
-          "8,0": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Speed Controller",
-              "_source0": "network_table:///SmartDashboard/BPU",
-              "_title": "BPU",
-              "controllable": true,
-              "orientation": "HORIZONTAL"
-            }
-          },
-          "8,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/elevToBottom",
-              "_title": "elevToBottom"
-            }
-          },
-          "8,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/elevToMiddle",
-              "_title": "elevToMiddle"
-            }
-          },
-          "8,4": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/elevToTop",
-              "_title": "elevToTop"
-            }
-          },
-          "5,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/isCollide",
-              "_title": "isCollide",
-              "colorWhenTrue": "#7CFC00FF",
-              "colorWhenFalse": "#8B0000FF"
-            }
-          },
           "1,0": {
             "size": [
               1,
@@ -226,28 +121,6 @@
               "_type": "Command",
               "_source0": "network_table:///SmartDashboard/RotateForAngle",
               "_title": "RotateForAngle"
-            }
-          },
-          "2,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DriveTime",
-              "_title": "DriveTime"
-            }
-          },
-          "4,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Talon SRX [10]/Value",
-              "_title": "Talon SRX [10]/Value"
             }
           },
           "0,1": {
@@ -274,56 +147,21 @@
               "_title": "elev"
             }
           },
-          "2,1": {
+          "1,5": {
             "size": [
               1,
               1
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Talon SRX [40]/Value",
-              "_title": "Talon SRX [40]/Value"
+              "_source0": "network_table:///SmartDashboard/encoderR",
+              "_title": "encoderR"
             }
           },
-          "4,3": {
+          "2,0": {
             "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/P",
-              "_title": "P"
-            }
-          },
-          "5,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/I",
-              "_title": "I"
-            }
-          },
-          "2,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Driving",
-              "_title": "Driving",
-              "colorWhenTrue": "#7CFC00FF",
-              "colorWhenFalse": "#8B0000FF"
-            }
-          },
-          "1,4": {
-            "size": [
-              2,
-              2
+              3,
+              3
             ],
             "content": {
               "_type": "Camera Stream",
@@ -331,48 +169,41 @@
               "_title": "USB Camera 1"
             }
           },
-          "7,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DriveFT",
-              "_title": "DriveFT"
-            }
-          },
-          "6,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/DriveForFeet",
-              "_title": "DriveForFeet"
-            }
-          },
-          "6,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/DD",
-              "_title": "DD"
-            }
-          },
-          "4,4": {
+          "5,0": {
             "size": [
               3,
-              2
+              3
             ],
             "content": {
               "_type": "Camera Stream",
               "_source0": "camera_server://USB Camera 0",
               "_title": "USB Camera 0"
+            }
+          },
+          "1,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Speed Controller",
+              "_source0": "network_table:///SmartDashboard/Elevator",
+              "_title": "Elevator",
+              "controllable": false,
+              "orientation": "HORIZONTAL"
+            }
+          },
+          "3,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Speed Controller",
+              "_source0": "network_table:///SmartDashboard/climber",
+              "_title": "climber",
+              "controllable": false,
+              "orientation": "HORIZONTAL"
             }
           }
         }
@@ -500,7 +331,7 @@
               "_type": "Speed Controller",
               "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [60]",
               "_title": "Ungrouped/Talon SRX [60]",
-              "controllable": true,
+              "controllable": false,
               "orientation": "HORIZONTAL"
             }
           },
@@ -569,7 +400,7 @@
               "_type": "Speed Controller",
               "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [25]",
               "_title": "Ungrouped/Talon SRX [25]",
-              "controllable": true,
+              "controllable": false,
               "orientation": "HORIZONTAL"
             }
           },
@@ -582,7 +413,7 @@
               "_type": "Speed Controller",
               "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [50]",
               "_title": "Ungrouped/Talon SRX [50]",
-              "controllable": true,
+              "controllable": false,
               "orientation": "HORIZONTAL"
             }
           },
@@ -595,7 +426,7 @@
               "_type": "Speed Controller",
               "_source0": "network_table:///LiveWindow/Ungrouped/SpeedControllerGroup[1]",
               "_title": "Ungrouped/SpeedControllerGroup[1]",
-              "controllable": true,
+              "controllable": false,
               "orientation": "HORIZONTAL"
             }
           },
@@ -619,7 +450,7 @@
               "_type": "Speed Controller",
               "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [10]",
               "_title": "Ungrouped/Talon SRX [10]",
-              "controllable": true,
+              "controllable": false,
               "orientation": "HORIZONTAL"
             }
           },
@@ -632,7 +463,7 @@
               "_type": "Speed Controller",
               "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [40]",
               "_title": "Ungrouped/Talon SRX [40]",
-              "controllable": true,
+              "controllable": false,
               "orientation": "HORIZONTAL"
             }
           },
@@ -645,7 +476,7 @@
               "_type": "Speed Controller",
               "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [30]",
               "_title": "Ungrouped/Talon SRX [30]",
-              "controllable": true,
+              "controllable": false,
               "orientation": "HORIZONTAL"
             }
           },
@@ -712,7 +543,7 @@
               "_type": "Speed Controller",
               "_source0": "network_table:///LiveWindow/Ungrouped/SpeedControllerGroup[3]",
               "_title": "Ungrouped/SpeedControllerGroup[3]",
-              "controllable": true,
+              "controllable": false,
               "orientation": "HORIZONTAL"
             }
           },
@@ -725,7 +556,7 @@
               "_type": "Speed Controller",
               "_source0": "network_table:///LiveWindow/Ungrouped/Spark[0]",
               "_title": "Ungrouped/Spark[0]",
-              "controllable": true,
+              "controllable": false,
               "orientation": "HORIZONTAL"
             }
           },
@@ -738,7 +569,7 @@
               "_type": "Speed Controller",
               "_source0": "network_table:///LiveWindow/Ungrouped/SpeedControllerGroup[4]",
               "_title": "Ungrouped/SpeedControllerGroup[4]",
-              "controllable": true,
+              "controllable": false,
               "orientation": "HORIZONTAL"
             }
           },
@@ -762,9 +593,85 @@
             ],
             "content": {
               "_type": "List Layout",
-              "_source0": "network_table:///LiveWindow/Elevator",
               "_title": "Elevator",
               "_children": []
+            }
+          },
+          "7,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[3]/Value",
+              "_title": "Ungrouped/DigitalInput[3]/Value",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "4,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Servo[1]/Value",
+              "_title": "Ungrouped/Servo[1]/Value"
+            }
+          },
+          "5,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[0]/Distance per Tick",
+              "_title": "Ungrouped/Encoder[0]/Distance per Tick"
+            }
+          },
+          "6,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[8]/Value",
+              "_title": "Ungrouped/DigitalInput[8]/Value",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "7,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[9]/Value",
+              "_title": "Ungrouped/DigitalInput[9]/Value",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "2,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Voltage View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/AnalogInput[1]",
+              "_title": "Ungrouped/AnalogInput[1]",
+              "min": 0.0,
+              "max": 5.0,
+              "center": 0.0,
+              "orientation": "HORIZONTAL",
+              "numTickMarks": 5.0
             }
           }
         }

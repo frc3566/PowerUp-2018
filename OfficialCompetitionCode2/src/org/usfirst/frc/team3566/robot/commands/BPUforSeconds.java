@@ -29,7 +29,7 @@ public class BPUforSeconds extends Command {
     protected void execute() {
     	if(!Robot.var.isFinalTurnFinish)return;
     	else if(startTime<0)startTime=Robot.time.get();
-    	Robot.bpu.runBPUmotors(dir*1);
+    	Robot.bpu.runBPUmotors(dir*0.7);
     }
 
     // Make this return true when this Command no longer needs to run execute()

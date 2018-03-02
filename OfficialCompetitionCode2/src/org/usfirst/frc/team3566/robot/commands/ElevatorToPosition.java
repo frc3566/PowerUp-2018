@@ -21,7 +21,7 @@ public class ElevatorToPosition extends Command {
 
     protected void initialize() {
     	Robot.var.eleToPosCnt++;
-    	if(Robot.isAuto&&Robot.var.eleToPosCnt==1)isNeedWait=true;
+    	if(Robot.isAuto&&Robot.var.eleToPosCnt==2)isNeedWait=true;
     	else isNeedWait=false;
     	//this.setTimeout(5);
     	timeToFinish=5;
@@ -29,7 +29,7 @@ public class ElevatorToPosition extends Command {
     }
 
     protected void execute() {
-    	if(isNeedWait&& !Robot.var.isFinalTurn)return;
+    	if(Robot.isAuto&&isNeedWait&& !Robot.var.isFinalTurn)return;
     	else if(startTime<0)startTime=Robot.time.get();
     	int dir = Robot.elevator.checkDirectionToGo(position);
     	double spd  = Robot.elevator.findAppropriateSPD(Robot.elevator.checkDirectionToGo(position), position);

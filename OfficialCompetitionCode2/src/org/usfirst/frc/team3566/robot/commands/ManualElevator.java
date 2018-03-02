@@ -15,9 +15,9 @@ public class ManualElevator extends Command {
     }
 
     protected void execute() {
-    	if(Robot.oi.main.getRawButton(5)&&!Robot.elevator.topSwitch.get())
+    	if((Robot.oi.main.getRawButton(5)||Robot.oi.secondary.getRawButton(5))&&!Robot.elevator.topSwitch.get())
     		Robot.elevator.runElevator(Robot.elevator.elevUpSPD*-1);
-    	else if(Robot.oi.main.getRawButton(6)&&!Robot.elevator.bottomSwitch.get())
+    	else if((Robot.oi.main.getRawButton(6)||Robot.oi.secondary.getRawButton(6))&&!Robot.elevator.bottomSwitch.get())
     		Robot.elevator.runElevator(Robot.elevator.elevDownSPD);
     	else
     		Robot.elevator.stopElevator();

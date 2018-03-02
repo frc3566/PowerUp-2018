@@ -54,8 +54,9 @@ public class Robot extends TimedRobot {
 
 	Autonomous auto;
 	
-	//SendableChooser<POINT> startingPosition = new SendableChooser<>();
-	//SendableChooser<Integer> autoTarget = new SendableChooser<>();
+	SendableChooser<POINT> startingPosition;
+	SendableChooser<Integer> autoTarget;
+	
 	@Override
 	public void robotInit() {
 		RobotMap.init();
@@ -70,16 +71,22 @@ public class Robot extends TimedRobot {
 		
 		oi = new OI();
 		time = new Timer();
-//		startingPosition.addDefault("P1", leftStart);
-//		startingPosition.addObject("P2", middleStart);
-//		startingPosition.addObject("P3", rightStart);
-//		startingPosition.setName("startingPos");
-//		autoTarget.addDefault("OurSwitch", 0);
-//		autoTarget.addObject("Scale", 1);
-//		autoTarget.addObject("OppSwitch", 2);
-//		autoTarget.setName("autoTarget");
-//		SmartDashboard.putData("startingPosition", startingPosition);
-//		SmartDashboard.putData("autoTarget", autoTarget);
+		
+		startingPosition = new SendableChooser<>();
+		autoTarget = new SendableChooser<>();
+		
+		startingPosition.addDefault("P1", leftStart);
+		startingPosition.addObject("P2", middleStart);
+		startingPosition.addObject("P3", rightStart);
+		startingPosition.setName("startingPos");
+		autoTarget.addDefault("OurSwitch", 0);
+		autoTarget.addObject("Scale", 1);
+		autoTarget.addObject("OppSwitch", 2);
+		autoTarget.setName("autoTarget");
+		
+		SmartDashboard.putData("startingPos", startingPosition);
+		SmartDashboard.putData("autoTarg", autoTarget);
+		
 		
 //		encoder wheel perimeter 227.13mm
 //		encoderL = new Encoder(1,2,false,Encoder.EncodingType.k4X);//this is main encoder
@@ -100,7 +107,6 @@ public class Robot extends TimedRobot {
 		var.reset();
 		
         light = new Spark(0);
-        //SmartDashboard.putNumber("LightPattern", -0.41);
         SmartDashboard.putNumber("maxPower", 2);
         //BELOW IS CODE FOR TESTING.
 	}
@@ -116,12 +122,18 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
+		
 		isAuto = true;
-		/*
+		
+		
 		auto = new Autonomous(new POINT(startingPosition.getSelected().getX(), startingPosition.getSelected().getY()), 
 				autoTarget.getSelected(), (startingPosition.getSelected().equals(leftStart)? 'L' : 
 					(startingPosition.getSelected().equals(middleStart)? 'M':'R')));
-		*/
+		
+		char code = (startingPosition.getSelected().equals(leftStart)? 'L' : 
+			(startingPosition.getSelected().equals(middleStart)? 'M':'R'));
+		System.out.println("Auto Chooser: startingPos "+startingPosition.getSelected().getX()+ " "+
+					startingPosition.getSelected().getY()+" code: "+code+" autoTargetNum: "+autoTarget.getSelected());
 		
 		//SELECT FROM ONE BELOW AND COMMENT OUT THE OTHERS
 //		auto = new Autonomous(leftStart, 0, 'L'); //our switch
@@ -165,6 +177,5 @@ public class Robot extends TimedRobot {
 	public void testPeriodic() {
 		SmartDashboard.putNumber("elev", Robot.elevator.elevatorEncoder.getValue());
 		SmartDashboard.putNumber("theta", Robot.var.getTheta());
-		light.set(SmartDashboard.getNumber("LightPattern", 0));
 	}
 }

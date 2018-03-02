@@ -54,7 +54,6 @@ public class RobotMap {
        BPUright = new WPI_TalonSRX(16); //right grabber
        BPUright.setInverted(true);
        BPU = new SpeedControllerGroup(BPUleft, BPUright);
-       SmartDashboard.putData("BPU", BPU);
               
        ElevRight = new WPI_TalonSRX(35);  //35
        ElevRight.setInverted(true);
@@ -65,10 +64,10 @@ public class RobotMap {
        
        //elevator: pos power goes down, corresponding to the elevator encoder.
        Elev = new SpeedControllerGroup(ElevLeft, ElevRight);
-       SmartDashboard.putData("Elevator", Elev);
+     //  SmartDashboard.putData("Elevator", Elev);
   
        climber = new WPI_TalonSRX(25);	//25
-       SmartDashboard.putData("climber", climber);
+    //   SmartDashboard.putData("climber", climber);
 //       Tilter = new WPI_TalonSRX(18);	//18+
        drive.setSafetyEnabled(true);
        drive.setExpiration(0.5);

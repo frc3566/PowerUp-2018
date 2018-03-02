@@ -22,16 +22,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class OI {
 	
 	//current plan: main for driving and BPU, secondary for elevator function
-    public Joystick main; //, secondary;
+    public Joystick main, secondary;
     public JoystickButton rotateLeft, rotateRight;
    // public JoystickButton goStraight,rotate;
     public JoystickButton BPUin, BPUout;
-    public JoystickButton elevGround, elevMid, elevTop;
+    public JoystickButton elevGround1, elevMid1, elevTop1;
+    public JoystickButton elevGround2, elevMid2, elevTop2;
     
     public OI() {
 
         main = new Joystick(0);
-    //    secondary = new Joystick(1);
+        secondary = new Joystick(1);
         
 //        BPUin = new JoystickButton(main, 1);
 //        BPUin.whenPressed(new BPUin());
@@ -40,20 +41,25 @@ public class OI {
 //        BPUout.whenPressed(new BPUout());
    
         
-        elevTop = new JoystickButton(main, 4);
-        elevTop.whenPressed(new ElevatorToPosition(2));
+        elevTop1 = new JoystickButton(main, 4);
+        elevTop1.whenPressed(new ElevatorToPosition(2));
         
-        elevMid = new JoystickButton(main, 2);
-        elevMid.whenPressed(new ElevatorToPosition(1));
+        elevMid1 = new JoystickButton(main, 2);
+        elevMid1.whenPressed(new ElevatorToPosition(1));
         
-        elevGround = new JoystickButton(main, 1);
-        elevGround.whenPressed(new ElevatorToPosition(0));
+        elevGround1 = new JoystickButton(main, 1);
+        elevGround1.whenPressed(new ElevatorToPosition(0));
+        
+        elevTop2 = new JoystickButton(secondary, 4);
+        elevTop2.whenPressed(new ElevatorToPosition(2));
+        
+        elevMid2 = new JoystickButton(secondary, 2);
+        elevMid2.whenPressed(new ElevatorToPosition(1));
+        
+        elevGround2 = new JoystickButton(secondary, 1);
+        elevGround2.whenPressed(new ElevatorToPosition(0));
         
         
-//		SmartDashboard.putNumber("rotateAngle", 90);
-//		SmartDashboard.putNumber("DriveFT", 10);
-//		SmartDashboard.putNumber("DriveTime", 3);
-//		SmartDashboard.putBoolean("DriveDirection", true);
     }
 
     public void updateCommands() {
