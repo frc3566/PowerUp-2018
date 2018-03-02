@@ -26,7 +26,7 @@ public class OI {
     public JoystickButton rotateLeft, rotateRight;
    // public JoystickButton goStraight,rotate;
     public JoystickButton BPUin, BPUout;
-    public JoystickButton elevGround1, elevMid1, elevTop1, creep;
+    public JoystickButton elevGround1, elevMid1, elevTop1;
     public JoystickButton elevGround2, elevMid2, elevTop2;
     
     public OI() {
@@ -49,9 +49,6 @@ public class OI {
         
         elevGround1 = new JoystickButton(main, 1);
         elevGround1.whenPressed(new ElevatorToPosition(0));
-        
-        creep = new JoystickButton(main, 3);
-        creep.whenPressed(new DriveForSeconds(false, 0.2, 0.5, true));
         
         elevTop2 = new JoystickButton(secondary, 4);
         elevTop2.whenPressed(new ElevatorToPosition(2));

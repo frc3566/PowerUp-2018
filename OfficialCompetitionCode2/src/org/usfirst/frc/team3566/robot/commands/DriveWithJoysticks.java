@@ -34,7 +34,11 @@ public class DriveWithJoysticks extends Command {
     	double maxPower=SmartDashboard.getNumber("maxPower", 2);
     	if(Math.abs(maxPower-2)<1e-2)
     		maxPower=(Robot.elevator.elevatorEncoder.getValue()-Robot.elevator.elevatorTargetValues[2])*0.00015+0.45;
- 		RobotMap.drive.arcadeDrive(Robot.oi.main.getRawAxis(1)*-1*maxPower,(Robot.oi.main.getRawAxis(4)*Math.max(0.6, Math.min(0.7, maxPower))+0.02));
+ 	
+    	RobotMap.drive.arcadeDrive((Robot.oi.main.getRawButtonPressed(3)?0.5:1) //if blue X button pressed, slower spd
+    			*Robot.oi.main.getRawAxis(1)*-1*maxPower,
+    			(Robot.oi.main.getRawAxis(4)*Math.max(0.6, Math.min(0.7, maxPower))+0.02));
+    
     	if (Robot.time.get()%2<0.03)System.out.printf("maxPower %f\n",maxPower);
     }
 
