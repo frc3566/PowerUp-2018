@@ -34,16 +34,12 @@ public class Rotate extends Command {
     @Override
     protected void initialize() {
     	if(isAuto)deltaDegree = Robot.var.rotateTheta;
-    	this.setTimeout(2.5);
-//    	P=SmartDashboard.getNumber("PP", 0);
-//    	I=SmartDashboard.getNumber("I", 0);
-//    	D=SmartDashboard.getNumber("DD", 0);
+    	this.setTimeout(3.5);
     	startDegree = Robot.var.getTheta();
     	endDegree = startDegree - deltaDegree;
     	error = ((startDegree-endDegree)+360)%360;
     	if(Math.abs(error)<30) {integral=25;close=true;}
     	else close=false;
-//    	Robot.drivetrain.ramp(0);
     	prev_light = Robot.light.get();
     	Robot.light.set(Robot.var.purple);
     	System.out.printf("rotate for %.0f\n", deltaDegree);

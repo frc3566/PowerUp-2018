@@ -22,7 +22,7 @@ public class Elevator extends Subsystem {
 	public static AnalogInput elevatorEncoder; //bottom: 3200; top (without a box): 1184
 	public static DigitalInput topSwitch;
 	public static DigitalInput bottomSwitch;
-	public static int[] elevatorTargetValues = {2820, 2820-1850, 2820-2470}; //bottom, middle and top encoder values
+	public static int[] elevatorTargetValues = {2870, 2870-1850, 2870-2470}; //bottom, middle and top encoder values
 	//slightly above the ground 3028
 	public static final int allowedError = 10;
 	public static final int totTravel=2340;

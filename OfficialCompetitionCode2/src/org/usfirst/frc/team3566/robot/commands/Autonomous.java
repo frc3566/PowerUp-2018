@@ -38,11 +38,11 @@ public class Autonomous extends Command {
     			switch (startingPosChar) {
     			case 'L': routeToPerform = Robot.var.route1; break;
     			case 'M': routeToPerform = Robot.var.route13; break;
-    			case 'R':routeToPerform = Robot.var.route8; break;
+    			case 'R':routeToPerform = Robot.var.route8; targetNum = 1; break;
     		}
     		}else if(Robot.var.ourSwitchPos == 'R') {
     			switch (startingPosChar) {
-    			case 'L': routeToPerform = Robot.var.route2; break;
+    			case 'L': routeToPerform = Robot.var.route2; targetNum = 1; break;
     			case 'M': routeToPerform = Robot.var.route14; break;
     			case 'R': routeToPerform = Robot.var.route7; break;
     			}

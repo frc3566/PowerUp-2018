@@ -205,6 +205,54 @@
               "controllable": false,
               "orientation": "HORIZONTAL"
             }
+          },
+          "8,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/startingPos",
+              "_title": "startingPos"
+            }
+          },
+          "8,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/autoTarg",
+              "_title": "autoTarg"
+            }
+          },
+          "5,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Speed Controller",
+              "_source0": "network_table:///SmartDashboard/elevator",
+              "_title": "elevator",
+              "controllable": false,
+              "orientation": "HORIZONTAL"
+            }
+          },
+          "7,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Speed Controller",
+              "_source0": "network_table:///SmartDashboard/Elevatorr",
+              "_title": "Elevatorr",
+              "controllable": false,
+              "orientation": "HORIZONTAL"
+            }
           }
         }
       }

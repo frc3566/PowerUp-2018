@@ -37,8 +37,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 		//those points are delivery destinations
 		public static final POINT ourSwitchLeftSide = new POINT(6.25, 14.0, 0),
 				ourSwitchLeftBack = new POINT(9.0, 17.5, 270), ourSwitchRightSide = new POINT(20.75, 14.0, 180),
-				ourSwitchRightBack = new POINT(18.0, 17.5, 270), scaleLeftSide = new POINT(3.75, 27.0, 0),
-				scaleRightFront = new POINT(19.5, 23.5, 90), scaleRightSide = new POINT(23.25, 27.0, 180),
+				ourSwitchRightBack = new POINT(18.0, 17.5, 270), scaleLeftSide = new POINT(4.25, 27.0, 0),
+				scaleRightFront = new POINT(19.5, 23.5, 90), scaleRightSide = new POINT(22.75, 27.0, 180),
 				scaleLeftFront = new POINT(7.5, 23.5, 90), oppSwitchLeftSide = new POINT(6.25, 40.0, 0),
 				oppSwitchRightFront = new POINT(17.75, 36.75, 90), oppSwitchRightSide=new POINT(20.75, 40.0, 180),
 				oppSwitchLeftFront = new POINT(8.75, 36.75, 90), ourSwitchLeftFront = new POINT(9.0, 10.5, 90),
@@ -66,16 +66,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 			
 			route2 = new ArrayList<POINT>();	//left switch right
 			route2.add(Robot.leftStart);
-			route2.add(new POINT(3.75, 20.0));
+			route2.add(new POINT(3.75, 17.75));
 			//turn right
-			route2.add(new POINT(18.0, 20.0));
+			route2.add(new POINT(18.0, 17.75));
 			//turn right
 			route2.add(ourSwitchRightBack);
 			
 			route3 = new ArrayList<POINT>();
 	    	route3.add(Robot.leftStart);	//left scale left
-	    	route3.add(new POINT(3, 20)); //added point
-	    	route3.add(new POINT(1.5, 27.0)); //3 changed to 2
+	    	//route3.add(new POINT(3, 20)); //added point
+	    	route3.add(new POINT(1.5, 17.0)); //3 changed to 2
 	    	route3.add(scaleLeftSide);
 
 	    	route4 = new ArrayList<POINT>();
@@ -107,16 +107,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 			
 			route8 = new ArrayList<POINT>();	//right switch left
 			route8.add(Robot.rightStart);
-			route8.add(new POINT(23.5, 19.5));
+			route8.add(new POINT(23.5, 17.75));
 			//turn right
-			route8.add(new POINT(9, 19.5));
+			route8.add(new POINT(9, 17.75));
 			//turn right
 			route8.add(ourSwitchLeftBack);
 			
 			route9 = new ArrayList<POINT>();
 	    	route9.add(Robot.rightStart);	//right scale right
-	    	route9.add(new POINT(23.5, 20));//added
-	    	route9.add(new POINT(25.25, 27.0)); //23.5 changed to 25.25
+	    //	route9.add(new POINT(23.5, 20));//added
+	    	route9.add(new POINT(25.25, 17.0)); //23.5 changed to 25.25
 	    	route9.add(scaleRightSide);
 
 	    	route10 = new ArrayList<POINT>();
