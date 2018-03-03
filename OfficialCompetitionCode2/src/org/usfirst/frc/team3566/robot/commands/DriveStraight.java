@@ -84,7 +84,7 @@ public class DriveStraight extends Command {
     	time=Robot.time.get()-startTime;
         PID();
         ramp();
-    	RobotMap.drive.tankDrive(power,power);
+    	RobotMap.drive.tankDrive(power, power*0.98);
     }
 
     @Override

@@ -58,9 +58,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 			defaultRoute.add(new POINT(13.5, 13));
 			
 			
-			route1 = new ArrayList<POINT>();	//Starting from left; switch left
+			route1 = new ArrayList<POINT>();	//Starting from left; switch left (CHECK: definitely works)
 			route1.add(Robot.leftStart);
-			route1.add(new POINT(3.75, 14.0));
+			route1.add(new POINT(4.25, 14.0));
 			//turn right
 			route1.add(ourSwitchLeftSide);
 			
@@ -81,7 +81,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 	    	route4 = new ArrayList<POINT>();
 	    	route4.add(Robot.leftStart);	//left scale right
 	    	route4.add(new POINT(3.75, 20.5));
-	    	route4.add(new POINT(19.5, 20.5));
+	    	//route4.add(new POINT(19.5, 20.5));    cancelled to save time
 	    	route4.add(scaleRightFront);
 	    	
 	    	route5 = new ArrayList<POINT>();

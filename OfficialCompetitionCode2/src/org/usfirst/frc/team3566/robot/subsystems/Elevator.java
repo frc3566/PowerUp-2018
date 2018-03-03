@@ -31,6 +31,7 @@ public class Elevator extends Subsystem {
 	
 	public Elevator() {
 		elevatorEncoder= new AnalogInput(1);
+		
 		topSwitch=new DigitalInput(9);
 		bottomSwitch=new DigitalInput(8);
 		startPos=elevatorEncoder.getValue();

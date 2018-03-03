@@ -634,10 +634,10 @@
               "colorWhenFalse": "#8B0000FF"
             }
           },
-          "8,0": {
+          "4,4": {
             "size": [
               1,
-              4
+              1
             ],
             "content": {
               "_type": "List Layout",
