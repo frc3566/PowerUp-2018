@@ -36,8 +36,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 		
 		//those points are delivery destinations
 		public static final POINT ourSwitchLeftSide = new POINT(6.25, 14.0, 0),
-				ourSwitchLeftBack = new POINT(9.0, 17.5, 270), ourSwitchRightSide = new POINT(20.75, 14.0, 180),
-				ourSwitchRightBack = new POINT(18.0, 17.5, 270), scaleLeftSide = new POINT(4.25, 27.0, 0),
+				ourSwitchLeftBack = new POINT(9.0, 18.5, 270), ourSwitchRightSide = new POINT(20.75, 14.0, 180),
+				ourSwitchRightBack = new POINT(18.0, 18.5, 270), scaleLeftSide = new POINT(4.25, 27.0, 0),
 				scaleRightFront = new POINT(19.5, 23.5, 90), scaleRightSide = new POINT(22.75, 27.0, 180),
 				scaleLeftFront = new POINT(7.5, 23.5, 90), oppSwitchLeftSide = new POINT(6.25, 40.0, 0),
 				oppSwitchRightFront = new POINT(17.75, 36.75, 90), oppSwitchRightSide=new POINT(20.75, 40.0, 180),
@@ -68,7 +68,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 			route2.add(Robot.leftStart);
 			route2.add(new POINT(3.75, 17.75));
 			//turn right
-			route2.add(new POINT(18.0, 17.75));
+			//route2.add(new POINT(18.0, 17.75));		transition point cancelled for now
 			//turn right
 			route2.add(ourSwitchRightBack);
 			

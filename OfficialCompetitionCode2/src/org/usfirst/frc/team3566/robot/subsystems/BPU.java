@@ -31,19 +31,12 @@ public class BPU extends Subsystem {
     }
     
     public void pickUp() {
-     	if(pickUpOnOff) {
-    		if(pickUpDirection == this.IN ) { //box is in confirmed
-    			leftPickUp.set(0);
-    			rightPickUp.set(0);
-    			pickUpOnOff = false;
-    			pickUpDirection = this.OUT;
-//    			System.out.println("boxLimitedSwitch hitting");
-       		}else {
+     	if(pickUpOnOff) {    	
        			leftPickUp.set(Robot.var.BPU_PICKUP_SPD * pickUpDirection);
        			rightPickUp.set(Robot.var.BPU_PICKUP_SPD * pickUpDirection);
 //       			System.out.println("BPU+ "+Robot.var.BPU_PICKUP_SPD * pickUpDirection);
        		}
-    	}else {
+    	else {
     		stopPickUp();
 //    		System.out.println("BPU stopped");
     	}
