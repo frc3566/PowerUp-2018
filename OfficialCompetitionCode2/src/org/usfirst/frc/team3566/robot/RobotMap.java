@@ -64,7 +64,7 @@ public class RobotMap {
        
        //elevator: pos power goes down, corresponding to the elevator encoder.
        Elev = new SpeedControllerGroup(ElevLeft, ElevRight);
-       SmartDashboard.putData("Elevatorr", Elev);
+       SmartDashboard.putData("Elevatorrr", Elev);
   
        climber = new WPI_TalonSRX(25);	//25
     //   SmartDashboard.putData("climber", climber);

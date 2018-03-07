@@ -43,16 +43,17 @@ public class DriveStraight extends Command {
     	if(isAuto)setPoint=Robot.var.distance * 304.8;   //1 ft = 304.8 mm. Distance (ft) converted to mm for encoder drive
     	Robot.var.collision.collideReset();
     	startAngle=Robot.var.getTheta();
-    	setPoint+=Robot.var.getEncoder();
-    	error = setPoint - Robot.var.getEncoder();
-    	startTime=Robot.time.get();
-    	Robot.drivetrain.ramp(0);
-    	
-    	prev_light = Robot.light.get();
-    	Robot.light.set(Robot.var.white);
     	
     	System.out.printf("driveStraight for %.0f\n", setPoint);
     	length=Math.abs(setPoint);
+    	
+    	setPoint+=Robot.var.getEncoder();
+    	error = setPoint - Robot.var.getEncoder();
+    	startTime=Robot.time.get();
+    	
+    	Robot.drivetrain.ramp(0);
+    	prev_light = Robot.light.get();
+    	Robot.light.set(Robot.var.white);
     }
     
     void ramp()
@@ -93,8 +94,8 @@ public class DriveStraight extends Command {
     	if (errAngle>15 && errAngle<345) return true;
 //    	if (Robot.var.collision.isCollide) return true;
     	if(Math.abs(error)<Robot.var.allowedDriveError&&Math.abs(Robot.encoderL.getRate())<300)return true;
-    	else if(Math.abs(error)<50)return true;
-    	if (time> Math.abs(length) / 300 ) return true;
+    	else if(error<50)return true;//if want to go back need to change this line with abs
+    	if (time> Math.abs(length) / 500 ) return true;
     	return false;
     }
 

@@ -60,13 +60,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 			
 			route1 = new ArrayList<POINT>();	//Starting from left; switch left (CHECK: definitely works)
 			route1.add(Robot.leftStart);
-			route1.add(new POINT(4.25, 14.0));
+			route1.add(new POINT(3.75, 14.0));
 			//turn right
 			route1.add(ourSwitchLeftSide);
 			
 			route2 = new ArrayList<POINT>();	//left switch right
 			route2.add(Robot.leftStart);
-			route2.add(new POINT(3.75, 17.75));
+			route2.add(new POINT(3.75, 19));
 			//turn right
 			//route2.add(new POINT(18.0, 17.75));		transition point cancelled for now
 			//turn right
@@ -107,9 +107,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 			
 			route8 = new ArrayList<POINT>();	//right switch left
 			route8.add(Robot.rightStart);
-			route8.add(new POINT(23.5, 17.75));
+			route8.add(new POINT(23.5, 19));
 			//turn right
-			route8.add(new POINT(9, 17.75));
+			//route8.add(new POINT(9, 19));
 			//turn right
 			route8.add(ourSwitchLeftBack);
 			
