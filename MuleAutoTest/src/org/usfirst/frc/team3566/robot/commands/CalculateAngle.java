@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 	    }
 
 	    protected void initialize() {
-	    	
+	    	Robot.var.ptToGo=p;
 	    	Robot.var.distance = Math.sqrt(Math.pow((p.getX()-Robot.var.getX()), 2)+Math.pow((p.getY()-Robot.var.getY()), 2));
 			if(Robot.var.distance<0.5) 
 			{
@@ -29,16 +29,16 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 				//if(Robot.var.rotateTheta<10)Robot.var.rotateTheta=0;
 				if(p.getTheta()<-0.5)
 				{
-					Robot.var.allowedDriveError=50;
+					Robot.var.allowedDriveError=30;
 					Robot.var.isJustGo=false;
 				}
 				else
 				{
 					Robot.var.isJustGo=true;
-					Robot.var.allowedDriveError=150;
+					Robot.var.allowedDriveError=100;
 				}
 			}
-			System.out.printf("now at x=%.1f y=%.1f theta=%.0f\ngoto x=%.1f y=%.1f theta=%.0f\nrotate %.0f go %.1f\n\n", 
+			System.out.printf("\nnow at x=%.1f y=%.1f theta=%.0f    goto x=%.1f y=%.1f theta=%.0f   rotate %.0f go %.1f\n", 
 					Robot.var.getX(), Robot.var.getY(), Robot.var.getTheta(), p.getX(),p.getY(),p.getTheta(),
 					Robot.var.rotateTheta, Robot.var.distance);
 	    }

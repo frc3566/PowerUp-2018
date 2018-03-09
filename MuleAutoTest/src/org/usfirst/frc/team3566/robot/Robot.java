@@ -69,7 +69,6 @@ public class Robot extends TimedRobot {
 		
 		startingPosition = new SendableChooser<>();
 		autoTarget = new SendableChooser<>();
-		
 		startingPosition.addDefault("P1", leftStart);
 		startingPosition.addObject("P2", middleStart);
 		startingPosition.addObject("P3", rightStart);
@@ -100,7 +99,6 @@ public class Robot extends TimedRobot {
 //        cam1.setFPS(20);
         
 		var.reset();
-		
 //        light = new Spark(0);
         SmartDashboard.putNumber("maxPower", 2);
         //BELOW IS CODE FOR TESTING.
@@ -117,7 +115,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
-		
+		var.reset();
 		isAuto = true;
 		
 		POINT start = ((SendableChooser<POINT>)SmartDashboard.getData("startingPos")).getSelected();
@@ -149,6 +147,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousPeriodic() {
+		SmartDashboard.putNumber("curSpeed", encoderL.getRate());
 		Scheduler.getInstance().run();
 	}
 

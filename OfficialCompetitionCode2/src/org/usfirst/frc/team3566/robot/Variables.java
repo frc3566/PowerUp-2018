@@ -7,7 +7,14 @@ import org.usfirst.frc.team3566.robot.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 	public class Variables {
+		//this is calculate
 		public static boolean isFinalTurn=false,isFinalTurnFinish=false;
+		public double rotateTheta;//this two are important for driveStraight and rotate
+		public double distance,allowedDriveError=150;
+		public boolean isJustGo;
+		public POINT ptToGo;
+		//calculate ends
+		
 		public static int eleToPosCnt=0;
 		public static final double rotateNonStopSpd = 0.5;
 		public static double BPU_PICKUP_SPD=0.4;
@@ -30,9 +37,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 		 */
 		public static final double red = 0.61, yellow = 0.64, green = 0.77, blue = 0.87, purple = 0.91, white = 0.93,
 				rainbow = -0.99, ocean = -0.41;
-		
-		public double rotateTheta;//this two are important for driveStraight and rotate
-		public double distance,allowedDriveError=150;//
 		
 		//those points are delivery destinations
 		public static final POINT ourSwitchLeftSide = new POINT(6.25, 14.0, 0),

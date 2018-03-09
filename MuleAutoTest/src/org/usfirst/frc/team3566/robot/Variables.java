@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 		public double rotateTheta;//this two are important for driveStraight and rotate
 		public double distance,allowedDriveError=150;
 		public boolean isJustGo;
+		public POINT ptToGo;
 		//calculate ends
 		
 		public static int eleToPosCnt=0;
@@ -54,26 +55,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 		}
 		
 		public void setUpRoutePoints() {
-			
 			testRoute = new ArrayList<POINT>();
 			testRoute.add(Robot.leftStart);
 			testRoute.add(new POINT(0,0,-1));
-			testRoute.add(new POINT(0,4,-1));
-			testRoute.add(new POINT(4,4,-1));
-			testRoute.add(new POINT(4,0,-1));
+			testRoute.add(new POINT(0,12,-1));
+			testRoute.add(new POINT(-2,6,-1));
 			testRoute.add(new POINT(0,0,-1));
-			testRoute.add(new POINT(0,4,-1));
-			testRoute.add(new POINT(4,4,-1));
-			testRoute.add(new POINT(4,0,-1));
-			testRoute.add(new POINT(0,0,-1));
-			testRoute.add(new POINT(0,4,-1));
-			testRoute.add(new POINT(4,4,-1));
-			testRoute.add(new POINT(4,0,-1));
-			testRoute.add(new POINT(0,0,-1));
+			testRoute.add(new POINT(0,12,-1));
+			testRoute.add(new POINT(-2,6,-1));
+			testRoute.add(new POINT(0,0,90));
 			
 			defaultRoute = new ArrayList<POINT>();	//default route is indistinguishable between starting points
 			defaultRoute.add(new POINT(13.5, 13));
-			
 			
 			route1 = new ArrayList<POINT>();	//Starting from left; switch left (CHECK: definitely works)
 			route1.add(Robot.leftStart);

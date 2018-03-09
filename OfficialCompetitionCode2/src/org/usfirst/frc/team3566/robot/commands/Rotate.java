@@ -11,12 +11,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Rotate extends Command {
 	//positive power: rotate to the right.
-	private double spd=0, maxPower=0.5;
+	private double spd=0, maxPower=0.9;
 	private double startDegree, endDegree, deltaDegree, error, previous_error;
 	public boolean isAuto, close;
 
-	//private double P=0.028, I=0.015, D = 0.006;
-	private double P=0.02, I=0.025, D=0.008;
+	private double P=0.02, I=0.028, D=0.009;
     double integral, derivative;
     double prev_light;
     
@@ -40,8 +39,6 @@ public class Rotate extends Command {
     	error = ((startDegree-endDegree)+360)%360;
     	if(Math.abs(error)<30) {integral=25;close=true;}
     	else close=false;
-    	prev_light = Robot.light.get();
-    	Robot.light.set(Robot.var.purple);
     	System.out.printf("rotate for %.0f\n", deltaDegree);
     }
 
@@ -56,7 +53,9 @@ public class Rotate extends Command {
     protected boolean isFinished() {
     	if(this.isTimedOut())return true;
     	if(isAuto&&Math.abs(Robot.var.rotateTheta)<10)return true;
-    	if(Math.abs(error)<3)return true;
+    	if(Robot.var.ptToGo.getTheta()>-0.5&&Math.abs(error)<3&&Math.abs(Robot.encoderL.getRate())<300)return true;
+    	if(Robot.var.ptToGo.getTheta()<-0.5&&Math.abs(error)<7&&Math.abs(Robot.encoderL.getRate())<400)return true;
+    	if(Math.abs(error)<1)return true;
     	return false;
     }
 
@@ -65,7 +64,6 @@ public class Rotate extends Command {
     	if(Robot.var.isFinalTurn==true)Robot.var.isFinalTurnFinish=true;
     	Robot.drivetrain.stopDrive();
     	System.out.printf("rotate program stops after %.1f seconds, error is %.1f\n", this.timeSinceInitialized(),error);
-    	Robot.light.set(prev_light);
     }
     
     @Override
