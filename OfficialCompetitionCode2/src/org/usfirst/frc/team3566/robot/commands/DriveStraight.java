@@ -17,6 +17,7 @@ public class DriveStraight extends Command {
     double power=0,anglePower=0;
     double startTime,time;
     double length,minDis,curDis;
+    double prev_light;
     
     public DriveStraight() {
     	requires(Robot.drivetrain);
@@ -30,6 +31,9 @@ public class DriveStraight extends Command {
     	Robot.drivetrain.ramp(1);
     	minDis=curDis=Math.sqrt(Math.pow(Robot.var.ptToGo.getX()-Robot.var.getX(), 2) + Math.pow(Robot.var.ptToGo.getY()-Robot.var.getY(), 2) );
     	System.out.printf("driveStraight starts curDis is %.0f\n",curDis);
+    	
+    	prev_light = Robot.light.get();
+    	Robot.light.set(Robot.var.white);
     }
     
     @Override
@@ -64,6 +68,8 @@ public class DriveStraight extends Command {
     	System.out.printf("straight stop in %.1f second error %.1f\n",time,curDis);
     	Robot.drivetrain.stopDrive();
     	Robot.drivetrain.ramp(Robot.RAMP);
+    	
+    	Robot.light.set(prev_light);
     }
     @Override
     protected void interrupted() {

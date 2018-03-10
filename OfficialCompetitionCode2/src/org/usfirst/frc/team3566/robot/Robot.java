@@ -138,8 +138,8 @@ public class Robot extends TimedRobot {
 				((SendableChooser<Integer>)SmartDashboard.getData("autoTarg")).getSelected());
 		
 		//SELECT FROM ONE BELOW AND COMMENT OUT THE OTHERS
-		auto = new Autonomous(leftStart, 0, 'L'); //our switch
-//		auto = new Autonomous(leftStart, 1, 'L'); //scale
+		//auto = new Autonomous(leftStart, 0, 'L'); //our switch
+		auto = new Autonomous(leftStart, 1, 'L'); //scale
 //		auto = new Autonomous(rightStart, 0, 'R'); //our switch
 //		auto = new Autonomous(rightStart, 1, 'R'); //scale
 //		auto = new Autonomous(middleStart, 0, 'M'); //our switch

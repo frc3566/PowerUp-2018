@@ -39,6 +39,9 @@ public class Rotate extends Command {
     	error = ((startDegree-endDegree)+360)%360;
     	if(Math.abs(error)<30) {integral=25;close=true;}
     	else close=false;
+    	
+    	prev_light = Robot.light.get();
+    	Robot.light.set(Robot.var.purple);
     	System.out.printf("rotate for %.0f\n", deltaDegree);
     }
 
@@ -64,6 +67,8 @@ public class Rotate extends Command {
     	if(Robot.var.isFinalTurn==true)Robot.var.isFinalTurnFinish=true;
     	Robot.drivetrain.stopDrive();
     	System.out.printf("rotate program stops after %.1f seconds, error is %.1f\n", this.timeSinceInitialized(),error);
+    	
+    	Robot.light.set(prev_light);
     }
     
     @Override
